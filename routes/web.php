@@ -20,6 +20,6 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'auth'], function() {
-    Route::get('request', [App\Http\Controllers\RequestAccountController::class, 'index'])->name('register');
-    Route::post('request/store', [App\Http\Controllers\RequestAccountController::class, 'store'])->name('register');
+    Route::get('request', [App\Http\Controllers\RequestAccountController::class, 'index'])->name('register-show');
+    Route::post('request/store', [App\Http\Controllers\RequestAccountController::class, 'store'])->name('request-acc');
 });

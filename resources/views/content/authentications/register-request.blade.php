@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Register Basic - Pages')
+@section('title', 'Register Request')
 
 @section('page-style')
 <!-- Page -->
@@ -24,7 +24,7 @@
           </div>
           <!-- /Logo -->
           {{-- <h4 class="mb-3">Request <img src="{{asset('assets/img/favicon/logo-txt.png')}}" style="width: 80px; height: auto; padding-bottom:3px;"> account</h4> --}}
-          <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('register') }}">
+          <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('request-acc') }}">
             @csrf
 
             <div class="row">

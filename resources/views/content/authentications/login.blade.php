@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Login Basic - Pages')
+@section('title', 'Login')
 
 @section('page-style')
 <!-- Page -->
@@ -79,7 +79,7 @@
 
           <p class="text-center">
             <span>New on our platform?</span>
-            <a href="{{ route('register') }}">
+            <a href="{{ route('register-show') }}">
               <span> {{ __('Sign Up') }} </span>
             </a>
           </p>

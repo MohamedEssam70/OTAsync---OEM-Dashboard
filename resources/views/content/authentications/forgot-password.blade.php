@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Forgot Password Basic - Pages')
+@section('title', 'Forgot Password')
 
 @section('page-style')
 <!-- Page -->
