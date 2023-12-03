@@ -24,29 +24,67 @@
           </div>
           <!-- /Logo -->
           {{-- <h4 class="mb-3">Request <img src="{{asset('assets/img/favicon/logo-txt.png')}}" style="width: 80px; height: auto; padding-bottom:3px;"> account</h4> --}}
-          <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="GET">
+          <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('register') }}">
+            @csrf
+
             <div class="row">
               <div class="mb-3 col-md-6">
-                <label for="firstname" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter your first name">
+                <label for="first-name" class="form-label">{{ __('First Name') }}</label>
+
+                <div class="col-12">
+                    <input id="first-name" type="text" class="form-control @error('first-name') is-invalid @enderror" placeholder="Enter your first name" name="first-name" value="{{ old('first-name') }}" required autocomplete="first-name" autofocus>
+
+                    @error('first-name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
               </div>
               <div class="mb-3 col-md-6">
-                <label for="lastname" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter your last name">
+                <label for="last-name" class="form-label">{{ __('Last Name') }}</label>
+
+                <div class="col-12">
+                    <input id="last-name" type="text" class="form-control @error('last-name') is-invalid @enderror" placeholder="Enter your last name" name="last-name" value="{{ old('last-name') }}" required autocomplete="last-name" autofocus>
+
+                    @error('last-name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
               </div>
                 
               <div class="mb-3 col-md-6">
-                <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email">
+                <label for="email" class="form-label">{{ __('Email Address') }}</label>
+
+                <div class="col-12">
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Enter your email" name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
               </div>
     
               <div class="mb-3 col-md-6">
-                <label for="organization" class="form-label">Organization</label>
-                <input type="text" class="form-control" id="organization" name="organization" placeholder="Organization name">
+                <label for="organization" class="form-label">{{ __('Organization') }}</label>
+
+                <div class="col-12">
+                    <input id="organization" type="text" class="form-control @error('organization') is-invalid @enderror" placeholder="Organization name" name="organization" value="{{ old('organization') }}" required autocomplete="organization" autofocus>
+
+                    @error('organization')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
               </div>
     
               <div class="mb-3 col-md-6">
-                <label class="form-label" for="phoneNumber">Phone Number</label>
+                <label class="form-label" for="phone">Phone Number</label>
                 <div class="input-group input-group-merge">
                   <select class="form-select input-group-text" id="bs-validation-country" required="">
                     <option value="20">Egypt (+20)</option>
@@ -54,7 +92,7 @@
                     <option value="1">US (+1)</option>
                     <option value="34">Spain (+34)</option>
                   </select>
-                  <input type="text" id="phoneNumber" name="phoneNumber" class="form-control input-group-text" placeholder="Enter your phone" maxlength="10">
+                  <input type="text" id="phone" name="phone" class="form-control input-group-text" placeholder="Enter your phone" maxlength="10">
                 </div>
               </div>
 
@@ -66,7 +104,7 @@
                   </div>
                   <div class="col-3 text-end">
                     <div class="form-check form-switch">
-                      <input class="form-check-input float-end" type="checkbox" role="switch" checked="">
+                      <input class="form-check-input float-end" name="phone-contact" type="checkbox" role="switch" checked="">
                     </div>
                   </div>
                 </div>
@@ -81,7 +119,7 @@
                       <span class="custom-option-title">  Personal  </span>
                       <small> Personal Plan for individual, personalized and efficient experience </small>
                     </span>
-                    <input name="formValidationPlan" class="form-check-input" type="radio" value="" id="basicPlanMain1">
+                    <input name="plan" class="form-check-input" type="radio" value="" id="basicPlanMain1">
                   </label>
                 </div>
               </div>
@@ -93,20 +131,20 @@
                       <span class="custom-option-title"> Teams </span>
                       <small> Elevate your team's collaboration and productivity with our Teams Plan </small>
                     </span>
-                    <input name="formValidationPlan" class="form-check-input" type="radio" value="" id="basicPlanMain2">
+                    <input name="plan" class="form-check-input" type="radio" value="" id="basicPlanMain2">
                   </label>
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary d-grid w-20">
-              Send
+            <button type="submit" class="btn btn-primary d-grid w-20">
+              {{ __('Send') }}
             </button>
           </form>
 
           <p>
             <span>Already have an account?</span>
-            <a href="{{url('auth/login-basic')}}">
-              <span>Sign in instead</span>
+            <a href="{{ route('login') }}">
+              <span>{{ __('Sign in instead') }}</span>
             </a>
           </p>
 

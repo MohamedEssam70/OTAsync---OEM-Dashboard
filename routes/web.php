@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,15 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('content\authentications\auth-login-basic');
-});
-Route::get('auth/login-basic', function () {
-    return view('content\authentications\auth-login-basic');
-});
-Route::get('auth/register-basic', function () {
-    return view('content\authentications\auth-register-basic');
-});
-Route::get('auth/forgot-password-basic', function () {
-    return view('content\authentications\auth-forgot-password-basic');
+Auth::routes(["register"=>false]);
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix' => 'auth'], function() {
+    Route::get('request', [App\Http\Controllers\RequestAccountController::class, 'index'])->name('register');
+    Route::post('request/store', [App\Http\Controllers\RequestAccountController::class, 'store'])->name('register');
 });
