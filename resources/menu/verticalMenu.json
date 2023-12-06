@@ -1,219 +1,38 @@
 {
   "menu": [
+    
     {
       "url": "/",
       "name": "Dashboards",
       "icon": "menu-icon tf-icons bx bx-home-circle",
-      "slug": "dashboard",
-      "badge": [
-        "danger",
-        "5"
-      ],
-      "submenu": [
-        {
-          "url": "/",
-          "name": "Analytics",
-          "slug": "dashboard-analytics"
-        },
-        {
-          "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/dashboard/crm",
-          "name": "CRM",
-          "slug": "dashboard-crm",
-          "target": "_blank",
-          "badge": [
-            "label-primary fs-tiny",
-            "Pro"
-          ]
-        },
-        {
-          "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/ecommerce/dashboard",
-          "name": "eCommerce",
-          "slug": "app-ecommerce-dashboard",
-          "target": "_blank",
-          "badge": [
-            "label-primary fs-tiny",
-            "Pro"
-          ]
-        },
-        {
-          "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/logistics/dashboard",
-          "name": "Logistics",
-          "slug": "app-logistics-dashboard",
-          "target": "_blank",
-          "badge": [
-            "label-primary fs-tiny",
-            "Pro"
-          ]
-        },
-        {
-          "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/academy/dashboard",
-          "name": "Academy",
-          "slug": "app-academy-dashboard",
-          "target": "_blank",
-          "badge": [
-            "label-primary fs-tiny",
-            "Pro"
-          ]
-        }
-      ]
+      "slug": "dashboard"
     },
     {
-      "name": "Layouts",
-      "icon": "menu-icon tf-icons bx bx-layout",
-      "slug": "layouts",
-      "submenu": [
-        {
-          "url": "layouts/without-menu",
-          "name": "Without menu",
-          "slug": "layouts-without-menu"
-        },
-        {
-          "url": "layouts/without-navbar",
-          "name": "Without navbar",
-          "slug": "layouts-without-navbar"
-        },
-        {
-          "url": "layouts/container",
-          "name": "Container",
-          "slug": "layouts-container"
-        },
-        {
-          "url": "layouts/fluid",
-          "name": "Fluid",
-          "slug": "layouts-fluid"
-        },
-        {
-          "url": "layouts/blank",
-          "name": "Blank",
-          "slug": "layouts-blank",
-          "target": "_blank"
-        }
-      ]
+      "menuHeader": "Theme Componants"
     },
-    {
-      "name": "Front Pages",
-      "icon": "menu-icon tf-icons bx bx-store",
-      "slug": "front-pages",
-      "badge": [
-        "label-primary fs-tiny",
-        "Pro"
-      ],
-      "submenu": [
-        {
-          "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/front-pages/landing",
-          "name": "Landing",
-          "slug": "front-pages-landing",
-          "target": "_blank"
-        },
-        {
-          "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/front-pages/pricing",
-          "name": "Pricing",
-          "slug": "front-pages-pricing",
-          "target": "_blank"
-        },
-        {
-          "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/front-pages/payment",
-          "name": "Payment",
-          "slug": "front-pages-payment",
-          "target": "_blank"
-        },
-        {
-          "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/front-pages/checkout",
-          "name": "Checkout",
-          "slug": "front-pages-checkout",
-          "target": "_blank"
-        },
-        {
-          "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/front-pages/help-center",
-          "name": "Help Center",
-          "slug": "front-pages-help-center",
-          "target": "_blank"
-        }
-      ]
-    },
-    {
-      "name": "Laravel Crud",
-      "icon": "menu-icon tf-icons bx bxl-php",
-      "slug": "laravel-example",
-      "badge": [
-        "label-primary fs-tiny",
-        "Pro"
-      ],
-      "submenu": [
-        {
-          "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/laravel/user-management",
-          "name": "User Management",
-          "slug": "laravel-example-user-management",
-          "target": "_blank"
-        }
-      ]
-    },
-    {
-      "menuHeader": "Apps & Pages"
-    },
-    {
-      "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/email",
-      "name": "Email",
-      "icon": "menu-icon tf-icons bx bx-envelope",
-      "slug": "app-email",
-      "target": "_blank",
-      "badge": [
-        "label-primary fs-tiny",
-        "Pro"
-      ]
-    },
-    {
-      "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/chat",
-      "name": "Chat",
-      "icon": "menu-icon tf-icons bx bx-chat",
-      "slug": "app-chat",
-      "target": "_blank",
-      "badge": [
-        "label-primary fs-tiny",
-        "Pro"
-      ]
-    },
-    {
-      "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/calendar",
-      "name": "Calendar",
-      "icon": "menu-icon tf-icons bx bx-calendar",
-      "slug": "app-calendar",
-      "target": "_blank",
-      "badge": [
-        "label-primary fs-tiny",
-        "Pro"
-      ]
-    },
-    {
-      "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/kanban",
-      "name": "Kanban",
-      "icon": "menu-icon tf-icons bx bx-grid",
-      "slug": "app-kanban",
-      "target": "_blank",
-      "badge": [
-        "label-primary fs-tiny",
-        "Pro"
-      ]
-    },
+    
     {
       "name": "Account Settings",
       "icon": "menu-icon tf-icons bx bx bx-dock-top",
       "slug": "pages-account-settings",
       "submenu": [
         {
-          "url": "pages/account-settings-account",
+          "url": "pages/account",
           "name": "Account",
-          "slug": "pages-account-settings-account"
+          "slug": "pages-account-settings-account",
+          "target": "_blank"
         },
         {
-          "url": "pages/account-settings-notifications",
+          "url": "pages/notifications",
           "name": "Notifications",
-          "slug": "pages-account-settings-notifications"
+          "slug": "pages-account-settings-notifications",
+          "target": "_blank"
         },
         {
-          "url": "pages/account-settings-connections",
+          "url": "pages/connections",
           "name": "Connections",
-          "slug": "pages-account-settings-connections"
+          "slug": "pages-account-settings-connections",
+          "target": "_blank"
         }
       ]
     },
@@ -223,19 +42,19 @@
       "slug": "auth",
       "submenu": [
         {
-          "url": "auth/login-basic",
+          "url": "login",
           "name": "Login",
           "slug": "auth-login-basic",
           "target": "_blank"
         },
         {
-          "url": "auth/register-basic",
+          "url": "request",
           "name": "Register",
           "slug": "auth-register-basic",
           "target": "_blank"
         },
         {
-          "url": "auth/forgot-password-basic",
+          "url": "password/reset",
           "name": "Forgot Password",
           "slug": "auth-forgot-password-basic",
           "target": "_blank"
@@ -262,13 +81,11 @@
       ]
     },
     {
-      "menuHeader": "Components"
-    },
-    {
       "name": "Cards",
       "icon": "menu-icon tf-icons bx bx-collection",
       "slug": "cards-basic",
-      "url": "cards/basic"
+      "url": "cards/basic",
+      "target": "_blank"
     },
     {
       "name": "User interface",
@@ -278,97 +95,116 @@
         {
           "url": "ui/accordion",
           "name": "Accordion",
-          "slug": "ui-accordion"
+          "slug": "ui-accordion",
+          "target": "_blank"
         },
         {
           "url": "ui/alerts",
           "name": "Alerts",
-          "slug": "ui-alerts"
+          "slug": "ui-alerts",
+          "target": "_blank"
         },
         {
           "url": "ui/badges",
           "name": "Badges",
-          "slug": "ui-badges"
+          "slug": "ui-badges",
+          "target": "_blank"
         },
         {
           "url": "ui/buttons",
           "name": "Buttons",
-          "slug": "ui-buttons"
+          "slug": "ui-buttons",
+          "target": "_blank"
         },
         {
           "url": "ui/carousel",
           "name": "Carousel",
-          "slug": "ui-carousel"
+          "slug": "ui-carousel",
+          "target": "_blank"
         },
         {
           "url": "ui/collapse",
           "name": "Collapse",
-          "slug": "ui-collapse"
+          "slug": "ui-collapse",
+          "target": "_blank"
         },
         {
           "url": "ui/dropdowns",
           "name": "Dropdowns",
-          "slug": "ui-dropdowns"
+          "slug": "ui-dropdowns",
+          "target": "_blank"
         },
         {
           "url": "ui/footer",
           "name": "Footer",
-          "slug": "ui-footer"
+          "slug": "ui-footer",
+          "target": "_blank"
         },
         {
           "url": "ui/list-groups",
           "name": "List Groups",
-          "slug": "ui-list-groups"
+          "slug": "ui-list-groups",
+          "target": "_blank"
         },
         {
           "url": "ui/modals",
           "name": "Modals",
-          "slug": "ui-modals"
+          "slug": "ui-modals",
+          "target": "_blank"
         },
         {
           "url": "ui/navbar",
           "name": "Navbar",
-          "slug": "ui-navbar"
+          "slug": "ui-navbar",
+          "target": "_blank"
         },
         {
           "url": "ui/offcanvas",
           "name": "Offcanvas",
-          "slug": "ui-offcanvas"
+          "slug": "ui-offcanvas",
+          "target": "_blank"
         },
         {
           "url": "ui/pagination-breadcrumbs",
           "name": "Pagination & Breadcrumbs",
-          "slug": "ui-pagination-breadcrumbs"
+          "slug": "ui-pagination-breadcrumbs",
+          "target": "_blank"
         },
         {
           "url": "ui/progress",
           "name": "Progress",
-          "slug": "ui-progress"
+          "slug": "ui-progress",
+          "target": "_blank"
         },
         {
           "url": "ui/spinners",
           "name": "Spinners",
-          "slug": "ui-spinners"
+          "slug": "ui-spinners",
+          "target": "_blank"
         },
         {
           "url": "ui/tabs-pills",
           "name": "Tabs & Pills",
-          "slug": "ui-tabs-pills"
+          "slug": "ui-tabs-pills",
+          "target": "_blank"
         },
         {
           "url": "ui/toasts",
           "name": "Toasts",
-          "slug": "ui-toasts"
+          "slug": "ui-toasts",
+          "target": "_blank"
         },
         {
           "url": "ui/tooltips-popovers",
           "name": "Tooltips & Popovers",
-          "slug": "ui-tooltips-popovers"
+          "slug": "ui-tooltips-popovers",
+          "target": "_blank"
         },
         {
           "url": "ui/typography",
           "name": "Typography",
-          "slug": "ui-typography"
+          "slug": "ui-typography",
+          "target": "_blank"
         }
       ]
     },
@@ -380,12 +216,14 @@
         {
           "url": "extended/ui-perfect-scrollbar",
           "name": "Perfect scrollbar",
-          "slug": "extended-ui-perfect-scrollbar"
+          "slug": "extended-ui-perfect-scrollbar",
+          "target": "_blank"
         },
         {
           "url": "extended/ui-text-divider",
           "name": "Text Divider",
-          "slug": "extended-ui-text-divider"
+          "slug": "extended-ui-text-divider",
+          "target": "_blank"
         }
       ]
     },
@@ -393,10 +231,8 @@
       "url": "icons/boxicons",
       "icon": "menu-icon tf-icons bx bx-crown",
       "name": "Boxicons",
-      "slug": "icons-boxicons"
-    },
-    {
-      "menuHeader": "Forms & Tables"
+      "slug": "icons-boxicons",
+      "target": "_blank"
     },
     {
       "name": "Form Elements",
@@ -406,12 +242,14 @@
         {
           "url": "forms/basic-inputs",
           "name": "Basic Inputs",
-          "slug": "forms-basic-inputs"
+          "slug": "forms-basic-inputs",
+          "target": "_blank"
         },
         {
           "url": "forms/input-groups",
           "name": "Input groups",
-          "slug": "forms-input-groups"
+          "slug": "forms-input-groups",
+          "target": "_blank"
         }
       ]
     },
@@ -423,58 +261,22 @@
         {
           "url": "form/layouts-vertical",
           "name": "Vertical Form",
-          "slug": "form-layouts-vertical"
+          "slug": "form-layouts-vertical",
+          "target": "_blank"
         },
         {
           "url": "form/layouts-horizontal",
           "name": "Horizontal Form",
-          "slug": "form-layouts-horizontal"
+          "slug": "form-layouts-horizontal",
+          "target": "_blank"
         }
-      ]
-    },
-    {
-      "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/form/validation",
-      "icon": "menu-icon tf-icons bx bx-list-check",
-      "name": "Form Validation",
-      "slug": "form-validation",
-      "target": "_blank",
-      "badge": [
-        "label-primary fs-tiny",
-        "Pro"
       ]
     },
     {
       "url": "tables/basic",
       "icon": "menu-icon tf-icons bx bx-table",
       "name": "Tables",
-      "slug": "tables-basic"
-    },
-    {
-      "url": "https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/tables/datatables-basic",
-      "icon": "menu-icon tf-icons bx bx-grid",
-      "name": "Datatables",
-      "slug": "tables-datatables",
-      "target": "_blank",
-      "badge": [
-        "label-primary fs-tiny",
-        "Pro"
-      ]
-    },
-    {
-      "menuHeader": "Misc"
-    },
-    {
-      "url": "https://github.com/themeselection/sneat-bootstrap-html-laravel-admin-template-free/issues",
-      "icon": "menu-icon tf-icons bx bx-support",
-      "name": "Support",
-      "slug": "support",
-      "target": "_blank"
-    },
-    {
-      "url": "https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/laravel-introduction.html",
-      "icon": "menu-icon tf-icons bx bx-file",
-      "name": "Documentation",
-      "slug": "documentation",
+      "slug": "tables-basic",
       "target": "_blank"
     }
   ]

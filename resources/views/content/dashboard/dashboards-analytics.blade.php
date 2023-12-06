@@ -1,6 +1,6 @@
-@extends('layouts/contentNavbarLayout')
+@extends('layouts/contentNavbarLayout', ['navbarBreadcrumbActive' => 'Management Dashboard'])
 
-@section('title', 'Dashboard - Analytics')
+@section('title', 'Dashboard')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
