@@ -30,7 +30,7 @@ $container = ($container ?? 'container-xxl');
     <div class="layout-page">
       <!-- BEGIN: Navbar-->
       @if ($isNavbar)
-      @include('layouts/sections/navbar/navbar')
+      @include('layouts/sections/navbar/navbar', ['navbarDetached' => ''])
       @endif
       <!-- END: Navbar-->
 

@@ -25,5 +25,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
         accountUserImage.src = resetImage;
       };
     }
+
+
+    let selectCountry = document.getElementById('country')
+    let phoneCode = document.getElementById('phone-code')
+    selectCountry.onchange = () => {
+      var selected = selectCountry.options[selectCountry.selectedIndex];
+      phoneCode.innerHTML=selected.text.toUpperCase() + ' (+' +selected.getAttribute('data-code') + ')'
+    }
   })();
 });

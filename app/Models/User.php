@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Storage;
 
 class User extends Authenticatable
 {
@@ -18,9 +20,18 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
         'email',
         'password',
+        'avatar',
+        'org',
+        'country',
+        'city',
+        'zip',
+        'address',
+        'lang',
+        'phone',
     ];
 
     /**
@@ -42,4 +53,30 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    static $rules = [
+        'firstname' => 'required',
+        'lastname' => 'required',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'sometimes|min:8',
+        'org' => 'required',
+        'country' => 'required',
+        'city' => 'required',
+        'zip' => 'required',
+        'address' => 'required',
+        'lang' => 'required',
+        'phone' => 'required|digits:10',
+    ];
+
+    /**
+     * Interact with the user's first name.
+     */
+    protected function avatar(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string|null $value) => !empty($value) ? url("storage/avatars/{$value}") : asset('assets/img/avatars/defult.png'),
+            // set: fn (string $value) => strtolower($value),
+        );
+    }
+
 }
