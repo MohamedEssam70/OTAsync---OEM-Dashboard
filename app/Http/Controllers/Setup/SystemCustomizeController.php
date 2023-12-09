@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Setup; 
 use App\Http\Controllers\Controller;
 
+use App\Models\MacTypes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class SystemCustomizeController extends Controller
 {
@@ -24,6 +27,23 @@ class SystemCustomizeController extends Controller
      */
     public function index()
     {
-        return view("content.dashboard.setup.system-customize");
+        $macs = MacTypes::all();
+        return view("content.dashboard.setup.system-customize", compact('macs'));
+    }
+
+    public function create(Request $request)
+    {
+        // $mac = new MacTypes;
+        // // $mac->name = $request->input('macname');
+
+        $rules = MacTypes::$rules;
+        // $this->validate($request, $rules);
+
+        // $mac->save($request);
+
+        MacTypes::create($request->validate($rules));
+
+
+        return Redirect::back();
     }
 }
