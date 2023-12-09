@@ -73,7 +73,7 @@ $navbarBreadcrumbActive = ($navbarBreadcrumbActive ?? '');
                     </div>
                     <div class="flex-grow-1">
                       <span class="fw-medium d-block">{{ Auth::user()->firstname.' '.Auth::user()->lastname }}</span>
-                      <small class="text-muted">{{ Auth::user()->role_id == 1 ? 'Engineer' : '' }}</small>
+                      <small class="text-muted">{{\App\Models\Role::where('role_id', Auth::user()->role_id)->first()->title}}</small>
                     </div>
                   </div>
                 </a>
@@ -88,7 +88,7 @@ $navbarBreadcrumbActive = ($navbarBreadcrumbActive ?? '');
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="javascript:void(0);">
+                <a class="dropdown-item" href="{{ route('user.setting') }}">
                   <i class='bx bx-cog me-2'></i>
                   <span class="align-middle">Settings</span>
                 </a>

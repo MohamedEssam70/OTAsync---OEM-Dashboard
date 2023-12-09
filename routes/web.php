@@ -1,9 +1,31 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RequestAccountController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\RequestAccountController;
+
+use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Account\ActivityLogController;
+use App\Http\Controllers\Account\SettingController;
+
+use App\Http\Controllers\Setup\EncriptionConfigController;
+use App\Http\Controllers\Setup\MqttConfigController;
+use App\Http\Controllers\Setup\ServerConnectionController;
+use App\Http\Controllers\Setup\SystemCustomizeController;
+
+use App\Http\Controllers\Diagnostic\DiagnosticController;
+
+use App\Http\Controllers\FOTA\OTAUploadController;
+use App\Http\Controllers\FOTA\OTAVersionsController;
+
+
+use App\Http\Controllers\Org\TeamMembersController;
+use App\Http\Controllers\Org\JoinRequestController;
+
+
+use App\Http\Controllers\UnderMaintenanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +51,33 @@ Route::group(['prefix' => 'auth'], function() {
 });
 
 Route::group(['middleware' => 'auth'], function(){
-    // Profile
+    // Account
     Route::get('/user/profile',[ProfileController::class, 'userProfile'])->name('user.profile');
     Route::post('/user/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/user/setting',[SettingController::class, 'index'])->name('user.setting');
+    Route::get('/user/activity',[ActivityLogController::class, 'index'])->name('user.activity');
+
+
+    // Settup
+    Route::get('/setup/system-customize', [SystemCustomizeController::class, 'index'])->name('system.customize');
+    Route::get('/setup/encription-config', [EncriptionConfigController::class, 'index'])->name('encription.config');
+    Route::get('/setup/mqtt-config', [MqttConfigController::class, 'index'])->name('mqtt.config');
+    Route::get('/setup/server-connection', [ServerConnectionController::class, 'index'])->name('server.connection');
+
+    // Diagnostic
+    Route::get('/diagnostic', [DiagnosticController::class, 'index'])->name('diagnostic');
+
+    // FOTA
+    Route::get('/ota/upload', [OTAUploadController::class, 'index'])->name('ota.upload');
+    Route::get('/ota/versions', [OTAVersionsController::class, 'index'])->name('ota.versions');
+
+
+    // Team
+    Route::get('/team', [TeamMembersController::class, 'index'])->name('team');
+    Route::get('/join-requests', [JoinRequestController::class, 'index'])->name('requests.list');
+
+    // Under Maintenance
+    Route::get('/under-maintenance', [UnderMaintenanceController::class, 'index'])->name('under-maintenance');
 
 
     // Temp

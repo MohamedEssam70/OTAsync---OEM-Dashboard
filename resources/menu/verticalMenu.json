@@ -8,6 +8,51 @@
       "slug": "dashboard"
     },
     {
+      "menuHeader": "Firmware Updates"
+    },
+    {
+      "url": "/ota/upload",
+      "name": "Upload Firmware",
+      "icon": "menu-icon tf-icons bx bx-cloud-upload",
+      "slug": "upload-firmware"
+    },
+    {
+      "url": "/ota/versions",
+      "name": "Firmware Versions",
+      "icon": "menu-icon tf-icons bx bx-memory-card",
+      "slug": "firmware-versions"
+    },
+    {
+      "menuHeader": "Diagnostic"
+    },
+    {
+      "url": "/diagnostic",
+      "name": "Diagnostic",
+      "icon": "menu-icon tf-icons bx bx-wrench",
+      "slug": "diagnostic"
+    },
+    {
+      "menuHeader": "Organization"
+    },
+    {
+      "url": "/setup/system-customize",
+      "name": "Setup & Configurations",
+      "icon": "menu-icon tf-icons bx bx-slider",
+      "slug": "setup-configurations"
+    },
+    {
+      "url": "/team",
+      "name": "Team Members",
+      "icon": "menu-icon tf-icons bx bx-group",
+      "slug": "team-members"
+    },
+    {
+      "url": "/join-requests",
+      "name": "Join Requests",
+      "icon": "menu-icon tf-icons bx bx-user-plus",
+      "slug": "join-requests"
+    },
+    {
       "menuHeader": "Theme Componants"
     },
     

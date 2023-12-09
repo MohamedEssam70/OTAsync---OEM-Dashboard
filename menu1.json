@@ -1,0 +1,322 @@
+{
+    "menu": [
+      
+      {
+        "url": "/",
+        "name": "Dashboards",
+        "icon": "menu-icon tf-icons bx bx-home-circle",
+        "slug": "dashboard"
+      },
+      {
+        "menuHeader": "Firmware Updates"
+      },
+      {
+        "url": "/",
+        "name": "Upload Firmware",
+        "icon": "menu-icon tf-icons bx bx-cloud-upload",
+        "slug": "upload-firmware"
+      },
+      {
+        "url": "/",
+        "name": "Firmware Versions",
+        "icon": "menu-icon tf-icons bx bx-memory-card",
+        "slug": "firmware-versions"
+      },
+      {
+        "menuHeader": "Diagnostic"
+      },
+      {
+        "url": "/",
+        "name": "Diagnostic",
+        "icon": "menu-icon tf-icons bx bx-wrench",
+        "slug": "diagnostic"
+      },
+      {
+        "menuHeader": "Organization"
+      },
+      {
+        "url": "/setup/system-customize",
+        "name": "Setup & Configurations",
+        "icon": "menu-icon tf-icons bx bx-slider",
+        "slug": "setup-configurations"
+      },
+      {
+        "url": "/",
+        "name": "Team Members",
+        "icon": "menu-icon tf-icons bx bx-group",
+        "slug": "team-members"
+      },
+      {
+        "menuHeader": "Theme Componants"
+      },
+      
+      {
+        "name": "Account Settings",
+        "icon": "menu-icon tf-icons bx bx bx-dock-top",
+        "slug": "pages-account-settings",
+        "submenu": [
+          {
+            "url": "pages/account",
+            "name": "Account",
+            "slug": "pages-account-settings-account",
+            "target": "_blank"
+          },
+          {
+            "url": "pages/notifications",
+            "name": "Notifications",
+            "slug": "pages-account-settings-notifications",
+            "target": "_blank"
+          },
+          {
+            "url": "pages/connections",
+            "name": "Connections",
+            "slug": "pages-account-settings-connections",
+            "target": "_blank"
+          }
+        ]
+      },
+      {
+        "name": "Authentications",
+        "icon": "menu-icon tf-icons bx bx-lock-open-alt",
+        "slug": "auth",
+        "submenu": [
+          {
+            "url": "login",
+            "name": "Login",
+            "slug": "auth-login-basic",
+            "target": "_blank"
+          },
+          {
+            "url": "request",
+            "name": "Register",
+            "slug": "auth-register-basic",
+            "target": "_blank"
+          },
+          {
+            "url": "password/reset",
+            "name": "Forgot Password",
+            "slug": "auth-forgot-password-basic",
+            "target": "_blank"
+          }
+        ]
+      },
+      {
+        "name": "Misc",
+        "icon": "menu-icon tf-icons bx bx-cube-alt",
+        "slug": "pages-misc",
+        "submenu": [
+          {
+            "url": "pages/misc-error",
+            "name": "Error",
+            "slug": "pages-misc-error",
+            "target": "_blank"
+          },
+          {
+            "url": "pages/misc-under-maintenance",
+            "name": "Under Maintenance",
+            "slug": "pages-misc-under-maintenance",
+            "target": "_blank"
+          }
+        ]
+      },
+      {
+        "name": "Cards",
+        "icon": "menu-icon tf-icons bx bx-collection",
+        "slug": "cards-basic",
+        "url": "cards/basic",
+        "target": "_blank"
+      },
+      {
+        "name": "User interface",
+        "icon": "menu-icon tf-icons bx bx-box",
+        "slug": "ui",
+        "submenu": [
+          {
+            "url": "ui/accordion",
+            "name": "Accordion",
+            "slug": "ui-accordion",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/alerts",
+            "name": "Alerts",
+            "slug": "ui-alerts",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/badges",
+            "name": "Badges",
+            "slug": "ui-badges",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/buttons",
+            "name": "Buttons",
+            "slug": "ui-buttons",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/carousel",
+            "name": "Carousel",
+            "slug": "ui-carousel",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/collapse",
+            "name": "Collapse",
+            "slug": "ui-collapse",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/dropdowns",
+            "name": "Dropdowns",
+            "slug": "ui-dropdowns",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/footer",
+            "name": "Footer",
+            "slug": "ui-footer",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/list-groups",
+            "name": "List Groups",
+            "slug": "ui-list-groups",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/modals",
+            "name": "Modals",
+            "slug": "ui-modals",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/navbar",
+            "name": "Navbar",
+            "slug": "ui-navbar",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/offcanvas",
+            "name": "Offcanvas",
+            "slug": "ui-offcanvas",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/pagination-breadcrumbs",
+            "name": "Pagination & Breadcrumbs",
+            "slug": "ui-pagination-breadcrumbs",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/progress",
+            "name": "Progress",
+            "slug": "ui-progress",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/spinners",
+            "name": "Spinners",
+            "slug": "ui-spinners",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/tabs-pills",
+            "name": "Tabs & Pills",
+            "slug": "ui-tabs-pills",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/toasts",
+            "name": "Toasts",
+            "slug": "ui-toasts",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/tooltips-popovers",
+            "name": "Tooltips & Popovers",
+            "slug": "ui-tooltips-popovers",
+            "target": "_blank"
+          },
+          {
+            "url": "ui/typography",
+            "name": "Typography",
+            "slug": "ui-typography",
+            "target": "_blank"
+          }
+        ]
+      },
+      {
+        "name": "Extended UI",
+        "icon": "menu-icon tf-icons bx bx-copy",
+        "slug": "extended",
+        "submenu": [
+          {
+            "url": "extended/ui-perfect-scrollbar",
+            "name": "Perfect scrollbar",
+            "slug": "extended-ui-perfect-scrollbar",
+            "target": "_blank"
+          },
+          {
+            "url": "extended/ui-text-divider",
+            "name": "Text Divider",
+            "slug": "extended-ui-text-divider",
+            "target": "_blank"
+          }
+        ]
+      },
+      {
+        "url": "icons/boxicons",
+        "icon": "menu-icon tf-icons bx bx-crown",
+        "name": "Boxicons",
+        "slug": "icons-boxicons",
+        "target": "_blank"
+      },
+      {
+        "name": "Form Elements",
+        "icon": "menu-icon tf-icons bx bx-detail",
+        "slug": "forms",
+        "submenu": [
+          {
+            "url": "forms/basic-inputs",
+            "name": "Basic Inputs",
+            "slug": "forms-basic-inputs",
+            "target": "_blank"
+          },
+          {
+            "url": "forms/input-groups",
+            "name": "Input groups",
+            "slug": "forms-input-groups",
+            "target": "_blank"
+          }
+        ]
+      },
+      {
+        "name": "Form Layouts",
+        "icon": "menu-icon tf-icons bx bx-detail",
+        "slug": "form-layouts",
+        "submenu": [
+          {
+            "url": "form/layouts-vertical",
+            "name": "Vertical Form",
+            "slug": "form-layouts-vertical",
+            "target": "_blank"
+          },
+          {
+            "url": "form/layouts-horizontal",
+            "name": "Horizontal Form",
+            "slug": "form-layouts-horizontal",
+            "target": "_blank"
+          }
+        ]
+      },
+      {
+        "url": "tables/basic",
+        "icon": "menu-icon tf-icons bx bx-table",
+        "name": "Tables",
+        "slug": "tables-basic",
+        "target": "_blank"
+      }
+    ]
+  }

@@ -68,18 +68,13 @@ class User extends Authenticatable
         'phone' => 'required|digits:10',
     ];
 
-    // public function getAvatarAttribute()
-    // {
-    //     return !empty($this->avatar) ? storage_path("avatars/{$this->avatar}") : asset('assets/img/avatars/defult.png');
-    // }
-    
     /**
      * Interact with the user's first name.
      */
     protected function avatar(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => !empty($value) ? url("storage/avatars/{$value}") : asset('assets/img/avatars/defult.png'),
+            get: fn (string|null $value) => !empty($value) ? url("storage/avatars/{$value}") : asset('assets/img/avatars/defult.png'),
             // set: fn (string $value) => strtolower($value),
         );
     }
