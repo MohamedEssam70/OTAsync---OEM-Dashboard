@@ -18,4 +18,14 @@ class MacModels extends Model
         'name',
         'serial',
     ];
+
+    public function mac()
+    {
+        return $this->belongsTo(MacTypes::class);
+    }
+
+    public function ecus()
+    {
+        return $this->hasMany(Ecus::class);
+    }
 }

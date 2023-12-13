@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Setup; 
 use App\Http\Controllers\Controller;
 
+use App\Models\Config;
+use App\Models\Ecus;
+use App\Models\MacModels;
 use App\Models\MacTypes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +31,10 @@ class SystemCustomizeController extends Controller
     public function index()
     {
         $macs = MacTypes::all();
-        return view("content.dashboard.setup.system-customize", compact('macs'));
+        $models = MacModels::with('mac')->get();
+        $ecus = Ecus::with('model.mac')->get();
+        // dd($ecus);
+        return view("content.dashboard.setup.system-customize", compact('macs', 'models', 'ecus'));
     }
 
     public function create(Request $request)
@@ -46,4 +52,18 @@ class SystemCustomizeController extends Controller
 
         return Redirect::back();
     }
+
+
+    public function update(Request $request)
+    {
+        $config = Config::first();
+
+        $rules = Config::$rules;
+        $this->validate($request, $rules);
+        // dd($request);
+        $config->update(['macid' => $request->macid]);
+
+        return redirect()->back();
+    }
+
 }

@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $systemMac = "Vehicle";
+        $systemMac = "";
         \View::share('systemConfig', ["mac" =>$systemMac]);
     }
 }

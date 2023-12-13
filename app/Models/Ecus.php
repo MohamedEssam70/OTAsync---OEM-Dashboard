@@ -10,6 +10,7 @@ class Ecus extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
         'app',
         'controller',
         'software_version',
@@ -18,4 +19,9 @@ class Ecus extends Model
         'VIN',
         'flash_size',
     ];
+
+    public function model()
+    {
+        return $this->belongsTo(MacModels::class);
+    }
 }

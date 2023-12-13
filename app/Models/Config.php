@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MacTypes extends Model
+class Config extends Model
 {
     use HasFactory;
 
@@ -15,15 +15,10 @@ class MacTypes extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'macid',
     ];
 
     static $rules = [
-        'name' => 'required|unique:mac_types,name',
+        'macid' => 'required',
     ];
-
-    public function models()
-    {
-        return $this->hasMany(MacModels::class);
-    }
 }

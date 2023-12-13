@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('model')->constrained(
                 table: 'mac_models', indexName: 'ecus_model_id'
             );
+            $table->string('name');
             $table->string('app');
             $table->string('controller');
             $table->string('software_version');

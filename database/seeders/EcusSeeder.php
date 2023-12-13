@@ -24,6 +24,7 @@ class EcusSeeder extends Seeder
         // Create Main Countries
         Ecus::create([
             'model' => MacModels::all()->random()->id,
+            'name'=>'ECU 01',
             'app'=>'Engine',
             'controller' => 'STM32',
             'software_version' => 'fw012xd05',
