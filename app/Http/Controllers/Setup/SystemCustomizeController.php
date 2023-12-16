@@ -47,6 +47,28 @@ class SystemCustomizeController extends Controller
         return Redirect::back();
     }
 
+    public function insert($target, Request $request)
+    {
+        switch($target)
+        {
+            case 'model':
+                $rules = MacModels::$rules;
+                $request['mac_id'] = Config::first()->macid;
+                // dd($request->validate($rules));
+                MacModels::create($request->validate($rules));
+                break;
+            case 'ecu':
+                $rules = Ecus::$rules;
+                // dd($request->validate($rules));
+                Ecus::create($request->validate($rules));
+                break;
+            default:
+                break;
+        }
+    
+        return Redirect::back();
+    }
+
 
     public function update(Request $request)
     {
@@ -62,57 +84,42 @@ class SystemCustomizeController extends Controller
 
     public function destroy($target, Request $request)
     {
-        switch ($request->input('action'))
-        {
-            case 'add':
-                break;
-            
-                case 'del':
-                    $reports = $request->input('reports');
-                    if(!empty($reports)) $keys = array_keys($reports);
+        // switch ($request->input('action'))
+        // {
+        //     case 'add':
+        //         break;
+        //     case 'del':
+        //         break;
+        //     default:
+        //         break;
+        // }
 
-                    if($target == 'model')
-                    {
-                        foreach($keys as $key)
-                        {
-                            $modelToDelete = MacModels::findOrFail($key);
-                            $modelToDelete->ecus()->delete();
-                            $modelToDelete->delete();
-                        }
-                    }
-                    else if($target == 'ecu')
-                    {
-                        foreach($keys as $key)
-                        {
-                            $enuToDelete = ECUS::findOrFail($key);
-                            $enuToDelete->delete();
-                        }
-                    }
-                    else
-                    {
-                        // 
-                    }
-                    
-                    break;
+        $reports = $request->input('reports');
+        if(!empty($reports)) $keys = array_keys($reports);
+
+        if($target == 'model')
+        {
+            foreach($keys as $key)
+            {
+                $modelToDelete = MacModels::findOrFail($key);
+                $modelToDelete->ecus()->delete();
+                $modelToDelete->delete();
+            }
+        }
+        else if($target == 'ecu')
+        {
+            foreach($keys as $key)
+            {
+                $enuToDelete = ECUS::findOrFail($key);
+                $enuToDelete->delete();
+            }
+        }
+        else
+        {
+            // 
         }
         
-
         return Redirect::back();
     }
-    // public function destroy(Request $request)
-    // {
-    //     $reports = $request->input('reports');
-    //     $keys = array_keys($reports);
-    //     foreach($keys as $key)
-    //     {
-    //         $modelToDelete = MacModels::findOrFail($key);
-    //         $modelToDelete->ecus()->delete();
-    //         $modelToDelete->delete();
-    //     }
-    //     // $modelToDelete = MacModels::find(key($reports));
-    //     // dd($modelToDelete);
-
-    //     return Redirect::back();
-    // }
 
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ecuses', function (Blueprint $table) {
             $table->id();
             // $table->foreign('model')->references('id')->on('mac_models');
-            $table->foreignId('mac_models_id')->constrained(
+            $table->foreignId('mac_models_id')->default(1)->constrained(
                 table: 'mac_models', indexName: 'ecus_model_id'
             )->onDelete('cascade');
             $table->string('name');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('software_version');
             $table->string('manufactor_hw_number');
             $table->string('serial')->unique();
-            $table->string('VIN')->unique()->nullable();
+            $table->string('vin')->unique()->nullable();
             $table->bigInteger('flash_size');
 
             $table->timestamps();

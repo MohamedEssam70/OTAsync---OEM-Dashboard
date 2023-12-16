@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('mac_models', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mac_id')->constrained(
+            $table->foreignId('mac_id')->default(1)->constrained(
                 table: 'mac_types', indexName: 'models_type_id'
             );
-            $table->string('name');
-            $table->string('serial')->nullable();
+            $table->string('name')->unique()->nullable();
+            $table->string('serial')->unique()->nullable();
             $table->timestamps();
         });
     }

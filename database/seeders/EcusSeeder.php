@@ -30,7 +30,7 @@ class EcusSeeder extends Seeder
             'software_version' => 'fw012xd05',
             'manufactor_hw_number' => 'F401RCTB',
             'serial' => '0x08001290',
-            'VIN' => '',
+            'vin' => '',
             'flash_size' => '256',
         ]);
         Ecus::create([
@@ -41,7 +41,7 @@ class EcusSeeder extends Seeder
             'software_version' => 'fw012xd05',
             'manufactor_hw_number' => 'F401RCTB',
             'serial' => '0x080014550',
-            'VIN' => '65',
+            'vin' => '65',
             'flash_size' => '256',
         ]);
 

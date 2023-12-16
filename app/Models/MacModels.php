@@ -15,8 +15,15 @@ class MacModels extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'mac_id',
         'name',
         'serial',
+    ];
+
+    static $rules = [
+        'name' => 'required|unique:mac_models,name',
+        'serial' => 'required|unique:mac_models,serial',
+        'mac_id' => 'required',
     ];
 
     public function mac()

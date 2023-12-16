@@ -23,22 +23,26 @@ class MacModelsSeeder extends Seeder
         
         // Create Main Countries
         MacModels::create([
-            'mac_id' => MacTypes::all()->random()->id,
+            // 'mac_id' => MacTypes::all()->random()->id,
+            'mac_id' => 1,
             'name'=>'Model01',
             'serial' => 'M12v008',
         ]);
         MacModels::create([
-            'mac_id' => MacTypes::all()->random()->id,
+            // 'mac_id' => MacTypes::all()->random()->id,
+            'mac_id' => 1,
             'name'=>'Model02',
             'serial' => 'M23v036',
         ]);
         MacModels::create([
-            'mac_id' => MacTypes::all()->random()->id,
+            // 'mac_id' => MacTypes::all()->random()->id,
+            'mac_id' => 1,
             'name'=>'Model03',
             'serial' => 'DAc1454EW',
         ]);
         MacModels::create([
-            'mac_id' => MacTypes::all()->random()->id,
+            // 'mac_id' => MacTypes::all()->random()->id,
+            'mac_id' => 1,
             'name'=>'Model04',
             'serial' => 'dfgKL5455D',
         ]);
