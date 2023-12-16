@@ -47,69 +47,89 @@
   </div>
 </div>
 
+
+{{-- START Models Section --}}
 <div class="row mt-5">
   <div class="col-md-12">
     <div class="card">
       <h5 class="card-header">Models</h5>
       <div class="card-body">
-        <form id="" method="POST" action=""  enctype="multipart/form-data">  
+        <form id="" method="POST" action="{{ route('system.destroy', ['target' => 'model']) }}"  enctype="multipart/form-data">  
           @csrf
+          @method('DELETE')
           <div class="table-responsive ">
             <table class="table table-striped table-borderless border-bottom">
-              <thead>
+              @if ($models->isEmpty())
                 <tr>
-                  <th class="text-nowrap">Model</th>
-                  <th class="text-nowrap">Serial</th>
-                  <th class="text-nowrap">ECUs</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($models as $model)
-                <tr>
-                  <td>
-                    <div class="form-check">
-                      <a href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">{{$model -> name}}</a>
-                      <input class="form-check-input" type="checkbox" id=""/>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="d-flex justify-content-start">
-                      {{$model -> serial}}
-                    </div>
-                  </td>
-                  <td>
-                    <div class="d-flex justify-content-start">
-                      --
-                    </div>
+                  <td class="text-center" colspan="3">
+                    No Models
                   </td>
                 </tr>
-                @endforeach
-              </tbody>
+              @else
+                <thead>
+                  <tr>
+                    <th class="text-nowrap">Model</th>
+                    <th class="text-nowrap">Serial</th>
+                    <th class="text-nowrap">ECUs</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($models as $model)
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <a href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">{{$model -> name}}</a>
+                        <input class="form-check-input" type="checkbox" name="reports[{{$model->id}}]" id="{{$model->id}}"/>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-start">
+                        {{$model->serial}}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-start">
+                        {{count($ecus->where('mac_models_id', $model->id))}}
+                      </div>
+                    </td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              @endif
             </table>
           </div>
 
           {{-- Form Buttons --}}
           <div class="mt-4">
-            <button type="submit" class="btn btn-primary me-2">Add</button>
-            <button type="reset" class="btn btn-outline-secondary">Delete</button>
+            <button type="submit" class="btn btn-primary me-2" name="action" value="add">Add</button>
+            <button type="submit" class="btn btn-primary me-2" name="action" value="del">Delete</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+{{-- END MODEL SECTION --}}
 
 
-
+{{-- START ECUS SECTION --}}
 <div class="row mt-5">
   <div class="col-md-12">
     <div class="card">
       <h5 class="card-header">ECUs</h5>
       <div class="card-body">
-        <form id="" method="POST" action=""  enctype="multipart/form-data">  
+        <form id="" method="POST" action="{{ route('system.destroy', ['target' => 'euc']) }}"  enctype="multipart/form-data">  
           @csrf
+          @method('DELETE')
           <div class="table-responsive ">
             <table class="table table-striped table-borderless border-bottom">
+            @if ($ecus->isEmpty())
+              <tr>
+                <td class="text-center" colspan="3">
+                  No ECUS
+                </td>
+              </tr>
+            @else
               <thead>
                 <tr>
                   <th class="text-nowrap">ECU</th>
@@ -118,12 +138,12 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($ecus as $ecu)
+              @foreach ($ecus as $ecu)
                 <tr>
                   <td>
                     <div class="form-check">
                       <a href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">{{$ecu -> name}}</a>
-                      <input class="form-check-input" type="checkbox" id=""/>
+                      <input class="form-check-input" type="checkbox" name="reports[{{$ecu->id}}]" id="{{$ecu->id}}"/>
                     </div>
                   </td>
                   <td>
@@ -137,22 +157,23 @@
                     </div>
                   </td>
                 </tr>
-                @endforeach
+              @endforeach
               </tbody>
+            @endif
             </table>
           </div>
 
           {{-- Form Buttons --}}
           <div class="mt-4">
-            <button type="submit" class="btn btn-primary me-2">Add</button>
-            <button type="reset" class="btn btn-outline-secondary">Delete</button>
+            <button type="submit" class="btn btn-primary me-2" name="action" value="add">Add</button>
+            <button type="submit" class="btn btn-primary me-2" name="action" value="del">Delete</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-
+{{-- END ECUS SECTION --}}
 
 
 <!-- Modal -->

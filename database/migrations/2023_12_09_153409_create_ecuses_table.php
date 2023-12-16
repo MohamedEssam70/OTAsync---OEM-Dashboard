@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('ecuses', function (Blueprint $table) {
             $table->id();
-            $table->foreign('model')->references('id')->on('mac_models');
-            $table->foreignId('model')->constrained(
+            // $table->foreign('model')->references('id')->on('mac_models');
+            $table->foreignId('mac_models_id')->constrained(
                 table: 'mac_models', indexName: 'ecus_model_id'
-            );
+            )->onDelete('cascade');
             $table->string('name');
             $table->string('app');
             $table->string('controller');

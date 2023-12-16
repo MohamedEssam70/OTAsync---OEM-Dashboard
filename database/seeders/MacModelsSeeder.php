@@ -32,6 +32,16 @@ class MacModelsSeeder extends Seeder
             'name'=>'Model02',
             'serial' => 'M23v036',
         ]);
+        MacModels::create([
+            'mac_id' => MacTypes::all()->random()->id,
+            'name'=>'Model03',
+            'serial' => 'DAc1454EW',
+        ]);
+        MacModels::create([
+            'mac_id' => MacTypes::all()->random()->id,
+            'name'=>'Model04',
+            'serial' => 'dfgKL5455D',
+        ]);
 
         // Create Randowm Countries
         // MacModels::factory(3)->create();

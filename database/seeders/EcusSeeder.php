@@ -23,7 +23,7 @@ class EcusSeeder extends Seeder
         
         // Create Main Countries
         Ecus::create([
-            'model' => MacModels::all()->random()->id,
+            'mac_models_id' => MacModels::all()->random()->id,
             'name'=>'ECU 01',
             'app'=>'Engine',
             'controller' => 'STM32',
@@ -31,6 +31,17 @@ class EcusSeeder extends Seeder
             'manufactor_hw_number' => 'F401RCTB',
             'serial' => '0x08001290',
             'VIN' => '',
+            'flash_size' => '256',
+        ]);
+        Ecus::create([
+            'mac_models_id' => MacModels::all()->random()->id,
+            'name'=>'ECU 02',
+            'app'=>'Engine',
+            'controller' => 'STM32',
+            'software_version' => 'fw012xd05',
+            'manufactor_hw_number' => 'F401RCTB',
+            'serial' => '0x080014550',
+            'VIN' => '65',
             'flash_size' => '256',
         ]);
 

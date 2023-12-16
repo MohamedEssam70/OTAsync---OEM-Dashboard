@@ -41,7 +41,7 @@
         "slug": "setup-configurations"
       },
       {
-        "url": "/",
+        "url": "/team",
         "name": "Team Members",
         "icon": "menu-icon tf-icons bx bx-group",
         "slug": "team-members"
