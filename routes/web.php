@@ -60,6 +60,11 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Settup
     Route::get('/setup/system-customize', [SystemCustomizeController::class, 'index'])->name('system.customize');
+    Route::post('/setup/add-mac', [SystemCustomizeController::class, 'create'])->name('mac.create');
+    Route::post('/setup/insert/{target}', [SystemCustomizeController::class, 'insert'])->name('setup.insert');
+    Route::post('/setup/system/update', [SystemCustomizeController::class, 'update'])->name('system.update');
+    Route::delete('/setup/system/{target}', [SystemCustomizeController::class, 'destroy'])->name('system.destroy');
+
     Route::get('/setup/encription-config', [EncriptionConfigController::class, 'index'])->name('encription.config');
     Route::get('/setup/mqtt-config', [MqttConfigController::class, 'index'])->name('mqtt.config');
     Route::get('/setup/server-connection', [ServerConnectionController::class, 'index'])->name('server.connection');

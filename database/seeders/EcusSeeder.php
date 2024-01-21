@@ -1,0 +1,54 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Ecus;
+use App\Models\MacModels;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class EcusSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        // Disable foreign key checks!
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+        // Drop all rows
+        Ecus::truncate();
+        
+        // Create Main Countries
+        Ecus::create([
+            'mac_models_id' => MacModels::all()->random()->id,
+            'name'=>'ECU 01',
+            'app'=>'Engine',
+            'controller' => 'STM32',
+            'software_version' => 'fw012xd05',
+            'manufactor_hw_number' => 'F401RCTB',
+            'serial' => '0x08001290',
+            'vin' => '',
+            'flash_size' => '256',
+        ]);
+        Ecus::create([
+            'mac_models_id' => MacModels::all()->random()->id,
+            'name'=>'ECU 02',
+            'app'=>'Engine',
+            'controller' => 'STM32',
+            'software_version' => 'fw012xd05',
+            'manufactor_hw_number' => 'F401RCTB',
+            'serial' => '0x080014550',
+            'vin' => '65',
+            'flash_size' => '256',
+        ]);
+
+        // Create Randowm Countries
+        // Ecus::factory(3)->create();
+
+        // Enable foreign key checks!
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    }
+}

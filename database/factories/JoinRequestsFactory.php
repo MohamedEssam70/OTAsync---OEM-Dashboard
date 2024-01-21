@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\JoinRequest>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\JoinRequests>
  */
-class JoinRequestFactory extends Factory
+class JoinRequestsFactory extends Factory
 {
     protected static ?string $password;
 
