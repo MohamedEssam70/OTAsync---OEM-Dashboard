@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\FOTA;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 
-class OTAUploadController extends Controller
+class ModelsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -23,6 +23,6 @@ class OTAUploadController extends Controller
      */
     public function index()
     {
-        return view("content.dashboard.fota.ota-uplaod");
+        return view("content.models");
     }
 }

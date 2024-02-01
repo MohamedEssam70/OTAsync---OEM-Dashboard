@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ModelsController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\RequestAccountController;
@@ -17,7 +18,7 @@ use App\Http\Controllers\Setup\SystemCustomizeController;
 
 use App\Http\Controllers\Diagnostic\DiagnosticController;
 
-use App\Http\Controllers\FOTA\OTAUploadController;
+use App\Http\Controllers\FOTA\FirmwareController;
 use App\Http\Controllers\FOTA\OTAVersionsController;
 
 
@@ -73,8 +74,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/diagnostic', [DiagnosticController::class, 'index'])->name('diagnostic');
 
     // FOTA
-    Route::get('/ota/upload', [OTAUploadController::class, 'index'])->name('ota.upload');
-    Route::get('/ota/versions', [OTAVersionsController::class, 'index'])->name('ota.versions');
+    Route::prefix('firmware')->group(function() {
+        Route::get('/', [FirmwareController::class, 'firmware_upload_index'])->name('firmware.manage');
+        Route::get('/versions', [OTAVersionsController::class, 'index'])->name('firmware.versions');
+    });
+
+    Route::get('models', [ModelsController::class, 'index'])->name('models.manage');
 
 
     // Team
