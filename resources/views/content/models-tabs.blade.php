@@ -2,16 +2,16 @@
 <div class="row">
   <div class="col-md-12">
     <ul class="nav nav-pills nav-tabs flex-column flex-md-row mb-3">
-      <li class="nav-item">
+      <li class="nav-item me-1">
         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#details-tab-contents" aria-controls="details-tab-contents">Model Data</button>
       </li>
-      <li class="nav-item">
+      <li class="nav-item me-1">
         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#vehicles-tab-contents" aria-controls="vehicles-tab-contents">Vehicles</button>
       </li>
-      <li class="nav-item">
+      <li class="nav-item me-1">
         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#diagnostic-tab-contents" aria-controls="diagnostic-tab-contents">Diagnostic Sessions</button>
       </li>
-      <li class="nav-item">
+      <li class="nav-item me-1">
         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#logs-tab-contents" aria-controls="logs-tab-contents">Logs</button>
       </li>
       <li class="nav-item">

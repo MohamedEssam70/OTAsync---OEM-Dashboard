@@ -3,6 +3,7 @@ $containerNav = $containerNav ?? 'container-fluid';
 $navbarDetached = ($navbarDetached ?? '');
 $navbarBreadcrumb = ($navbarBreadcrumb ?? false);
 $breadcrumbLink = ($breadcrumbLink ?? '');
+$navbarBreadcrumbHome = ($navbarBreadcrumbHome ?? true);
 $navbarBreadcrumbPrev = ($navbarBreadcrumbPrev ?? '');
 $navbarBreadcrumbActive = ($navbarBreadcrumbActive ?? '');
 @endphp
@@ -52,7 +53,22 @@ $navbarBreadcrumbActive = ($navbarBreadcrumbActive ?? '');
         </div> --}}
         @if($navbarBreadcrumb)
         <h6 class="align-items-center d-flex mb-0 py-0" >
-          <a href="{{$breadcrumbLink}}"><span class="text-muted fw-light">@if($navbarBreadcrumbPrev) {{$navbarBreadcrumbPrev}} <i class='bx bx-chevron-right'></i> @else <i class='bx bxs-home'></i> <i class='bx bx-chevron-right'></i> @endif</a></span> {{isset($navbarBreadcrumbActive) ? $navbarBreadcrumbActive : ''}}
+          @if($navbarBreadcrumbHome)
+          <a href="{{route("home")}}">
+            <span class="text-muted fw-light">
+              <i class='bx bxs-home'></i>
+              <i class='bx bx-chevron-right'></i>
+            </span>
+          </a>
+          @endif
+          @if($navbarBreadcrumbPrev)
+            <a href="{{$breadcrumbLink}}">
+              <span class="text-muted fw-light">
+                {{$navbarBreadcrumbPrev}} <i class='bx bx-chevron-right'></i> 
+              </span>  
+            </a>
+          @endif
+          {{isset($navbarBreadcrumbActive) ? $navbarBreadcrumbActive : ''}}
         </h6>
         @endif
 

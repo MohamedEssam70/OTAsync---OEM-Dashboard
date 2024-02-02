@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout',['navbarBreadcrumb' => true, 'navbarBreadcrumbPrev' => '', 'navbarBreadcrumbActive' => 'Vehicle Models', 'breadcrumbLink'=> route("home")])
+@extends('layouts/contentNavbarLayout',['navbarBreadcrumb' => true, 'navbarBreadcrumbHome' => true, 'navbarBreadcrumbPrev' => 'Vehicle Models', 'navbarBreadcrumbActive' => $vehicle_model->name, 'breadcrumbLink'=> route("models.manage")])
 
 @section('title', 'Vehicle Models')
 

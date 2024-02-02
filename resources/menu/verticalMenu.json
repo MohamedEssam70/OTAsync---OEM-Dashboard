@@ -11,19 +11,19 @@
       "menuHeader": "Firmware Updates"
     },
     {
-      "url": "/firmware",
+      "url": "firmware",
       "name": "Upload Firmware",
       "icon": "menu-icon tf-icons bx bx-cloud-upload",
       "slug": "firmware.manage"
     },
     {
-      "url": "/firmware/versions",
+      "url": "firmware/versions",
       "name": "Firmware Versions",
       "icon": "menu-icon tf-icons bx bx-memory-card",
       "slug": "firmware.versions"
     },
     {
-      "url": "/models",
+      "url": "models",
       "name": "Vehicle Models",
       "icon": "menu-icon tf-icons bx bx-memory-card",
       "slug": "models.manage"
