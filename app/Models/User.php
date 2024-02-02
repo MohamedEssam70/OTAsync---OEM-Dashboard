@@ -74,7 +74,7 @@ class User extends Authenticatable
     protected function avatar(): Attribute
     {
         return Attribute::make(
-            get: fn (string|null $value) => !empty($value) ? url("storage/avatars/{$value}") : asset('assets/img/avatars/defult.png'),
+            get: fn (string|null $value) => !empty($value) ? url("storage/avatars/{$value}") : url("storage/avatars/defult.png"),
             // set: fn (string $value) => strtolower($value),
         );
     }

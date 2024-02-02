@@ -122,3 +122,40 @@
   text-align: center;
   margin-top: 1rem;
 }
+
+
+/* ------------------------------------Nav Custom------------------------------------ */
+.nav.nav-pills.nav.nav-pills.nav-tabs {
+  border: 0 !important;
+}
+.nav.nav-pills.nav.nav-pills.nav-tabs .nav-item{
+  background: none !important;
+}
+.nav.nav-pills.nav.nav-pills.nav-tabs .nav-item button:not(.active){
+  background: none !important;
+  color: var(--bs-nav-link-color) !important;
+}
+.nav.nav-pills.nav.nav-pills.nav-tabs .nav-item button{
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x) !important;
+  font-size: var(--bs-nav-link-font-size) !important;
+  font-weight: var(--bs-nav-link-font-weight) !important;
+  color: white !important;
+  border: 0 !important;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out !important;
+  border-radius: 0.375rem !important;
+
+}
+
+/* -------------------------- */
+/* .vehicles-progress-labels .vehicles-progress-label::after {
+  background-color: #d9dee3;
+}
+.vehicles-progress-labels .vehicles-progress-label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: inline-block;
+  height: 10px;
+  width: 2px;
+} */

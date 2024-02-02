@@ -35,8 +35,8 @@ class ModelsTable extends DataTableComponent
             ->setTableAttributes([
                 'class' => 'table-hover',
             ])
-            ->setTableRowUrl(function() {
-                return route('home');
+            ->setTableRowUrl(function($row) {
+                return route('models.show', $row->id);
             });
     }
 
@@ -62,6 +62,10 @@ class ModelsTable extends DataTableComponent
                 ->label(
                     fn($row, Column $column) => $row->firmwares()->orderByDesc('id')->first()->name
                 ),
+                Column::make("Last Upgrade")
+                    ->label(
+                        fn($row, Column $column) => $row->firmwares()->orderByDesc('id')->first()->updated_at
+                    ),
             // Column::make("Current Firmware", "firmware")
             //     ->format(
             //         fn($value, $row, Column $column) => '<span class="badge '.__("VehicleModel.status.{$row->status->value}").' me-1">'.$row->status->name.'</span>'

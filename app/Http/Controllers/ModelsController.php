@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\VehicleModel;
 use Illuminate\Http\Request;
 
 class ModelsController extends Controller
@@ -25,4 +26,12 @@ class ModelsController extends Controller
     {
         return view("content.models");
     }
+
+
+    public function show($id)
+    {
+        $vehicle_model = VehicleModel::findOrFail($id);
+        return view("content.models-show", compact('vehicle_model'));
+    }
+
 }

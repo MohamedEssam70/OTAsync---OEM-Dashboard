@@ -80,6 +80,7 @@ Route::group(['middleware' => 'auth'], function(){
     });
 
     Route::get('models', [ModelsController::class, 'index'])->name('models.manage');
+    Route::get('models/show/{id}', [ModelsController::class, 'show'])->name('models.show');
 
 
     // Team

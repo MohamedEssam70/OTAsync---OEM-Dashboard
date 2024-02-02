@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,6 +15,7 @@ class VehicleModel extends Model
     protected $fillable = [
         'name',
         'serial',
+        'image',
     ];
 
     /**
@@ -26,5 +28,15 @@ class VehicleModel extends Model
     public function firmwares()
     {
         return $this->hasMany(Firmware::class);
+    }
+
+
+
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string|null $value) => !empty($value) ? url("storage/vehicles/{$value}") : url('storage/vehicles/defult.jpg'),
+            // set: fn (string $value) => strtolower($value),
+        );
     }
 }
