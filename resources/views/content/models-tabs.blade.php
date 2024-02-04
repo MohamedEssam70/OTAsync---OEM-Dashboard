@@ -135,5 +135,93 @@
   </div>
 
   <div class="tab-pane fade" id="firmwares-tab-contents" role="tabpane5">
+    <div class="row mb-4 g-4">
+      <div class="col-8">
+        <div class="card h-100">
+          <div class="card-body row widget-separator">
+              <h4 class="text-primary mb-0">Update Firmware</h4>
+              {{-- <p class="fw-medium mb-1">Total 187 reviews</p> --}}
+              <p class="text-muted" style="width: 70%">Configer your updating process and upload new firmware hex file</p>
+              {{-- <span class="badge bg-label-primary p-2 mb-3 mb-sm-0">+5 This week</span> --}}
+
+              {{-- UPGRADE SCHEDULE START --}}
+              <div class="row">
+                <h5 class="col-sm-2" style="margin-bottom: 0;">Schedule</h5>
+                <div class="form-check form-switch col-xxl">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                </div>
+              </div>
+              <p class="text-muted mb-2">Disable for immediately upgrade</p>
+              <div class="mb-3 row align-items-center disable-sec" id="scheduleDate">
+                <label for="html5-date-input" class="col-md-1 col-form-label">Date</label>
+                <div class="col-xxl">
+                  <input class="form-control" type="datetime-local" value="2021-06-18T12:30:00" id="schedule-input" disabled>
+                </div>
+              </div>
+              {{-- UPGRADE SCHEDULE END --}}
+              
+              {{-- UPGRADE PRIORITY START --}}
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <div class="form-check custom-option custom-option-icon">
+                    <label class="form-check-label custom-option-content d-flex align-items-start justify-content-start" for="basicPlanMain1">
+                      <input name="plan" class="form-check-input" type="radio" value="" id="basicPlanMain1">
+                      <div class="text-start ms-2">
+                        <span class="custom-option-header">
+                          <span class="h6 mb-0 text-danger">Critical</span>
+                          <span>Update</span>
+                        </span>
+                        <span class="custom-option-body">
+                          <small>Vehicle will update upon startup.</small>
+                        </span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <div class="form-check custom-option custom-option-icon">
+                    <label class="form-check-label custom-option-content d-flex align-items-start justify-content-start" for="basicPlanMain2">
+                      <input name="plan" class="form-check-input" type="radio" value="" id="basicPlanMain2" checked autofocus />
+                      <div class="text-start ms-2">
+                        <span class="custom-option-header">
+                          <span class="h6 mb-0 text-success">Normal</span>
+                          <span>Update</span>
+                        </span>
+                        <span class="custom-option-body">
+                          <small>Vehicle can update the firmware any time.</small>
+                        </span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              {{-- UPGRADE PRIORITY END --}}
+
+              {{-- UPLOAD HEX FILE START --}}
+              <form action="/upload" class="dropzone needsclick dz-clickable" id="dropzone-basic">
+                <div class="dz-message needsclick">
+                  Drop files here or click to upload
+                  <span class="note needsclick">(This is just a demo dropzone. Selected files are <span class="fw-medium">not</span> actually uploaded.)</span>
+                </div>
+                {{-- <div class="dz-preview dz-file-preview dz-processing dz-success dz-complete"><div class="dz-details">  <div class="dz-thumbnail">    <img data-dz-thumbnail="">    <span class="dz-nopreview">No preview</span>    <div class="dz-success-mark"></div>    <div class="dz-error-mark"></div>    <div class="dz-error-message"><span data-dz-errormessage=""></span></div>    <div class="progress">      <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress="" style="width: 100%;"></div>    </div>  </div>  <div class="dz-filename" data-dz-name="">OpenAiAPIController.php</div>  <div class="dz-size" data-dz-size=""><strong>2.2</strong> KB</div></div><a class="dz-remove" href="javascript:undefined;" data-dz-remove="">Remove file</a></div> --}}
+              </form>
+              {{-- UPLOAD HEX FILE END --}}
+
+              {{-- <div class="alert d-flex align-items-center bg-label-info mb-0" role="alert">
+                <span class="badge badge-center rounded-pill bg-info border-label-info p-3 me-2"><i class="bx bx-info-circle bx-xs"></i></span>
+                <div class="ps-1">
+                  <span>  To send SMS updates, you need to install an SMS App.</span>
+                </div>
+              </div> --}}
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card h-100">
+          <div class="card-body row widget-separator">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

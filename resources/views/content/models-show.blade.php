@@ -65,4 +65,25 @@
 </div>
 
 @include('content.models-tabs')
+
+@endsection
+
+@section('page-script')
+<script>
+    $(document).ready(function() {
+        $('#flexSwitchCheckDefault').click(function() {
+            if($("#flexSwitchCheckDefault").is(':checked'))
+            {
+                $('#scheduleDate').removeClass("disable-sec");  // checked
+                $('#schedule-input').prop("disabled", false);
+            }
+            else
+            {
+                $('#scheduleDate').addClass("disable-sec");  // unchecked
+                $('#schedule-input').prop("disabled", true);
+            }
+        });
+    });
+    
+</script>
 @endsection
