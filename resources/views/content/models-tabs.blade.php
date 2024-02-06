@@ -144,68 +144,217 @@
               <p class="text-muted" style="width: 70%">Configer your updating process and upload new firmware hex file</p>
               {{-- <span class="badge bg-label-primary p-2 mb-3 mb-sm-0">+5 This week</span> --}}
 
-              {{-- UPGRADE SCHEDULE START --}}
-              <div class="row">
-                <h5 class="col-sm-2" style="margin-bottom: 0;">Schedule</h5>
-                <div class="form-check form-switch col-xxl">
-                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                </div>
-              </div>
-              <p class="text-muted mb-2">Disable for immediately upgrade</p>
-              <div class="mb-3 row align-items-center disable-sec" id="scheduleDate">
-                <label for="html5-date-input" class="col-md-1 col-form-label">Date</label>
-                <div class="col-xxl">
-                  <input class="form-control" type="datetime-local" value="2021-06-18T12:30:00" id="schedule-input" disabled>
-                </div>
-              </div>
-              {{-- UPGRADE SCHEDULE END --}}
-              
-              {{-- UPGRADE PRIORITY START --}}
-              <div class="row">
-                <div class="mb-3 col-md-6">
-                  <div class="form-check custom-option custom-option-icon">
-                    <label class="form-check-label custom-option-content d-flex align-items-start justify-content-start" for="basicPlanMain1">
-                      <input name="plan" class="form-check-input" type="radio" value="" id="basicPlanMain1">
-                      <div class="text-start ms-2">
-                        <span class="custom-option-header">
-                          <span class="h6 mb-0 text-danger">Critical</span>
-                          <span>Update</span>
-                        </span>
-                        <span class="custom-option-body">
-                          <small>Vehicle will update upon startup.</small>
-                        </span>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-                <div class="mb-3 col-md-6">
-                  <div class="form-check custom-option custom-option-icon">
-                    <label class="form-check-label custom-option-content d-flex align-items-start justify-content-start" for="basicPlanMain2">
-                      <input name="plan" class="form-check-input" type="radio" value="" id="basicPlanMain2" checked autofocus />
-                      <div class="text-start ms-2">
-                        <span class="custom-option-header">
-                          <span class="h6 mb-0 text-success">Normal</span>
-                          <span>Update</span>
-                        </span>
-                        <span class="custom-option-body">
-                          <small>Vehicle can update the firmware any time.</small>
-                        </span>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              {{-- UPGRADE PRIORITY END --}}
+              <form action="" method="POST" id="upgrade-form">
 
-              {{-- UPLOAD HEX FILE START --}}
-              <form action="/upload" class="dropzone needsclick dz-clickable" id="dropzone-basic">
-                <div class="dz-message needsclick">
-                  Drop files here or click to upload
-                  <span class="note needsclick">(This is just a demo dropzone. Selected files are <span class="fw-medium">not</span> actually uploaded.)</span>
+                {{-- UPGRADE SCHEDULE START --}}
+                <div class="row">
+                  <h5 class="col-sm-2" style="margin-bottom: 0;">Schedule</h5>
+                  <div class="form-check form-switch col-xxl">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                  </div>
                 </div>
-                {{-- <div class="dz-preview dz-file-preview dz-processing dz-success dz-complete"><div class="dz-details">  <div class="dz-thumbnail">    <img data-dz-thumbnail="">    <span class="dz-nopreview">No preview</span>    <div class="dz-success-mark"></div>    <div class="dz-error-mark"></div>    <div class="dz-error-message"><span data-dz-errormessage=""></span></div>    <div class="progress">      <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress="" style="width: 100%;"></div>    </div>  </div>  <div class="dz-filename" data-dz-name="">OpenAiAPIController.php</div>  <div class="dz-size" data-dz-size=""><strong>2.2</strong> KB</div></div><a class="dz-remove" href="javascript:undefined;" data-dz-remove="">Remove file</a></div> --}}
+                <p class="text-muted mb-2">Disable for immediately upgrade</p>
+                <div class="mb-3 row align-items-center disable-sec" id="scheduleDate">
+                  <label for="html5-date-input" class="col-md-1 col-form-label">Date</label>
+                  <div class="col-xxl">
+                    <input class="form-control" type="datetime-local" value="2021-06-18T12:30:00" id="schedule-input" disabled>
+                  </div>
+                </div>
+                {{-- UPGRADE SCHEDULE END --}}
+                
+                {{-- UPGRADE PRIORITY START --}}
+                <div class="row">
+                  <div class="mb-3 col-md-6">
+                    <div class="form-check custom-option custom-option-icon">
+                      <label class="form-check-label custom-option-content d-flex align-items-start justify-content-start" for="basicPlanMain1">
+                        <input name="plan" class="form-check-input" type="radio" value="" id="basicPlanMain1">
+                        <div class="text-start ms-2">
+                          <span class="custom-option-header">
+                            <span class="h6 mb-0 text-danger">Critical</span>
+                            <span>Update</span>
+                          </span>
+                          <span class="custom-option-body">
+                            <small>Vehicle will update upon startup.</small>
+                          </span>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <div class="form-check custom-option custom-option-icon">
+                      <label class="form-check-label custom-option-content d-flex align-items-start justify-content-start" for="basicPlanMain2">
+                        <input name="plan" class="form-check-input" type="radio" value="" id="basicPlanMain2" checked autofocus />
+                        <div class="text-start ms-2">
+                          <span class="custom-option-header">
+                            <span class="h6 mb-0 text-success">Normal</span>
+                            <span>Update</span>
+                          </span>
+                          <span class="custom-option-body">
+                            <small>Vehicle can update the firmware any time.</small>
+                          </span>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                {{-- UPGRADE PRIORITY END --}}
+
+                {{-- UPLOAD HEX FILE START --}}
+                <div class="dropzone d-flex justify-content-start" id="myDropzone" data-field="dz" style="border: 2px dashed #d9dee3;">
+                  <input type="hidden" name="dz" value="dz">
+                  <div class="dz-message needsclick" style="color: #566a7f; margin: 3.5rem 0; font-weight: 500; text-align: center; font-size: 1.625rem; width:100%; text-align:center;">
+                    Upload your firmware
+                    <span class="note needsclick mt-0" style="color: #697a8d; font-weight: 400; display: block; margin-top: 0.625rem; font-size: .9375rem;">(The uploaded file must be <span class="fw-medium">Hex</span> with max 1 MB.)</span>
+                  </div>
+                  <div hidden id="preview-template-continer">
+                    <div class="dz-preview" id="dz-preview-template">
+                      <div class="dz-details dz-preview dz-processing me-4" style="
+                        width: fit-content;
+                        border: 0 solid #d9dee3;
+                        border-radius: 0.375rem;
+                        box-shadow: 0 2px 6px 0 rgba(67,89,113,.12);
+                        position: relative;
+                        vertical-align: top;
+                        background: #fff;
+                        font-size: .8125rem;
+                        box-sizing: content-box;
+                        cursor: default;
+                      ">
+
+                        <div class="dz-thumbnail" style="
+                          border-bottom: 1px solid #d9dee3;
+                          background: rgba(67,89,113,.025);
+                          border-top-left-radius: calc(0.375rem - 1px);
+                          border-top-right-radius: calc(0.375rem - 1px);
+                          width: 10rem;
+                          position: relative;
+                          padding: 0.625rem;
+                          height: 7.5rem;
+                          text-align: center;
+                          box-sizing: content-box;
+                        ">
+
+                          <img data-dz-thumbnail style="
+                            max-height: 100%;
+                            max-width: 100%;
+                            top: 50%;
+                            position: relative;
+                            transform: translateY(-50%) scale(1);
+                            margin: 0 auto;
+                            display: block;
+                          ">
+
+                          <span data-dz-nopreview id="nopreview" class="dz-nopreview" style="
+                            color: #a1acb8;
+                            font-weight: 500;
+                            text-transform: uppercase;
+                            font-size: .6875rem;
+                            position: relative;
+                            top: 50%;
+                            transform: translateY(-50%) scale(1);
+                            margin: 0 auto;
+                            display: block;
+                          ">No preview</span>
+
+                          <div class="dz-success-mark" style="
+                            background-color: rgba(35,52,70,.5);
+                            display: block;
+                            position: absolute;
+                            left: 50%;
+                            top: 50%;
+                            margin-left: -1.875rem;
+                            margin-top: -1.875rem;
+                            height: 3.75rem;
+                            width: 3.75rem;
+                            border-radius: 50%;
+                            background-position: center center;
+                            background-size: 1.875rem 1.875rem;
+                            background-repeat: no-repeat;
+                            box-shadow: 0 0 1.25rem rgba(0,0,0,.06);
+                            font-size: 38px;
+                            color: #4ad44a;
+                          ">✔</div>
+
+                          <div class="dz-error-mark" style="
+                            background-color: rgba(35,52,70,.5);
+                            display: block;
+                            position: absolute;
+                            left: 50%;
+                            top: 50%;
+                            margin-left: -1.875rem;
+                            margin-top: -1.875rem;
+                            height: 3.75rem;
+                            width: 3.75rem;
+                            border-radius: 50%;
+                            background-position: center center;
+                            background-size: 1.875rem 1.875rem;
+                            background-repeat: no-repeat;
+                            box-shadow: 0 0 1.25rem rgba(0,0,0,.06);
+                            font-size: 38px;
+                            color: #ec4a4a;
+                          ">✘</div>
+
+                          <div class="dz-error-message" style="
+                            background: rgba(255,62,29,.8);
+                            border-top-left-radius: 0.375rem;
+                            border-top-right-radius: 0.375rem;
+                            position: absolute;
+                            top: -1px;
+                            left: -1px;
+                            bottom: -1px;
+                            right: -1px;
+                            display: none;
+                            color: #fff;
+                            z-index: 40;
+                            padding: 0.75rem;
+                            text-align: left;
+                            overflow: auto;
+                            font-weight: 500;
+                          ">
+                            <span data-dz-errormessage></span>
+                          </div>
+                          
+                          <div class="progress">
+                            <div data-dz-uploadprogress class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                          </div>
+                        </div>
+
+                        <div data-dz-name class="dz-filename" style="
+                          position: absolute;
+                          overflow: hidden;
+                          padding: 0.625rem 0.625rem 0 0.625rem;
+                          background: #fff;
+                          white-space: nowrap;
+                          text-overflow: ellipsis;
+                          width: -webkit-fill-available;
+                        "></div>
+
+                        <div data-dz-size class="dz-size" style="
+                          color: #a1acb8;
+                          padding: 1.875rem 0.625rem 0.625rem 0.625rem;
+                          font-size: .6875rem;
+                          font-style: italic;
+                        ">
+                          <strong></strong>
+                        </div>
+
+                      </div>
+
+                      <a data-dz-remove class="dz-remove" href="javascript:undefined;" style="
+                        color: #697a8d;
+                        border-top: 1px solid #d9dee3;
+                        border-bottom-right-radius: calc(0.375rem - 1px);
+                        border-bottom-left-radius: calc(0.375rem - 1px);
+                        display: block;
+                        text-align: center;
+                        padding: 0.375rem 0;
+                        font-size: .75rem;
+                      ">Remove file</a>
+                      
+                    </div>
+                  </div>
+                </div>
               </form>
-              {{-- UPLOAD HEX FILE END --}}
 
               {{-- <div class="alert d-flex align-items-center bg-label-info mb-0" role="alert">
                 <span class="badge badge-center rounded-pill bg-info border-label-info p-3 me-2"><i class="bx bx-info-circle bx-xs"></i></span>
@@ -225,3 +374,5 @@
     </div>
   </div>
 </div>
+
+

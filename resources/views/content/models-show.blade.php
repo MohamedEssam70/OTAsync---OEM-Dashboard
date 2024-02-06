@@ -1,4 +1,13 @@
-@extends('layouts/contentNavbarLayout',['navbarBreadcrumb' => true, 'navbarBreadcrumbHome' => true, 'navbarBreadcrumbPrev' => 'Vehicle Models', 'navbarBreadcrumbActive' => $vehicle_model->name, 'breadcrumbLink'=> route("models.manage")])
+@extends('layouts/contentNavbarLayout', ['navbarBreadcrumb' => true,
+                                         'navbarBreadcrumbHome' => true,
+                                         'navbarBreadcrumbPrev' => 'Vehicle Models',
+                                         'navbarBreadcrumbActive' => $vehicle_model->name,
+                                         'breadcrumbLink'=> route("models.manage")
+                                         ])
+
+@section('page-style')
+    <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
+@endsection
 
 @section('title', 'Vehicle Models')
 
@@ -69,8 +78,15 @@
 @endsection
 
 @section('page-script')
+<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
+
 <script>
+    
     $(document).ready(function() {
+
+        /*
+        * Disable/Enable Schedule Scection
+        */
         $('#flexSwitchCheckDefault').click(function() {
             if($("#flexSwitchCheckDefault").is(':checked'))
             {
@@ -83,6 +99,41 @@
                 $('#schedule-input').prop("disabled", true);
             }
         });
+
+        /*
+        * Drop Zone
+        */
+        var dz = $('#dz-preview-template').html();
+        Dropzone.autoDiscover = false;
+        $("div#myDropzone").dropzone({ 
+            url:"{{url('firmware/store')}}", 
+            addRemoveLinks: true,
+            previewTemplate: dz,            
+        });
+
+        // $("div#myDropzone").on('change', function(){
+
+        //     $('.dz-remove').css("color: #697a8d; border-top: 1px solid #d9dee3; border-bottom-right-radius: calc(0.375rem - 1px); border-bottom-left-radius: calc(0.375rem - 1px); display: block; text-align: center; padding: 0.375rem 0; font-size: .75rem;")
+        // });
+        
+
+
+        // Dropzone.discover();
+        // let myDropzone = $("myDropzone");
+        // Dropzone.options.myDropzone =
+        // {
+        //     paramName: "file",
+        //     url: "",
+        //     parallelUploads: 1,
+        //     addRemoveLinks: true,
+        //     accept: function(file, done) {
+        //         console.log(file.name);
+        //         done();
+        //     }
+        //     myDropzone.on("addedfile", file => {
+        //     console.log("A file has been added")});
+        // };
+
     });
     
 </script>
