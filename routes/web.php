@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ModelsController;
+use App\Http\Controllers\UpdateController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\RequestAccountController;
@@ -81,7 +82,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('models', [ModelsController::class, 'index'])->name('models.manage');
     Route::get('models/show/{id}', [ModelsController::class, 'show'])->name('models.show');
-    Route::get('firmware/store', [FirmwareController::class, 'store'])->name('firmware.store');
+    Route::post('firmware/store', [UpdateController::class, 'store'])->name('firmware.store');
+    
 
 
     // Team
