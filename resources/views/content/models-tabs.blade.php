@@ -140,35 +140,27 @@
         <div class="card h-100">
           <div class="card-body row widget-separator">
               <h4 class="text-primary mb-0">Update Firmware</h4>
-              {{-- <p class="fw-medium mb-1">Total 187 reviews</p> --}}
               <p class="text-muted" style="width: 70%">Configer your updating process and upload new firmware hex file</p>
-              {{-- <span class="badge bg-label-primary p-2 mb-3 mb-sm-0">+5 This week</span> --}}
-
-              <form action="" method="POST" id="upgrade-form">
+              <form action="" method="GET" id="upgrade-form">
               @csrf
-                {{-- UPGRADE SCHEDULE START --}}
-                <div class="row">
-                  <h5 class="col-sm-2" style="margin-bottom: 0;">Schedule</h5>
-                  <div class="form-check form-switch col-xxl">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                  </div>
-                </div>
-                <p class="text-muted mb-2">Disable for immediately upgrade</p>
-                <div class="mb-3 row align-items-center disable-sec" id="scheduleDate">
-                  <label for="html5-date-input" class="col-md-1 col-form-label">Date</label>
-                  <div class="col-xxl">
-                    <input class="form-control" type="datetime-local" value="2021-06-18T12:30:00" id="schedule-input" disabled>
-                  </div>
-                </div>
-                {{-- UPGRADE SCHEDULE END --}}
-                
-                {{-- UPGRADE PRIORITY START --}}
-                <div class="row">
-                  <div class="col-xxl">
+                <div class="row align-items-end">
+                  <div class="col-7">
+                    <div class="row">
+                      {{-- UPGRADE SCHEDULE START --}}
+                      <h5 class="col-sm-3 mb-0">Schedule</h5>
+                      <div class="form-check form-switch col-xxl">
+                        <input class="form-check-input" type="checkbox" id="schedule" name="schedule">
+                        <input class="form-check-input" type="hidden" id="schedule_hidden" name="schedule" value="off">
+                      </div>
+                    </div>
+                    <p class="text-muted mb-0">Disable for immediately upgrade</p>
+                    <input class="form-control mb-3" type="datetime-local" name="upgradeDate" value="" id="upgradeDate" disabled>
+                    {{-- UPGRADE SCHEDULE END --}}
+                    {{-- UPGRADE PRIORITY START --}}
                     <div class="mb-3">
                       <div class="form-check custom-option custom-option-icon">
                         <label class="form-check-label custom-option-content d-flex align-items-start justify-content-start" for="basicPlanMain1">
-                          <input name="plan" class="form-check-input" type="radio" value="" id="basicPlanMain1">
+                          <input class="form-check-input" type="radio" name="priority" value=true id="basicPlanMain1">
                           <div class="text-start ms-2">
                             <span class="custom-option-header">
                               <span class="h6 mb-0 text-danger">Critical</span>
@@ -181,10 +173,10 @@
                         </label>
                       </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="">
                       <div class="form-check custom-option custom-option-icon">
                         <label class="form-check-label custom-option-content d-flex align-items-start justify-content-start" for="basicPlanMain2">
-                          <input name="plan" class="form-check-input" type="radio" value="" id="basicPlanMain2" checked autofocus />
+                          <input class="form-check-input" type="radio" name="priority" value=false id="basicPlanMain2" checked autofocus />
                           <div class="text-start ms-2">
                             <span class="custom-option-header">
                               <span class="h6 mb-0 text-success">Normal</span>
@@ -197,14 +189,15 @@
                         </label>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    {{-- UPGRADE PRIORITY END --}}
                   </div>
-                  <div class="col-xxl">
-                    <div class="dropzone d-flex justify-content-start" id="myDropzone" data-field="dz" style="border: 2px dashed #d9dee3;">
-                      <input type="hidden" id="uploaded_file" name="dz" value="">
-                      <div class="dz-message needsclick" style="color: #566a7f; margin: 4.5rem 0; font-weight: 500; text-align: center; font-size: 1.625rem; width:100%; text-align:center;">
-                        Upload your firmware
-                        <span class="note needsclick mt-0" style="color: #697a8d; font-weight: 400; display: block; margin-top: 0.625rem; font-size: .9375rem;">(The uploaded file must be <span class="fw-medium">Hex</span> with max 1 MB.)</span>
+                  {{-- UPLOAD HEX FILE START --}}
+                  <div class="col-5">
+                    <div class="dropzone d-flex justify-content-center" id="myDropzone" data-field="dz" style="border: 2px dashed #d9dee3; overflow: hidden;">
+                      <input type="hidden" id="uploaded_file" name="firmwareFile" value="">
+                      <div class="dz-message needsclick" style="color: #566a7f; margin: 4.0rem 0; font-weight: 500; text-align: center; font-size: 1.625rem; width:100%; text-align:center;">
+                        <img src="{{asset('assets/img/backgrounds/firmware-upload.png')}}" style="width: 100px;">
+                        <span class="note needsclick mt-0" style="color: #697a8d; font-weight: 400; display: block; margin-top: 0.625rem; font-size: .9375rem;"><span class="fw-medium">UPLOAD FIRMWARE</span></span>
                       </div>
                       <div hidden id="preview-template-continer">
                         <div class="dz-preview" id="dz-preview-template">
@@ -356,28 +349,37 @@
                       </div>
                     </div>
                   </div>
+                  {{-- UPLOAD HEX FILE END --}}
+                  {{-- <div class="col">
+                    <button type="submit" class="btn btn-danger w-25 mt-3" style="border-radius: 40px;">Update Firmware</button>
+                  </div> --}}
                 </div>
-                {{-- UPGRADE PRIORITY END --}}
-
-                {{-- UPLOAD HEX FILE START --}}
-                
-              </form>
-
-              {{-- <div class="alert d-flex align-items-center bg-label-info mb-0" role="alert">
-                <span class="badge badge-center rounded-pill bg-info border-label-info p-3 me-2"><i class="bx bx-info-circle bx-xs"></i></span>
-                <div class="ps-1">
-                  <span>  To send SMS updates, you need to install an SMS App.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card">
+              <div class="card-body row widget-separator">
+                <div class="mb-3">
+                  <label class="form-label" for="name">Firmware</label>
+                  <input type="text" class="form-control" id="name" name="name">
                 </div>
-              </div> --}}
+                <div class="mb-3">
+                  <label class="form-label" for="version">Version</label>
+                  <input type="text" class="form-control" id="version" name="version">
+                </div>
+                <div class="mb-3">
+                  <label for="status" class="form-label">Status</label>
+                  <select class="form-select" id="status" name="status">
+                    <option value="Beta" selected>Beta</option>
+                    <option value="Valid">Valid</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-danger w-100 mt-3" style="border-radius: 40px;">Update Firmware</button>
           </div>
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="card h-100">
-          <div class="card-body row widget-separator">
-          </div>
-        </div>
-      </div>
+        </form>
     </div>
   </div>
 </div>

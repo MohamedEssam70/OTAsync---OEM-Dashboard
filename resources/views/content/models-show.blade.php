@@ -88,23 +88,27 @@
         /*
         * Disable/Enable Schedule Scection
         */
-        $('#flexSwitchCheckDefault').click(function() {
-            if($("#flexSwitchCheckDefault").is(':checked'))
+        $('#schedule').click(function() {
+            if($(this).is(':checked'))
             {
                 $('#scheduleDate').removeClass("disable-sec");  // checked
-                $('#schedule-input').prop("disabled", false);
+                $('#upgradeDate').prop("disabled", false);
+                $('#schedule_hidden').prop("disabled", true);
             }
             else
             {
                 $('#scheduleDate').addClass("disable-sec");  // unchecked
-                $('#schedule-input').prop("disabled", true);
+                $('#upgradeDate').prop("disabled", true);
+                $('#schedule_hidden').prop("disabled", false);
             }
         });
+
 
         /*
         * Drop Zone
         */
         var dz = $('#dz-preview-template').html();
+        var currentFile = null;
         Dropzone.autoDiscover = false;
         $("div#myDropzone").dropzone({ 
 
@@ -225,6 +229,12 @@
              *
              */
             init: function() {
+                this.on('addedfile', function(file){
+                    if (currentFile) {
+                        this.removeFile(currentFile);
+                    }
+                    currentFile = file;
+                });
                 this.on('error', function(file, errorMessage) {
                     var errorDisplay = $('[data-dz-errormessage]');
                     console.log(errorMessage.message);
@@ -239,9 +249,41 @@
                     $('#uploaded_file').val(response['fileName']);
                     console.log($('#uploaded_file').val());
                 });
+                this.on('removedfile', function(file){
+                    $('#uploaded_file').val(null);
+                });
             }
         });
 
+        /*
+         * Post 
+         *
+        */
+        const form = document.querySelector("#upgrade-form");
+        $('#upgrade-form').submit(function(e) {
+            e.preventDefault();
+            // Serialize the form data
+            let formData = $( this ).serialize();
+            formData += '&vehicleModelId={{$vehicle_model->id}}';
+            console.log(formData);
+            // Send an AJAX request
+            $.ajax({
+                type: 'GET',
+                url: '{{ route('firmware.update') }}',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(response) {
+                    // Handle the response message
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors if needed
+                    console.error(xhr.responseText);
+                }
+            });
+        });
     });
     
 </script>

@@ -17,6 +17,10 @@ class Firmware extends Model
         'status',
         'version',
         'valid_untill',
+        'firmwareFile',
+        'upgradeDate',
+        'schedule',
+        'priority'
     ];
 
     protected $casts = [

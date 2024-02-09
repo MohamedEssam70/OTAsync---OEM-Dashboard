@@ -83,6 +83,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('models', [ModelsController::class, 'index'])->name('models.manage');
     Route::get('models/show/{id}', [ModelsController::class, 'show'])->name('models.show');
     Route::post('firmware/store', [UpdateController::class, 'store'])->name('firmware.store');
+    Route::get('firmware/update', [UpdateController::class, 'update'])->name('firmware.update');
     
 
 
