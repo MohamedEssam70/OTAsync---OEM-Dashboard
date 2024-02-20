@@ -14,17 +14,17 @@ class UpdateController extends Controller
     {
         try {
             $request->validate([
-                "file" => 'required|mimes:txt|max:1000000|'
+                "file" => 'required|max:1000000|'
             ]);
 
-            $fileExtension = $request->file('file')?->getClientOriginalExtension();
+            // $fileExtension = $request->file('file')?->getClientOriginalExtension();
 
-            if(!in_array(Str::lower($fileExtension) , ["txt"])){
-                return response()->json([
-                    'success' => false,
-                    'error' => "Not valid firmware file",
-                ], 422);
-            }
+            // if(!in_array(Str::lower($fileExtension) , ["txt, bin"])){
+            //     return response()->json([
+            //         'success' => false,
+            //         'error' => "Not valid firmware file",
+            //     ], 422);
+            // }
 
             $path = $request->file->store('storage/uploads','public');
 

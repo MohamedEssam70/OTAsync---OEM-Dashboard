@@ -143,7 +143,7 @@
              * types or file extensions.
              * Eg.: `image/*,application/pdf,.psd`
              */
-            acceptedFiles: 'text/plain',
+            acceptedFiles: '.bin',
 
             /**
              * Sends the file as binary blob in body instead of form data.

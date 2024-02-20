@@ -84,10 +84,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('models/show/{id}', [ModelsController::class, 'show'])->name('models.show');
     Route::post('firmware/store', [UpdateController::class, 'store'])->name('firmware.store');
     Route::get('firmware/update', [UpdateController::class, 'update'])->name('firmware.update');
-    Route::get('/download/{filename}', function ($filename) {
-        $path = storage_path().'\\'.'app\\public\\storage\\uploads\\'.$filename;
-        return Response::download($path);
-    });
+    // Route::get('/download/{filename}', function ($filename) {
+    //     $path = storage_path().'\\'.'app\\public\\storage\\uploads\\'.$filename;
+    //     return Response::download($path);
+    // });
 
 
     // Team
@@ -96,7 +96,50 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Under Maintenance
     Route::get('/under-maintenance', [UnderMaintenanceController::class, 'index'])->name('under-maintenance');
-
+    
+    Route::group([], function () {
+        if (app()->isLocal()) {
+            Route::get("/migrate", function () {
+                Artisan::call("migrate");
+                return Artisan::output();
+            });
+            Route::get("/migrate/fresh", function () {
+                Artisan::call("migrate:fresh");
+                return Artisan::output();
+            });
+    
+            Route::get("/storage/link", function () {
+                Artisan::call("storage:link");
+                return Artisan::output();
+            });
+    
+            Route::get("/seed", function () {
+                Artisan::call("db:seed");
+                return Artisan::output();
+            });
+        }
+    
+    
+        Route::get('/cache/clear', function () {
+            $title = __('all.clear_cache');
+    
+            $output = "";
+            Artisan::call('cache:clear');
+            $output .= "<br/>";
+            $output .= Artisan::output();
+            Artisan::call('view:clear');
+            $output .= "<br/>";
+            $output .= Artisan::output();
+            Artisan::call('route:clear');
+            $output .= "<br/>";
+            $output .= Artisan::output();
+            Artisan::call('config:clear');
+            $output .= "<br/>";
+            $output .= Artisan::output();
+            
+            return $output;
+        })->name("clear-cache");
+    });
 
     // Temp
     Route::get('pages/account', function(){return view("content.pages.pages-account-settings-account");});
