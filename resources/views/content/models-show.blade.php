@@ -258,7 +258,6 @@
          * Post 
          *
         */
-        // import { client } from "D:\\Wamp.NET\\sites\\otasync\\public\\assets\\js\\client.js";
         const form = document.querySelector("#upgrade-form");
         $('#upgrade-form').submit(function(e) {
             e.preventDefault();
