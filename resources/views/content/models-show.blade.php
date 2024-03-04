@@ -80,7 +80,6 @@
 
 @section('page-script')
 <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
 <script>
     
     $(document).ready(function() {
@@ -259,6 +258,7 @@
          * Post 
          *
         */
+        // import { client } from "D:\\Wamp.NET\\sites\\otasync\\public\\assets\\js\\client.js";
         const form = document.querySelector("#upgrade-form");
         $('#upgrade-form').submit(function(e) {
             e.preventDefault();
@@ -278,46 +278,10 @@
                     // Handle the response message
                     console.log(response);
 
-                    // Create a client instance
-                    client = new Paho.MQTT.Client('e01eebd935794e0b9876143ab709f203.s1.eu.hivemq.cloud', Number(8884), "client-1");
-
-                    // set callback handlers
-                    client.onConnectionLost = onConnectionLost;
-                    client.onMessageArrived = onMessageArrived;
-
-                    // connect the client
-                    client.connect({
-                    onSuccess:onConnect,
-                    mqttVersion: 3,
-                    useSSL: true,
-                    userName : "OTAsync_system",
-                    password : "$fWGY%R3"
-                    });
-
-                    // called when the client connects
-                    function onConnect() {
-                    // Once a connection has been made, make a subscription and send a message.
-                    console.log("onConnect");
-                    client.subscribe("my/test/topic");
-                    client.subscribe("test");
                     message = new Paho.MQTT.Message(JSON.stringify(response));
                     message.qos = 1;
                     message.destinationName = "test";
-                    client.send(message); 
-                    }
-
-                    // called when the client loses its connection
-                    function onConnectionLost(responseObject) {
-                    if (responseObject.errorCode !== 0) {
-                        console.log("onConnectionLost:"+responseObject.errorMessage);
-                    }
-                    }
-
-                    // called when a message arrives
-                    function onMessageArrived(message) {
-                    console.log("onMessageArrived:"+message.payloadString);
-                    }
-
+                    client.send(message);
                 },
                 error: function(xhr, status, error) {
                     // Handle errors if needed

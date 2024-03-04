@@ -23,6 +23,6 @@ class FirmwareController extends Controller
      */
     public function firmware_upload_index()
     {
-        return view("content.dashboard.firmware.manage");
+        return view("content.firmware.manage");
     }
 }

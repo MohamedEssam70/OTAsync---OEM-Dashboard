@@ -1,0 +1,330 @@
+/* .bs-stepper .step.active .bs-stepper-circle {
+    background-color: #696cff;
+    box-shadow: 0 .1875rem .375rem 0 rgba(105,108,255,.4);
+    color: #fff
+}
+
+.bs-stepper .step.active .bs-stepper-label {
+    color: #696cff!important
+}
+
+.bs-stepper .step.active .bs-stepper-icon svg {
+    fill: #696cff!important
+} */
+
+.bs-stepper .step.crossed .step-trigger .bs-stepper-icon svg path{
+    stroke: #696CFF !important;
+}
+
+.bs-stepper.wizard-icons .step.crossed .step-trigger .bs-stepper-label {
+    color: #696cff!important;
+}
+
+.bs-stepper .step.crossed+.line i {
+    color: #696cff!important;
+}
+
+.bs-stepper .step-trigger.disabled, .bs-stepper .step-trigger:disabled {
+    opacity: 1 !important;
+}
+
+.bs-stepper .step-trigger{
+    pointer-events: none;
+    cursor: none;
+}
+
+.bs-stepper .step-trigger:focus {
+    color: #696cff;
+}
+
+.light-style .bs-stepper .bs-stepper-header .line {
+    color: rgba(67,89,113,.4) !important;
+}
+.bs-stepper .line{
+    background-color: transparent !important;
+    -ms-flex: 0 !important;
+    flex: 0 !important;
+    margin: 0 !important;
+    min-height: auto !important;
+    min-width: auto !important;
+}
+.bs-stepper .bs-stepper-header i{
+    font-size: 1.8rem !important;
+    font-weight: 400 !important;
+}
+
+.bs-stepper .step-trigger svg {
+    fill: none !important;
+}
+.bs-stepper .step-trigger svg path{
+    stroke: currentColor !important;
+}
+
+.bs-stepper .step-trigger:focus svg path{
+    stroke: #696CFF !important;
+}
+
+.bs-stepper .step-trigger:focus .bs-stepper-label{
+    color: #696CFF !important;
+}
+.bs-stepper .step.active .bs-stepper-icon svg path{
+    stroke: #696CFF !important;
+}
+
+.bs-stepper .step.active .bs-stepper-label{
+    color: #696CFF !important;
+}
+
+.bs-stepper .bs-stepper-header .step-trigger .bs-stepper-icon svg {
+    width: 50px !important;
+    height: auto;
+}
+
+
+
+html:not([dir=rtl]) .bs-stepper .bs-stepper-header .step:first-child .step-trigger {
+    padding-left: 0;
+}
+.bs-stepper.wizard-icons .bs-stepper-header .step-trigger {
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+.bs-stepper .bs-stepper-header .step .step-trigger {
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    font-weight: 500;
+    padding: 0 1rem;
+}
+
+.light-style .bs-stepper .step-trigger {
+    color: #697a8d;
+}
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+}
+.bs-stepper .step-trigger {
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    border-radius: 0.25rem;
+    color: #6c757d;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    font-size: 1rem;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1.5;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .15s ease-out,color .15s ease-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.bs-stepper .bs-stepper-header .step .step-trigger .bs-stepper-label {
+    display: inline-grid;
+    font-weight: 500;
+    margin: 0;
+    max-width: 224px;
+    overflow: hidden;
+    text-align: start;
+    text-overflow: ellipsis;
+}
+
+
+
+
+
+#wizard-process .bs-stepper-header{max-width:800px}
+.light-style .bs-stepper .bs-stepper-header {
+    border-bottom: 1px solid #d9dee3;
+}
+.bs-stepper.wizard-icons .bs-stepper-header {
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+}
+.bs-stepper .bs-stepper-header {
+    padding: 1.185rem 1.125rem;
+}
+.bs-stepper-header {
+    -ms-flex-align: center;
+    align-items: center;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.bs-stepper .bs-stepper-content {
+    padding: 1.5rem;
+}
+.border-top {
+    border-top: 1px solid #d9dee3 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+html:not([dir=rtl]).light-style .bs-stepper.vertical .bs-stepper-header {
+    border-right: 1px solid #d9dee3 !important;
+}
+.light-style .bs-stepper.vertical .bs-stepper-header {
+    border-bottom: none !important;
+}
+.light-style .bs-stepper .bs-stepper-header {
+    border-bottom: 1px solid #d9dee3;
+}
+
+.bs-stepper.vertical .bs-stepper-header {
+    min-width: 18rem !important;
+}
+.bs-stepper.vertical .bs-stepper-header {
+    -ms-flex-align: stretch !important;
+    align-items: stretch !important;
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+}
+.bs-stepper.vertical .bs-stepper-content {
+    width: 100% !important;
+}
+html:not([dir=rtl]) .bs-stepper .bs-stepper-header .step:first-child .step-trigger {
+    padding-left: 0;
+}
+.bs-stepper.vertical .bs-stepper-header .step:first-child .step-trigger {
+    padding-top: 0 !important;
+}
+.bs-stepper.vertical .bs-stepper-header .step .step-trigger {
+    padding: 0.65rem 0 !important;
+}
+
+.bs-stepper .bs-stepper-header .step .bs-stepper-circle {
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 0.375rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+    height: 2.5rem;
+    width: 2.5rem;
+    -ms-flex-line-pack: center;
+    -ms-flex-pack: center;
+    align-content: center;
+    background-color: #6c757d;
+    color: #fff;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    justify-content: center;
+    line-height: 1em;
+    margin: 0.25rem;
+    padding: 0.5em 0;
+}
+.bs-stepper .bs-stepper-header .step .bs-stepper-circle i{
+    font-size: 18px !important;
+}
+.active .bs-stepper-circle {
+    background-color: #007bff;
+}
+
+.bs-stepper .step-trigger:not(:disabled):not(.disabled) {
+    cursor: none;
+}
+.light-style .bs-stepper .step-trigger {
+    color: #697a8d;
+}
+
+.bs-stepper .bs-stepper-header .step .step-trigger:hover {
+    text-decoration: none !important;
+    background-color: transparent;
+}
+
+.bs-stepper .step.active .step-trigger .bs-stepper-circle {
+    background-color: #696cff !important;
+    box-shadow: 0 0.1875rem 0.375rem 0 rgba(105,108,255,.4) !important;
+    color: #fff !important;
+}
+.bs-stepper .bs-stepper-header .step .bs-stepper-circle {
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    -ms-flex-line-pack: center;
+    align-items: center;
+    border-radius: 0.375rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+    height: 2.5rem;
+    width: 2.5rem;
+    align-content: center;
+    background-color: #EBEDF0 !important;
+    color: #6c757d !important;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    justify-content: center;
+    margin: 0.25rem;
+}
+.active .bs-stepper-circle {
+    background-color: #007bff;
+}
+.bs-stepper .bs-stepper-header .step .step-trigger .bs-stepper-label {
+    margin-left: 0.35rem !important;
+}
+.bs-stepper .bs-stepper-header .step .step-trigger .bs-stepper-label {
+    display: inline-grid !important;
+    font-weight: 500 !important;
+    max-width: 224px !important;
+    overflow: hidden !important;
+    text-align: start !important;
+    text-overflow: ellipsis !important;
+}
+.bs-stepper .step.active .bs-stepper-label {
+    color: #696cff!important;
+}
+.bs-stepper .bs-stepper-header .step .step-trigger .bs-stepper-label .bs-stepper-title {
+    font-size: .9375rem;
+    font-weight: 500;
+    line-height: 1;
+}
+.bs-stepper .bs-stepper-header .step .step-trigger .bs-stepper-label .bs-stepper-subtitle {
+    font-size: .75rem;
+    font-weight: 400;
+    margin-top: 0.2rem;
+    color: #a1acb8;
+}
+
+
+#wizard-process{
+    background-clip: padding-box;
+    box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
+    color: #697a8d;
+    word-wrap: break-word;
+    background-color: #fff;
+    border: 0 solid #d9dee3;
+    border-radius: 0.5rem;
+}
