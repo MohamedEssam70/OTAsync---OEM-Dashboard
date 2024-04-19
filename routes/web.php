@@ -75,10 +75,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/diagnostic', [DiagnosticController::class, 'index'])->name('diagnostic');
 
     // FOTA
-    Route::prefix('firmware')->group(function() {
-        Route::get('/', [FirmwareController::class, 'firmware_upload_index'])->name('firmware.manage');
-        Route::get('/versions', [OTAVersionsController::class, 'index'])->name('firmware.versions');
-    });
+    Route::get('firmware', [FirmwareController::class, 'firmware_upload_index'])->name('firmware.manage');
+    Route::get('firmwares', [FirmwareController::class, 'index'])->name('firmwares');
 
     Route::get('models', [ModelsController::class, 'index'])->name('models.manage');
     Route::get('models/show/{id}', [ModelsController::class, 'show'])->name('models.show');

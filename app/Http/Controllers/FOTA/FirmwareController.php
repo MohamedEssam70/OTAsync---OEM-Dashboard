@@ -21,8 +21,13 @@ class FirmwareController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function index()
+    {
+        return view("content.firmware.index");
+    }
     public function firmware_upload_index()
     {
         return view("content.firmware.manage");
     }
+
 }

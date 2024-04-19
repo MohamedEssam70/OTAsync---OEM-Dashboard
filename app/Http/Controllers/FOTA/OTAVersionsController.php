@@ -23,6 +23,6 @@ class OTAVersionsController extends Controller
      */
     public function index()
     {
-        return view("content.dashboard.fota.ota-versions");
+        return view("content.firmware.index");
     }
 }

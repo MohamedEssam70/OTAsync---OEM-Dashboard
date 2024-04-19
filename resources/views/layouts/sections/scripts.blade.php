@@ -13,6 +13,7 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
 <!-- END: Theme JS-->
+@livewireScripts
 <!-- Pricing Modal JS-->
 @stack('pricing-script')
 <!-- END: Pricing Modal JS-->

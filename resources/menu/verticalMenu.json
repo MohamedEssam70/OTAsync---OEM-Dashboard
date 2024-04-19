@@ -8,7 +8,7 @@
       "slug": "home"
     },
     {
-      "menuHeader": "Firmware Updates"
+      "menuHeader": "OTA Updates"
     },
     {
       "url": "firmware",
@@ -17,10 +17,10 @@
       "slug": "firmware.manage"
     },
     {
-      "url": "firmware/versions",
-      "name": "Firmware Versions",
-      "icon": "menu-icon tf-icons bx bx-memory-card",
-      "slug": "firmware.versions"
+      "url": "firmwares",
+      "name": "Firmwares Updates",
+      "icon": "menu-icon tf-icons fa-regular fa-file-code",
+      "slug": "firmwares"
     },
     {
       "url": "models",

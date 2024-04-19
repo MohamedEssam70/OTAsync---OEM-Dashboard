@@ -18,6 +18,8 @@
 <!-- Vendor Styles -->
 @yield('vendor-style')
 
+@livewireStyles
+
 
 <!-- Page Styles -->
 @yield('page-style')
