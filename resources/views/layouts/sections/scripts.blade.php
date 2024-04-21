@@ -1,10 +1,9 @@
 <!-- BEGIN: Vendor JS-->
-<script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
 <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+<script src="{{asset("assets/vendor/libs/mqtt/mqttws31.js")}}" type="text/javascript"></script>
 <script src="{{ asset('assets/js/mqtt.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/fontawesome/all.min.js') }}" />
 @yield('vendor-script')

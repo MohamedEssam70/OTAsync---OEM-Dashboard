@@ -79,8 +79,11 @@
 @endsection
 
 @section('page-script')
-<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
-<script src="{{asset('assets/js/dropzone.js')}}"></script>
+
+@include('_partials.dropzone_scripts', [
+    'ajaxUrl' => url('firmware/store')
+])
+
 <script>
     $(document).ready(function() {
         /*

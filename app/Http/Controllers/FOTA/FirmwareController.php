@@ -39,6 +39,27 @@ class FirmwareController extends Controller
         return view("content.firmware.manage");
     }
 
+    public function store(Request $request)
+    {
+        try {
+            $request->validate([
+                "file" => 'required|max:1000000|'
+            ]);
+
+            $path = $request->file('file')->store('firmwares','public');
+
+            return response()->json([
+                'fileName' => pathinfo($path)['basename']
+            ]);
+
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'error' => ($e->errors())["file"],
+            ], 422);
+        }
+    }
+
     public function add_view()
     {
         $models = VehicleModel::all();
@@ -74,9 +95,9 @@ class FirmwareController extends Controller
             $input['priority'] = $this->checkBoolean($input['priority']);
             $input['schedule'] = $this->checkBoolean($input['schedule']);
 
-            Firmware::create($input);
+            $firmware = Firmware::create($input);
 
-            return Redirect::route('firmwares');
+            return response()->json($firmware->toArray());
         } catch (ValidationException $e) {
             return response()->json([
                 'success' => false,

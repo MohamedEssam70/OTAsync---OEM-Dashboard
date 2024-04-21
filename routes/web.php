@@ -78,12 +78,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('firmware', [FirmwareController::class, 'index'])->name('firmwares');
     Route::get('firmware/add', [FirmwareController::class, 'add_view'])->name('firmware.add.view');
     Route::get('firmware/selectpicker/model/{id}', [FirmwareController::class, 'model_selector'])->name('firmware.model.selector');
+    Route::post('firmware/store', [FirmwareController::class, 'store'])->name('firmware.store');
     Route::post('firmware/submit', [FirmwareController::class, 'add'])->name('firmware.submit');
 
 
     Route::get('models', [ModelsController::class, 'index'])->name('models.manage');
     Route::get('models/show/{id}', [ModelsController::class, 'show'])->name('models.show');
-    Route::post('firmware/store', [UpdateController::class, 'store'])->name('firmware.store');
     Route::get('firmware/update', [UpdateController::class, 'update'])->name('firmware.update');
     // Route::get('/download/{filename}', function ($filename) {
     //     $path = storage_path().'\\'.'app\\public\\storage\\uploads\\'.$filename;
