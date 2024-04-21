@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('vehicles', function (Blueprint $table) {
-            $table->foreignIdFor(Firmware::class)->after('model')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignIdFor(Firmware::class, 'firmware')->after('model')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
@@ -24,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('vehicles', function (Blueprint $table) {
             $table->dropConstrainedForeignIdFor(Firmware::class);
+            $table->dropColumn('firmware');
         });
     }
 };
