@@ -12,9 +12,15 @@
     },
     {
       "url": "firmware",
-      "name": "Upload Firmware",
+      "name": "Stepper Firmware",
       "icon": "menu-icon tf-icons bx bx-cloud-upload",
       "slug": "firmware.manage"
+    },
+    {
+      "url": "firmware/add",
+      "name": "Upload Firmware",
+      "icon": "menu-icon tf-icons bx bx-cloud-upload",
+      "slug": "firmware.add.view"
     },
     {
       "url": "firmwares",

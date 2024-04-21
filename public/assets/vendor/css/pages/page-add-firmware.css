@@ -1,0 +1,7 @@
+.btn-select,.btn-select:focus,.btn-select:hover,.btn-select:active{
+    background-color: #fff !important;
+    background-clip: padding-box !important;
+    border: var(--bs-border-width) solid #d9dee3 !important;
+    border-radius: var(--bs-border-radius) !important;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+}

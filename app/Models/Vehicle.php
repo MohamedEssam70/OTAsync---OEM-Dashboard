@@ -27,5 +27,11 @@ class Vehicle extends Model
     }
 
 
-    
+    /**
+     * @return HasMany
+     **/
+    public function firmwares()
+    {
+        return $this->hasMany(Firmware::class);
+    }
 }

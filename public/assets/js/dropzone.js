@@ -3,7 +3,7 @@ var currentFile = null;
 Dropzone.autoDiscover = false;
 $("div#myDropzone").dropzone({ 
 
-    url:"{{url('firmware/store')}}",
+    url: "/firmware/store",
     
     method: "post",
 

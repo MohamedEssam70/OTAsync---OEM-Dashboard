@@ -77,6 +77,10 @@ Route::group(['middleware' => 'auth'], function(){
     // FOTA
     Route::get('firmware', [FirmwareController::class, 'firmware_upload_index'])->name('firmware.manage');
     Route::get('firmwares', [FirmwareController::class, 'index'])->name('firmwares');
+    Route::get('firmware/add', [FirmwareController::class, 'add_view'])->name('firmware.add.view');
+    Route::get('firmware/selectpicker/model/{id}', [FirmwareController::class, 'model_selector'])->name('firmware.model.selector');
+    Route::post('firmware/submit', [FirmwareController::class, 'add'])->name('firmware.submit');
+
 
     Route::get('models', [ModelsController::class, 'index'])->name('models.manage');
     Route::get('models/show/{id}', [ModelsController::class, 'show'])->name('models.show');

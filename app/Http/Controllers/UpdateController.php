@@ -26,7 +26,7 @@ class UpdateController extends Controller
             //     ], 422);
             // }
 
-            $path = $request->file->store('storage/uploads','public');
+            $path = $request->file('file')->store('firmwares','public');
 
             return response()->json([
                 'fileName' => pathinfo($path)['basename']

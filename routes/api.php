@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\UserAPIController;
+use App\Models\Vehicle;
+use App\Models\VehicleModel;
 use Illuminate\Support\Facades\Route;
 
 /*
