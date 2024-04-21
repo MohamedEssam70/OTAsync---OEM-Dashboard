@@ -12,7 +12,7 @@
 @endsection
 
 @section('content')
-<form id="addFirmware" method="POST" action="{{ route('firmware.submit')}}">
+<form id="addFirmware" method="post" action="{{ route('firmware.submit')}}">
     @csrf
     <div class="row">
         <div class="col-lg-9 col-12 mb-lg-0 mb-4">
@@ -161,16 +161,15 @@
                             </div>
                             <div class="col-md">
                                 <div class="dropdown bootstrap-select w-100">
-                                    <select id="pickerUpdateTiming" class="selectpicker w-100" data-style="btn-select" tabindex="null">
-                                        <option value="0">Immediately</option>
-                                        <option value="1">Scheduled</option>
+                                    <select id="pickerUpdateTiming" class="selectpicker w-100" data-style="btn-select" tabindex="null" name="schedule">
+                                        <option value="off">Immediately</option>
+                                        <option value="on">Scheduled</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <input class="form-control mb-0" type="datetime-local" name="updateDate" value="" id="updateDate" disabled="" name="upgradeDate">
+                        <input class="form-control mb-0" type="datetime-local" value="" id="upgradeDate" disabled="" name="upgradeDate">
                         <div id="" class="form-text mt-1">Select update date and time.</div>
-                        <input class="visually-hidden" type="checkbox" id="schedule" name="schedule">
                     </div>
                 </div>
         
@@ -179,7 +178,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="form-floating mb-3">
-                            <textarea type="text" class="form-control" id="floatingInput" placeholder="Type a description for the uploded file" aria-describedby="floatingInputHelp"></textarea>
+                            <textarea type="text" class="form-control" id="floatingInput" placeholder="Type a description for the uploded file" aria-describedby="floatingInputHelp" name="description"></textarea>
                             <label for="floatingInput">What's New?</label>
                             <div id="floatingInputHelp" class="form-text">We'll never share your details with anyone else.</div>
                         </div>
@@ -210,6 +209,7 @@
                 <div class="d-flex justify-content-between mb-0">
                     <label for="payment-terms" class="mb-0 text-danger">Critical Update</label>
                     <label class="switch switch-primary me-0">
+                        <input class="" type="hidden" id="criticalSwitch" name="priority" value="off">
                         <input type="checkbox" class="switch-input" id="critical-update" name="priority">
                         <span class="switch-toggle-slider">
                             <span class="switch-on">
@@ -259,6 +259,34 @@
         </div>
     </div>
 </form>
+
+@if (\Session::has('success'))
+<div class="modal fade" id="statusModal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel1">Change Status</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col mb-3">
+              <label for="status" class="form-label">Status</label>
+              <select id="status" class="form-select" name="status">
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="update-status">Save</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+@endif
+
 @endsection
 
 @section('vendor-script')
@@ -425,20 +453,17 @@
     $('#pickerUpdateTiming').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
         if(clickedIndex === 0)
         {
-            $('#updateDate').prop("disabled", true);
-            $("#schedule").prop("checked", !$("#schedule").prop("checked"));
+            $('#upgradeDate').prop("disabled", true);
         }
         else if(clickedIndex === 1)
         {
-            $('#updateDate').prop("disabled", false);
-            $("#schedule").prop("checked", !$("#schedule").prop("checked"));
+            $('#upgradeDate').prop("disabled", false);
         }
         else
         {
             // 
         }
     });
-
 
     /*
     * Data table depend on selected options

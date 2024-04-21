@@ -5,7 +5,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="card">
-            <h5 class="card-header">Marriage Archive</h5>
+            <h5 class="card-header"></h5>
             <div class="table-responsive text-nowrap p-3">
               @livewire("models-table", ["theme" => "bootstrap-5"])
             <!-- /.card-body -->

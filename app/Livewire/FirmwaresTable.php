@@ -34,7 +34,7 @@ class FirmwaresTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id')
-            ->setDefaultSort('id', 'asc')
+            ->setDefaultSort('id', 'desc')
             ->setColumnSelectDisabled()
             ->setOfflineIndicatorEnabled()
             ->setFilterPillsStatus(false)
@@ -107,8 +107,6 @@ class FirmwaresTable extends DataTableComponent
                 })
                 ->html()
                 ->unclickable(),
-            // Column::make("Reports")
-            //     ->label(fn($row, Column $column) => '5'),
             Column::make("Broadcast")
                 ->label(function($row, Column $column){
                     return
@@ -134,19 +132,6 @@ class FirmwaresTable extends DataTableComponent
     public function filters(): array
     {
         return [
-            // SelectFilter::make('Active')
-            // ->options([
-            //     '' => 'All',
-            //     '1' => 'Yes',
-            //     '0' => 'No',
-            // ])
-            // ->filter(function(Builder $builder, string $value) {
-            //     if ($value === '1') {
-            //         $builder->where('active', true);
-            //     } elseif ($value === '0') {
-            //         $builder->where('active', false);
-            //     }
-            // }),
         ];
     }
 

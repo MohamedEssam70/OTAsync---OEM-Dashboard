@@ -19,7 +19,7 @@
               <h5 class="card-title text-primary">New Updateds!</h5>
               <p class="mb-4">Assign a new software updates for whole vehicle model or assign to specific vehicle.</p>
   
-              <a href="{{route("firmware.add.view")}}" class="btn btn-sm btn-primary" target="_blank">New Software Update</a>
+              <a href="{{route("firmware.add.view")}}" class="btn btn-sm btn-primary">New Software Update</a>
             </div>
           </div>
           <div class="col-sm-5 text-center text-sm-left">
