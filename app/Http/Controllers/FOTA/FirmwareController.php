@@ -80,7 +80,7 @@ class FirmwareController extends Controller
                 "firmwareFile" => 'required',
                 "schedule" => 'required',
                 "name" => 'required',
-                "version" => 'required',
+                "version" => 'required|unique:firmwares,name',
                 "status" => 'required',
                 "vehicle_model_id" => 'required',
                 "priority" => 'required',
