@@ -46,8 +46,8 @@ Auth::routes(["register"=>false]);
 
 
 // Authintication
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'auth'], function() {
     Route::get('request', [RequestAccountController::class, 'index'])->name('register-show');
@@ -103,7 +103,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     // Team
-    Route::get('/team', [TeamMembersController::class, 'index'])->name('team');
+    Route::get('team', [TeamMembersController::class, 'index'])->name('team');
     Route::get('/join-requests', [JoinRequestController::class, 'index'])->name('requests.list');
 
     // Under Maintenance
