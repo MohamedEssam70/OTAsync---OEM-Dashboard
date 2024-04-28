@@ -49,4 +49,12 @@ class Vehicle extends Model
     {
         return $this->hasMany(Firmware::class);
     }
+
+    /**
+     * @return HasMany
+     **/
+    public function apiKeys()
+    {
+        return $this->hasMany(APIKey::class);
+    }
 }

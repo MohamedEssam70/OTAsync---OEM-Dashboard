@@ -42,10 +42,10 @@
       "menuHeader": "Organization"
     },
     {
-      "url": "/setup/system-customize",
-      "name": "Setup & Configurations",
+      "url": "/setup/security",
+      "name": "Security",
       "icon": "menu-icon tf-icons bx bx-slider",
-      "slug": "/setup/system-customize"
+      "slug": "/setup/security"
     },
     {
       "url": "/team",

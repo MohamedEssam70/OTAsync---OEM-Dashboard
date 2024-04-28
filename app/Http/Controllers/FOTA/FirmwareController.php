@@ -67,10 +67,15 @@ class FirmwareController extends Controller
         return view("content.firmware.add", compact("models", "vehicles"));
     }
 
-    public function model_selector($id)
+    public function model_selector($id = null)
     {
-        $model = VehicleModel::findOrFail($id);
-        return response()->json($model->vehicles->pluck('vin', 'id'));
+        $vehicles = Vehicle::query();
+        if(!empty($id))
+        {
+            $vehicles = $vehicles->where('model', $id);
+        }
+        
+        return response()->json($vehicles->pluck('vin', 'id'));
     }
 
     public function add(Request $request)

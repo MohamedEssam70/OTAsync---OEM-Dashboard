@@ -14,10 +14,7 @@ use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Account\ActivityLogController;
 use App\Http\Controllers\Account\SettingController;
 
-use App\Http\Controllers\Setup\EncriptionConfigController;
-use App\Http\Controllers\Setup\MqttConfigController;
-use App\Http\Controllers\Setup\ServerConnectionController;
-use App\Http\Controllers\Setup\SystemCustomizeController;
+use App\Http\Controllers\Setup\ConfigurationController;
 
 use App\Http\Controllers\Diagnostic\DiagnosticController;
 
@@ -65,15 +62,9 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     // Settup
-    Route::get('/setup/system-customize', [SystemCustomizeController::class, 'index'])->name('system.customize');
-    Route::post('/setup/add-mac', [SystemCustomizeController::class, 'create'])->name('mac.create');
-    Route::post('/setup/insert/{target}', [SystemCustomizeController::class, 'insert'])->name('setup.insert');
-    Route::post('/setup/system/update', [SystemCustomizeController::class, 'update'])->name('system.update');
-    Route::delete('/setup/system/{target}', [SystemCustomizeController::class, 'destroy'])->name('system.destroy');
-
-    Route::get('/setup/encription-config', [EncriptionConfigController::class, 'index'])->name('encription.config');
-    Route::get('/setup/mqtt-config', [MqttConfigController::class, 'index'])->name('mqtt.config');
-    Route::get('/setup/server-connection', [ServerConnectionController::class, 'index'])->name('server.connection');
+    Route::get('/setup/security', [ConfigurationController::class, 'index'])->name('system.security');
+    Route::post('/setup/security/create-key', [ConfigurationController::class, 'createKey'])->name('system.keys.create');
+    Route::get('/setup/encryption', [ConfigurationController::class, 'encryption'])->name('system.encryption');
 
     // Diagnostic
     Route::get('/diagnostic', [DiagnosticController::class, 'index'])->name('diagnostic');
@@ -81,7 +72,7 @@ Route::group(['middleware' => 'auth'], function(){
     // Firmware
     Route::get('firmware', [FirmwareController::class, 'index'])->name('firmwares');
     Route::get('firmware/add', [FirmwareController::class, 'add_view'])->name('firmware.add.view');
-    Route::get('firmware/selectpicker/model/{id}', [FirmwareController::class, 'model_selector'])->name('firmware.model.selector');
+    Route::get('firmware/selectpicker/model/{id?}', [FirmwareController::class, 'model_selector'])->name('firmware.model.selector');
     Route::post('firmware/store', [FirmwareController::class, 'store'])->name('firmware.store');
     Route::post('firmware/submit', [FirmwareController::class, 'add'])->name('firmware.submit');
 
