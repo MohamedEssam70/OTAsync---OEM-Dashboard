@@ -5,6 +5,6 @@
 @section('content')
 @include('content.dashboard.account.tabs', ['activeTab' => 1])
 <div class="row">
-  @include('content/dashboard/sub-under-maintenance')
+  @include('misc.sub-under-maintenance')
 </div>
 @endsection

@@ -16,7 +16,7 @@
 
 @section('content')
 <div class="row">
-  @include("content.dashboard.sub-under-maintenance")
+  @include("misc.sub-under-maintenance")
 </div>
 
 {{-- <div class="row">

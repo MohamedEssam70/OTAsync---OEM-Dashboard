@@ -23,6 +23,6 @@ class UnderMaintenanceController extends Controller
      */
     public function index()
     {
-        return view("content.dashboard.under-maintenance");
+        return view("misc.under-maintenance");
     }
 }
