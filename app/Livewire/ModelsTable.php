@@ -62,7 +62,7 @@ class ModelsTable extends DataTableComponent
                 ];
             })
             ->setConfigurableAreas([
-                'toolbar-right-end' => 'content\vehicles_model\tableComponant',
+                'toolbar-right-end' => 'content.vehicles_model.tableComponant',
             ])
             ->setTableRowUrl(function($row) {
                 return route('vehicles', $row->id);

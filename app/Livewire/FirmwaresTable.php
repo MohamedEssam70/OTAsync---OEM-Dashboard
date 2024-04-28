@@ -62,7 +62,7 @@ class FirmwaresTable extends DataTableComponent
                 ];
             });
             // ->setConfigurableAreas([
-            //     'toolbar-right-end' => 'content\Team\tableComponant',
+            //     'toolbar-right-end' => 'content.Team.tableComponant',
             // ]);
     }
 

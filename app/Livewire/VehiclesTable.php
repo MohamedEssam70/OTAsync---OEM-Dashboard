@@ -47,7 +47,7 @@ class VehiclesTable extends DataTableComponent
                 ];
             })
             ->setConfigurableAreas([
-                'toolbar-right-end' => 'content\vehicles\tableComponant',
+                'toolbar-right-end' => 'content.vehicles.tableComponant',
             ]);
     }
 

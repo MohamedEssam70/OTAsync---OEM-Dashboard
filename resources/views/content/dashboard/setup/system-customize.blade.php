@@ -21,7 +21,7 @@
             <div class="col-sm-6">
               <select id="macid" class="form-select @error('macid') is-invalid @enderror" name="macid">
                 @foreach ($macs as $mac)
-                <option value="{{$mac->id}}" @if($mac->id == \App\Models\Config::first()->macid) selected @endif>{{$mac->name}}</option>
+                <option value="{{$mac->id}}" @if($mac->id == \App\Models\Config::first()?->macid) selected @endif>{{$mac->name}}</option>
                 @endforeach
               </select>
               @error('macid')

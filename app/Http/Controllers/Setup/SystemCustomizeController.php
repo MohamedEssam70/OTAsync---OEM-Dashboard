@@ -30,7 +30,7 @@ class SystemCustomizeController extends Controller
      */
     public function index()
     {
-        $config_mac = Config::first()->macid;
+        $config_mac = Config::first()?->macid;
         // dd($config_mac);
         $macs = MacTypes::all();
         $models = MacModels::where('mac_id', $config_mac)->get();
