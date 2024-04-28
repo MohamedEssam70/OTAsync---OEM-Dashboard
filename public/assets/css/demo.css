@@ -122,3 +122,169 @@
   text-align: center;
   margin-top: 1rem;
 }
+
+
+/* ------------------------------------Nav Custom------------------------------------ */
+.nav.nav-pills.nav.nav-pills.nav-tabs {
+  border: 0 !important;
+}
+.nav.nav-pills.nav.nav-pills.nav-tabs .nav-item{
+  background: none !important;
+}
+.nav.nav-pills.nav.nav-pills.nav-tabs .nav-item button:not(.active){
+  background: none !important;
+  color: var(--bs-nav-link-color) !important;
+}
+.nav.nav-pills.nav.nav-pills.nav-tabs .nav-item button{
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x) !important;
+  font-size: var(--bs-nav-link-font-size) !important;
+  font-weight: var(--bs-nav-link-font-weight) !important;
+  color: white !important;
+  border: 0 !important;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out !important;
+  border-radius: 0.375rem !important;
+  
+}
+
+/* -------------------------- */
+/* .vehicles-progress-labels .vehicles-progress-label::after {
+  background-color: #d9dee3;
+}
+.vehicles-progress-labels .vehicles-progress-label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: inline-block;
+  height: 10px;
+  width: 2px;
+} */
+
+
+.custom-option-icon .custom-option-body {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.custom-option {
+  padding-left: 0;
+  border: 1px solid #d9dee3;
+  border-radius: 0.5rem;
+}
+.custom-option-icon .custom-option-content {
+  text-align: center;
+  padding: 1em;
+}
+.custom-option .custom-option-content {
+  cursor: pointer;
+  width: 100%;
+}
+.custom-option-icon .form-check-input {
+  float: none !important;
+  margin: 0 !important;
+}
+.form-check.custom-option:focus-within{
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  border-color: #696cff !important;
+}
+.custom-option-icon .custom-option-body i {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+.custom-option-icon .custom-option-body .custom-option-title {
+  display: block;
+  font-size: .9375rem;
+  font-weight: 500;
+  color: #566a7f;
+}
+.custom-option-basic .custom-option-content {
+  padding: 1em;
+  padding-left: 2.7em;
+}
+.custom-option .custom-option-content {
+  cursor: pointer;
+  width: 100%;
+}
+
+
+.disable-sec {
+  opacity: 0.3;
+  cursor: default;
+}
+
+
+
+
+
+
+.dropzone:not(.dz-clickable) {
+  opacity: .5 !important;
+  cursor: not-allowed !important;
+}
+.dropzone.dz-drag-hover {
+  border-style: solid !important;
+}
+.dropzone.dz-drag-hover .dz-message {
+  opacity: .5 !important;
+}
+.dz-browser-not-supported.dropzone-box {
+  min-height: auto !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  cursor: default !important;
+  transition: none !important;
+}
+.dz-thumbnail img[src]~.dz-nopreview {
+  display: none !important;
+}
+
+
+.dz-browser-not-supported .dz-message {
+  display: none !important
+}
+
+.dz-started .dz-message {
+  display: none
+}
+
+.dz-complete .progress {
+  display: none;
+}
+.dz-preview .progress {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  top: 50%;
+  margin-top: -0.25rem;
+  z-index: 30;
+}
+.dz-preview .progress, .dz-preview .progess-bar {
+  height: 0.5rem;
+}
+
+.dz-filename:hover {
+  white-space: normal !important;
+  text-overflow: inherit !important;
+}
+
+
+.dz-remove {
+  color: #697a8d !important;
+  border-top: 1px solid #d9dee3 !important;
+  border-bottom-right-radius: calc(0.375rem - 1px) !important;
+  border-bottom-left-radius: calc(0.375rem - 1px) !important;
+  display: block !important;
+  text-align: center !important;
+  padding: 0.375rem 0 !important;
+  font-size: .75rem !important;
+  cursor: pointer !important;
+}
+.dz-remove:hover, .dz-remove:focus {
+  color: #697a8d !important;
+  background: rgba(67,89,113,.1) !important;
+  text-decoration: none !important;
+  border-top-color: rgba(0,0,0,0) !important;
+}

@@ -1,9 +1,11 @@
 @php
 $containerNav = $containerNav ?? 'container-fluid';
 $navbarDetached = ($navbarDetached ?? '');
+$navbarBreadcrumb = ($navbarBreadcrumb ?? false);
+$breadcrumbLink = ($breadcrumbLink ?? '');
+$navbarBreadcrumbHome = ($navbarBreadcrumbHome ?? true);
 $navbarBreadcrumbPrev = ($navbarBreadcrumbPrev ?? '');
 $navbarBreadcrumbActive = ($navbarBreadcrumbActive ?? '');
-
 @endphp
 
 <!-- Navbar -->
@@ -49,9 +51,26 @@ $navbarBreadcrumbActive = ($navbarBreadcrumbActive ?? '');
             <h3 style="margin: 0 !important;">Management Dashboard</h3>
           </div>
         </div> --}}
-        <h4 class="py-0 mb-0" >
-          <span class="text-muted fw-light">{{isset($navbarBreadcrumbPrev) ? $navbarBreadcrumbPrev : ''}}</span> {{isset($navbarBreadcrumbActive) ? $navbarBreadcrumbActive : ''}}
-        </h4>
+        @if($navbarBreadcrumb)
+        <h6 class="align-items-center d-flex mb-0 py-0" >
+          @if($navbarBreadcrumbHome)
+          <a href="{{route("home")}}">
+            <span class="text-muted fw-light">
+              <i class='bx bxs-home'></i>
+              <i class='bx bx-chevron-right'></i>
+            </span>
+          </a>
+          @endif
+          @if($navbarBreadcrumbPrev)
+            <a href="{{$breadcrumbLink}}">
+              <span class="text-muted fw-light">
+                {{$navbarBreadcrumbPrev}} <i class='bx bx-chevron-right'></i> 
+              </span>  
+            </a>
+          @endif
+          {{isset($navbarBreadcrumbActive) ? $navbarBreadcrumbActive : ''}}
+        </h6>
+        @endif
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
 
