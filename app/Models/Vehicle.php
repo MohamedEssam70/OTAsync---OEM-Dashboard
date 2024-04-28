@@ -16,6 +16,13 @@ class Vehicle extends Model
         'pin',
         'vin',
         'available',
+        'model',
+        'firmware'
+    ];
+
+    static $rules = [
+        'pin'=> 'required|unique:vehicles',
+        'vin'=> 'required|unique:vehicles',
     ];
     
     /**
@@ -24,6 +31,14 @@ class Vehicle extends Model
     public function models()
     {
         return $this->belongsTo(VehicleModel::class, 'model');
+    }
+
+    /**
+     * @return BelongsTo
+     **/
+    public function currentFirmware()
+    {
+        return $this->belongsTo(Firmware::class, 'firmware');
     }
 
 

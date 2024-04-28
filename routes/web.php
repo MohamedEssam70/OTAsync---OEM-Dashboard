@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Core\ModelController;
+use App\Http\Controllers\Core\VehicleController;
 use App\Http\Controllers\ModelsController;
 use App\Http\Controllers\UpdateController;
 use Illuminate\Support\Facades\Route;
@@ -74,12 +76,21 @@ Route::group(['middleware' => 'auth'], function(){
     // Diagnostic
     Route::get('/diagnostic', [DiagnosticController::class, 'index'])->name('diagnostic');
 
-    // FOTA
+    // Firmware
     Route::get('firmware', [FirmwareController::class, 'index'])->name('firmwares');
     Route::get('firmware/add', [FirmwareController::class, 'add_view'])->name('firmware.add.view');
     Route::get('firmware/selectpicker/model/{id}', [FirmwareController::class, 'model_selector'])->name('firmware.model.selector');
     Route::post('firmware/store', [FirmwareController::class, 'store'])->name('firmware.store');
     Route::post('firmware/submit', [FirmwareController::class, 'add'])->name('firmware.submit');
+
+    // Vehicles Model
+    Route::get('model', [ModelController::class, 'index'])->name('models');
+    Route::post('model/add', [ModelController::class, 'add'])->name('model.add');
+
+    // Vehicles
+    Route::get('vehicle/{id}', [VehicleController::class, 'index'])->name('vehicles');
+    Route::post('vehicle/{id}/add', [VehicleController::class, 'add'])->name('vehicle.add');
+
 
 
     Route::get('models', [ModelsController::class, 'index'])->name('models.manage');
@@ -101,9 +112,10 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 
-    /******************** MIGRATION ****************/
     Route::group([], function () {
         if (app()->isLocal()) {
+
+            /******************** MIGRATION ****************/
             Route::get("/migrate", function () {
                 Artisan::call("migrate");
                 return Artisan::output();
@@ -123,8 +135,6 @@ Route::group(['middleware' => 'auth'], function(){
                 return Artisan::output();
             });
         }
-    
-    
 
         /******************** CACHE ****************/
         Route::get('/cache/clear', function () {

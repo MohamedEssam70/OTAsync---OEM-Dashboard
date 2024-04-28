@@ -18,6 +18,11 @@ class VehicleModel extends Model
         'image',
     ];
 
+    static $rules = [
+        'name'=> 'required|unique:vehicle_models',
+        'serial'=> 'required|unique:vehicle_models',
+    ];
+
     /**
      * @return HasMany
      **/

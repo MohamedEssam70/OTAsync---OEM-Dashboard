@@ -2,14 +2,19 @@
 
 namespace App\Livewire;
 
+use App\Enums\FirmwareStatus;
 use App\Models\VehicleModel;
-use Livewire\Component;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use App\Models\Registry;
+use App\Models\Firmware;
 use App\Services\Constants;
 use Illuminate\Support\Facades\Auth;
-
+use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
+use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 class ModelsTable extends DataTableComponent
 {
@@ -24,106 +29,121 @@ class ModelsTable extends DataTableComponent
     // The information currently being displayed in the modal
     public $currentModal;
 
-    protected $listeners = ['updateStatus', 'resetModal', 'addAuditor', 'removeAuditor'];
+    protected $listeners = ['updateStatus'];
 
     public function configure(): void
     {
         $this->setPrimaryKey('id')
-            ->setDefaultSort('name', 'asc')
+            ->setDefaultSort('id', 'desc')
             ->setColumnSelectDisabled()
             ->setOfflineIndicatorEnabled()
+            ->setFilterPillsStatus(false)
+            ->setFilterLayout('slide-down')
+            ->setFilterSlideDownDefaultStatusEnabled()
             ->setTableAttributes([
-                'class' => 'table-hover',
+                'class' => '',
+            ])
+            ->setThSortButtonAttributes(function(Column $column)
+            {
+                return [
+                    'class' => 'bg-green-500',
+                ];
+            })
+            ->setThAttributes(function(Column $column)
+            {
+                return [
+                    'class' => 'border-top'
+                ];
+            })
+            ->setTrAttributes(function($row, $index)
+            {
+                return [
+                'class' => 'bg-white',
+                ];
+            })
+            ->setConfigurableAreas([
+                'toolbar-right-end' => 'content\vehicles_model\tableComponant',
             ])
             ->setTableRowUrl(function($row) {
-                return route('models.show', $row->id);
+                return route('vehicles', $row->id);
             });
+    }
+
+    public function setTableRowClass($row): ?string
+    {
+        return 'bg-white';
     }
 
     public function builder(): Builder
     {
         return VehicleModel::query()
-            ->withCount('vehicles');
+            ->withCount('vehicles')
+            ->withCount('firmwares');
     }
 
     public function columns(): array
     {
         return [
-            Column::make("Name", "name")
+            Column::make("Model")
+                ->label(fn($row, Column $column) => $row->name)
                 ->searchable(),
-            Column::make("Vehicles")
-                ->label(
-                    fn($row, Column $column) => $row->vehicles_count
-                )
-                ->sortable(),
-            Column::make("Serial Number", "serial")
-                ->searchable(),
-            Column::make("Current Firmware")
-                ->label(
-                    fn($row, Column $column) => $row->firmwares()->orderByDesc('id')->first()->name
-                ),
-                Column::make("Last Upgrade")
-                    ->label(
-                        fn($row, Column $column) => $row->firmwares()->orderByDesc('id')->first()->updated_at
-                    ),
-            // Column::make("Current Firmware", "firmware")
-            //     ->format(
-            //         fn($value, $row, Column $column) => '<span class="badge '.__("VehicleModel.status.{$row->status->value}").' me-1">'.$row->status->name.'</span>'
-            //     )
-            //     ->html(),
+            Column::make("Serial Number")
+                ->label(fn($row, Column $column) => $row->serial),
+            Column::make("No. of Vehicles")
+                ->label(function($row, Column $column){
+                    return '<div class="w-px-50 d-flex align-items-center"><i class="fa-solid fa-car-rear me-2 text-primary"></i>'.$row->vehicles->count().'</div>';
+                })
+                ->html(),
+            Column::make("Firmware Updates")
+                ->label(function($row, Column $column){
+                    return 
+                    '<div class="row align-items-center">
+                        <div class="col-auto me-1">
+                            <div class="w-px-50 d-flex align-items-center"><i class="fa-solid fa-file-code me-2 text-black"></i>'.$row->firmwares->count().'</div>
+                        </div>
+                        <div class="col me-1">
+                            <span class="text-truncate d-flex lh-1">CUREENT FIRMWARE</span>
+                            <small class="text-muted">'
+                            .(is_null($row->firmwares->last())? '--' : $row->firmwares->last()?->name).'
+                            </small>                            
+                        </div>
+                        <div class="col me-1">
+                            <span class="text-truncate d-flex lh-1">LAST UPDATE</span>
+                            <small class="text-muted">'
+                            .(is_null($row->firmwares->last())? '--' : Carbon::parse($row->firmwares->last()?->created_at)->toFormattedDateString()).'
+                            </small>
+                        </div>
+                    </div>';
+                })
+                ->html(),
+            Column::make("Up to Date Vehicles")
+                ->label(function($row, Column $column){
+                    return
+                    '<div class="d-flex align-items-center gap-3">
+                        <div class="progress w-100" style="height: 8px;">
+                            <div class="progress-bar text-bg-success" style="width:'.$this->statistics($row).'%" aria-valuenow="'.$this->statistics($row).'%" aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                        <small class="text-muted">'.$this->statistics($row).'%</small>
+                    </div>';
+                })
+                ->html(),
         ];
     }
 
-    public function customView(): string
+    public function filters(): array
     {
-        return 'content.modals.VehicleModel-table-modals';
+        return [
+        ];
     }
 
-    public function viewModal($modelId)
+    public function statistics($row)
     {
-        $this->viewingModal = true;
-        $this->currentModal = VehicleModel::findOrFail($modelId);
-        $this->dispatch('openModal', $this->currentModal->status);
-    }
-
-    public function viewConvas($modelId)
-    {
-        $this->viewingModal = true;
-        $this->currentModal = VehicleModel::findOrFail($modelId);
-        $this->currentAuditors = $this->currentModal->users;
-        $this->auditors = User::whereNotIn('id', $this->currentAuditors?->pluck('id'))->role(Constants::REVIEWER_ROLE)->get();
-        $this->dispatch('openConvas', $this->currentModal);
-    }
-
-    public function resetModal()
-    {
-        $this->reset('viewingModal', 'currentModal', 'currentAuditors', 'auditors');
-    }
-
-    public function updateStatus($status)
-    {
-        $this->currentModal->update(['status' => $status]);
-    }
-
-    public function addAuditor($auditor)
-    {
-        if(!empty($auditor))
-        {
-            $this->currentModal->users()->attach($auditor);
-        }
-    }
-
-    public function removeAuditor($auditor)
-    {
-        if(!empty($auditor))
-        {
-            $this->currentModal->users()->detach($auditor);
-        }
-    }
-
-    public function toggleSwitch($rowId)
-    {
-        $VehicleModel = VehicleModel::findOrFail($rowId);
-        $VehicleModel->update(['lock' => !$VehicleModel->lock]);
+        $firmware = $row->firmwares->last()?->id;
+        $target = $row->vehicles->count();
+        $atchived = ($row->firmwares->count())? $row->vehicles->where("firmware", $firmware)->count() : 0;
+        return $target!=0 ? round(($atchived/$target)*100, 1) : 0;
     }
 }
+
+

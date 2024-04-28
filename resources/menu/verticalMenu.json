@@ -8,12 +8,19 @@
       "slug": "home"
     },
     {
+      "url": "model",
+      "name": "Vehicles",
+      "icon": "menu-icon tf-icons fa-solid fa-car-rear",
+      "slug": "models"
+    },
+    {
       "menuHeader": "OTA Updates"
     },
     {
       "url": "firmware/add",
       "name": "Upload Firmware",
       "icon": "menu-icon tf-icons bx bx-cloud-upload",
+      "target": "_blank",
       "slug": "firmware.add.view"
     },
     {
@@ -21,12 +28,6 @@
       "name": "Firmwares Updates",
       "icon": "menu-icon tf-icons fa-regular fa-file-code",
       "slug": "firmwares"
-    },
-    {
-      "url": "models",
-      "name": "Vehicle Models",
-      "icon": "menu-icon tf-icons bx bx-memory-card",
-      "slug": "models.manage"
     },
     {
       "menuHeader": "Diagnostic"
