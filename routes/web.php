@@ -30,6 +30,8 @@ use App\Http\Controllers\Org\JoinRequestController;
 
 
 use App\Http\Controllers\UnderMaintenanceController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
