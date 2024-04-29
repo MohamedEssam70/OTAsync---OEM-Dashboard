@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\UserAPIController;
-use App\Models\Vehicle;
-use App\Models\VehicleModel;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,8 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/auth/login', [UserAPIController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function() {
-
+Route::middleware('api_key')->group(function() {
     Route::get('/download/{filename}', function ($filename) {
         $path = storage_path().'/'.'app/public/storage/uploads/'.$filename;
         return Response::download($path);
