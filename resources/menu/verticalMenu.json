@@ -2,8 +2,8 @@
   "menu": [
     
     {
-      "url": "/",
-      "name": "Dashboards",
+      "url": "home",
+      "name": "Dashboard",
       "icon": "menu-icon tf-icons bx bx-home-circle",
       "slug": "home"
     },
@@ -48,10 +48,10 @@
       "slug": "/setup/security"
     },
     {
-      "url": "/team",
+      "url": "team",
       "name": "Team Members",
       "icon": "menu-icon tf-icons bx bx-group",
-      "slug": "/team"
+      "slug": "team"
     }
   ]
 }
