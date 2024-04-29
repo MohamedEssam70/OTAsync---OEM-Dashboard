@@ -32,8 +32,9 @@ class VehicleController extends Controller
      */
     public function index($id)
     {
+        $model_name= VehicleModel::find($id)->name;
         $model_id= $id;
-        return view("content.vehicles.index", compact('model_id'));
+        return view("content.vehicles.index", compact('model_id', 'model_name'));
     }
 
 

@@ -33,10 +33,10 @@
       "menuHeader": "Diagnostic"
     },
     {
-      "url": "/diagnostic",
-      "name": "Diagnostic",
-      "icon": "menu-icon tf-icons bx bx-wrench",
-      "slug": "diagnostic"
+      "url": "diagnostic/dtc",
+      "name": "DTCs Database",
+      "icon": "menu-icon tf-icons bx bx-data",
+      "slug": "dtc.index"
     },
     {
       "menuHeader": "Organization"

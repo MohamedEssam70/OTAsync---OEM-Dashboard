@@ -16,7 +16,7 @@ use App\Http\Controllers\Account\SettingController;
 
 use App\Http\Controllers\Setup\ConfigurationController;
 
-use App\Http\Controllers\Diagnostic\DiagnosticController;
+use App\Http\Controllers\Core\DiagnosticController;
 
 use App\Http\Controllers\FOTA\FirmwareController;
 use App\Http\Controllers\FOTA\OTAVersionsController;
@@ -67,7 +67,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/setup/encryption', [ConfigurationController::class, 'encryption'])->name('system.encryption');
 
     // Diagnostic
-    Route::get('/diagnostic', [DiagnosticController::class, 'index'])->name('diagnostic');
+    Route::prefix('diagnostic')->group(function() {
+        Route::get('/', [DiagnosticController::class, 'index'])->name('diagnostic');
+        Route::get('/dtc', [DiagnosticController::class, 'dtc_index'])->name('dtc.index');
+        Route::post('/dtc/add', [DiagnosticController::class, 'dtc_add'])->name('dtc.add');
+    });
 
     // Firmware
     Route::get('firmware', [FirmwareController::class, 'index'])->name('firmwares');
