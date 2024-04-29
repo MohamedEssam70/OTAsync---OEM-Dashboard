@@ -5,13 +5,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Firmware;
 use App\Models\Vehicle;
 use App\Models\VehicleModel;
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
-
-
+use Spatie\Crypto\Rsa\PublicKey;
 
 class FirmwareController extends Controller
 {
@@ -43,13 +41,31 @@ class FirmwareController extends Controller
     {
         try {
             $request->validate([
-                "file" => 'required|max:1000000|'
+                "file" => 'required|max:1000000'
             ]);
 
-            $path = $request->file('file')->store('firmwares','public');
+            $file = $request->file('file');
+
+            // Generate a unique file name
+            $fileName = uniqid().'.'.$file->getClientOriginalExtension();
+
+            // Save the uploaded file to a temporary location
+            $tempFilePath = $file->storeAs('temp', $fileName);
+
+            // Path to the public key file
+            $publicKeyPath = base_path('/public_key.ppk');
+
+            // Path where the encrypted file will be stored
+            $encryptedFilePath = storage_path('app/public/firmwares/'.$fileName);
+
+            // Encrypt the uploaded file with the public key
+            $this->encryptFileWithPublicKey(storage_path('app/'.$tempFilePath), $publicKeyPath, $encryptedFilePath);
+
+            // Delete the temporary file
+            Storage::delete($tempFilePath);
 
             return response()->json([
-                'fileName' => pathinfo($path)['basename']
+                'fileName' => $fileName
             ]);
 
         } catch (ValidationException $e) {
@@ -121,4 +137,18 @@ class FirmwareController extends Controller
             return 1;
     }
 
+    // Function to encrypt file with public key
+    private function encryptFileWithPublicKey($filePath, $publicKeyPath, $outputPath)
+    {
+        // Read the file contents
+        $fileContents = file_get_contents($filePath);
+
+        // Get public key contents
+        $publicKey = PublicKey::fromFile($publicKeyPath);
+
+        $encryptedData = $publicKey->encrypt($fileContents); // returns something unreadable
+
+        // Save the encrypted data to a file
+        file_put_contents($outputPath, $encryptedData);
+    }
 }

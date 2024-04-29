@@ -334,13 +334,18 @@
             type: 'get',
             data: {},
             success: function(response){
-                $("#pickerVehicle").empty()
-                $("#pickerVehicle").append('<option value="" defult> All Vehicles </option>');
-                $.each(response, function(key, value){
+                $('#pickerVehicle')
+                    .find('option')
+                    .remove();
+
+                $("#pickerVehicle").selectpicker('destroy');
+
+                $("#pickerVehicle").append('<option value="" selected> All Vehicles </option>');
+                $.each(response, function(key, value) {
                     $("#pickerVehicle").append('<option value="'+key+'">'+value+'</option>');
-                })
-                $("#pickerVehicle").selectpicker('refresh');
-                $("#pickerVehicle").selectpicker('val', '');
+                });
+                
+                $("#pickerVehicle").selectpicker();
             }
         });
 
@@ -375,9 +380,6 @@
             // Last Update
             $("#infoDate").text("dsgf");
         }
-
-        console.log("Model:" + $model);
-        console.log("Vehicle:" + $vehicle);
     });
 
     $('#pickerVehicle').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
@@ -412,9 +414,6 @@
             // Last Update
             $("#infoDate").text("dsgf");
         }
-
-        console.log("Model:" + $model);
-        console.log("Vehicle:" + $vehicle);
     });
 
     /*

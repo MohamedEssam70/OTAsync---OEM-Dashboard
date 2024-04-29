@@ -100,13 +100,6 @@
           <div class="col-md-12">
             @foreach ($apiKeys as $apiKey)
               <div class="bg-lighter rounded p-3 mb-3 position-relative">
-                <div class="dropdown api-key-actions">
-                  <a class="btn dropdown-toggle text-muted hide-arrow p-0" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></a>
-                  <div class="dropdown-menu dropdown-menu-end">
-                    <a href="javascript:;" class="dropdown-item"><i class="bx bx-pencil me-2"></i>Edit</a>
-                    <a href="javascript:;" class="dropdown-item"><i class="bx bx-trash me-2"></i>Delete</a>
-                  </div>
-                </div>
                 <div class="d-flex align-items-center flex-wrap mb-3">
                   <h4 class="mb-0 me-3">{!! $apiKey->name !!}</h4>
                   <span class="badge bg-label-primary">{!! __('all.' . $apiKey->type->value) !!}</span>
