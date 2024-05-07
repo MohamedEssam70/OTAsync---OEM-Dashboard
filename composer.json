@@ -15,6 +15,7 @@
         "livewire/livewire": "^3.4",
         "php-mqtt/client": "^2.0",
         "php-mqtt/laravel-client": "^1.5",
+        "phpseclib/phpseclib": "^3.0",
         "rappasoft/laravel-livewire-tables": "*",
         "rawilk/laravel-settings": "^3.3",
         "spatie/crypto": "^2.0"

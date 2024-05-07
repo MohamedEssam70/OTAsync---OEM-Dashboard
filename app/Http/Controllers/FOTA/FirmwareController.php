@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\FOTA;
 use App\Http\Controllers\Controller;
+use App\Models\AESKey;
 use App\Models\Firmware;
 use App\Models\Vehicle;
 use App\Models\VehicleModel;
@@ -9,7 +10,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
+use phpseclib3\Crypt\AES;
 use Spatie\Crypto\Rsa\PublicKey;
+use phpseclib3\Crypt\RSA;
+use phpseclib3\Math\BigInteger;
+
+
 
 class FirmwareController extends Controller
 {
@@ -32,6 +38,7 @@ class FirmwareController extends Controller
     {
         return view("content.firmware.index");
     }
+    
     public function firmware_upload_index()
     {
         return view("content.firmware.manage");
@@ -47,25 +54,55 @@ class FirmwareController extends Controller
             $file = $request->file('file');
 
             // Generate a unique file name
-            $fileName = uniqid().'.'.$file->getClientOriginalExtension();
+            $fileName = uniqid();
+            $fileExtension = '.'.$file->getClientOriginalExtension();
 
             // Save the uploaded file to a temporary location
-            $tempFilePath = $file->storeAs('temp', $fileName);
+            $tempFilePath = $file->storeAs('temp', $fileName.$fileExtension);
 
             // Path to the public key file
             $publicKeyPath = base_path('/public_key.ppk');
 
+            // Load the public key
+            $publicKey = RSA::loadPublicKey(file_get_contents($publicKeyPath));
+
+            // Generate a random AES key
+            $aesKey = random_bytes(32); // 256-bit key for AES-256
+
+            // IV for AES-CBC, 16 bytes
+            $iv_path = base_path('/IV.pem');
+            $iv = file_get_contents($iv_path); 
+
+
+            // Initialize AES object with CBC mode and IV
+            $aes = new AES('cbc');
+            $aes->setKey($aesKey);
+            $aes->setIV($iv);
+            
+            // Load the firmware file
+            $firmwareData = file_get_contents(storage_path('app/'.$tempFilePath));
+
+            // Encrypt the plaintext with AES
+            $encryptedPlaintext = $aes->encrypt($firmwareData);
+
+            // Encrypt the AES key with RSA
+            $encryptedAesKey = $publicKey->encrypt($aesKey);
+            
             // Path where the encrypted file will be stored
-            $encryptedFilePath = storage_path('app/public/firmwares/'.$fileName);
+            $encryptedFilePath = storage_path('app/public/firmwares/'.$fileName.$fileExtension);
+            $AES_key_path = storage_path('app/private/'.$fileName.'_AES.pem');
+            // $AES_vi_path = storage_path('app/private/'.$fileName.'_VI.pem');
 
-            // Encrypt the uploaded file with the public key
-            $this->encryptFileWithPublicKey(storage_path('app/'.$tempFilePath), $publicKeyPath, $encryptedFilePath);
-
+            // Save the encrypted AES key and encrypted plaintext
+            file_put_contents($encryptedFilePath, $encryptedPlaintext);
+            file_put_contents($AES_key_path, $encryptedAesKey);
+            // file_put_contents($AES_vi_path, $encryptedIv);
+            
             // Delete the temporary file
             Storage::delete($tempFilePath);
 
             return response()->json([
-                'fileName' => $fileName
+                'fileName' => $fileName.$fileExtension
             ]);
 
         } catch (ValidationException $e) {
@@ -117,6 +154,12 @@ class FirmwareController extends Controller
             $input['schedule'] = $this->checkBoolean($input['schedule']);
 
             $firmware = Firmware::create($input);
+            $fileName = explode(".", $firmware->firmwareFile)[0];
+            $AES_key_path = storage_path('app/private/'.$fileName.'_AES.pem');
+            $AES_key = file_get_contents($AES_key_path);
+            $secureKey = AESKey::create(['key'=>$AES_key, 'firmware_id'=>$firmware->id]);
+
+            // Storage::delete($AES_key_path);
 
             return response()->json($firmware->toArray());
         } catch (ValidationException $e) {

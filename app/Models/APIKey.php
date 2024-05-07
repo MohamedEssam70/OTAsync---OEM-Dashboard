@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\KeysTypes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class APIKey extends Model
 {
