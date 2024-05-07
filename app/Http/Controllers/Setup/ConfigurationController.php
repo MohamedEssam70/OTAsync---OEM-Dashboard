@@ -36,14 +36,6 @@ class ConfigurationController extends Controller
     public function index()
     {
         // Test Decription
-        // $encryptedFilePath = storage_path('app/public/firmwares/6639206cd02ad.bin');
-        // $privateKey = PrivateKey::fromFile(base_path('/private_key.ppk'));
-        // $fileContents = file_get_contents($encryptedFilePath);
-        // $decryptedData = $privateKey->decrypt($fileContents); // returns 'my secret data'
-        // // Path where the decrypted file will be stored
-        // $outputPath = storage_path('app/public/output/6639206cd02ad.bin');
-        // // Save the decrypted data to a file
-        // file_put_contents($outputPath, $decryptedData);
 
         // Path to the public key file
         $privateKeyPath = base_path('/private_key.ppk');
