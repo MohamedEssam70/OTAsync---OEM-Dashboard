@@ -8,7 +8,7 @@
 
 @section('content')
 
-@include('content.dashboard.account.tabs', ['activeTab' => 0])
+@include('content.account.tabs', ['activeTab' => 0])
 
 <div class="row">
   <div class="col-md-12">

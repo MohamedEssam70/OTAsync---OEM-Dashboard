@@ -6,7 +6,7 @@ use App\Http\Controllers\ModelsController;
 use App\Http\Controllers\UpdateController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\RequestAccountController;
+use App\Http\Controllers\Auth\RegisterController;
 
 use App\Http\Controllers\HomeController;
 
@@ -49,8 +49,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'auth'], function() {
-    Route::get('request', [RequestAccountController::class, 'index'])->name('register-show');
-    Route::post('request/store', [RequestAccountController::class, 'store'])->name('request-acc');
+    Route::get('request', [RegisterController::class, 'index'])->name('register-show');
+    Route::post('request/store', [RegisterController::class, 'store'])->name('request-acc');
 });
 
 Route::group(['middleware' => 'auth'], function(){
@@ -87,16 +87,6 @@ Route::group(['middleware' => 'auth'], function(){
     // Vehicles
     Route::get('vehicle/{id}', [VehicleController::class, 'index'])->name('vehicles');
     Route::post('vehicle/{id}/add', [VehicleController::class, 'add'])->name('vehicle.add');
-
-
-
-    Route::get('models', [ModelsController::class, 'index'])->name('models.manage');
-    Route::get('models/show/{id}', [ModelsController::class, 'show'])->name('models.show');
-    Route::get('firmware/update', [UpdateController::class, 'update'])->name('firmware.update');
-    // Route::get('/download/{filename}', function ($filename) {
-    //     $path = storage_path().'\\'.'app\\public\\storage\\uploads\\'.$filename;
-    //     return Response::download($path);
-    // });
 
 
     // Team

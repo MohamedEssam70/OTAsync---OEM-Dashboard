@@ -17,13 +17,13 @@ class SettingController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * 
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        return view("content.dashboard.account.setting");
+        return view("content.account.setting");
     }
 
 }

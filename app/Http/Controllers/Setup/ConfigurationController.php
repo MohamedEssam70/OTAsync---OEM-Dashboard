@@ -69,7 +69,7 @@ class ConfigurationController extends Controller
 
         $apiKeys = APIKey::get();
         $vehicles = Vehicle::pluck('pin', 'id');
-        return view("content.dashboard.setup.security", compact('apiKeys', 'vehicles'));
+        return view("content.setup.security", compact('apiKeys', 'vehicles'));
     }
 
     public function createKey(Request $request) {

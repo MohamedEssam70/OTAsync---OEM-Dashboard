@@ -3,7 +3,7 @@
 @section('title', 'Settings')
 
 @section('content')
-@include('content.dashboard.account.tabs', ['activeTab' => 1])
+@include('content.account.tabs', ['activeTab' => 1])
 <div class="row">
   @include('misc.sub-under-maintenance')
 </div>

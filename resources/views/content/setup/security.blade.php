@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-@include('content.dashboard.setup.tabs', ['activeTab' => 0])
+@include('content.setup.tabs', ['activeTab' => 0])
 <div class="row">
   <div class="col-md-12">
     <div class="card mb-4">

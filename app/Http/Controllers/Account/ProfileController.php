@@ -32,7 +32,7 @@ class ProfileController extends Controller
 
         $user = Auth::user();
         $countries = Country::all();
-        return view('content.dashboard.account.user', compact('user', 'countries'));
+        return view('content.account.user', compact('user', 'countries'));
     }
 
     public function update(Request $request)
