@@ -21,7 +21,7 @@ class APIKeyMiddleware
         $vehicle_vin = $request->header('x-vehicle-vin');
         if(!empty($vehicle_vin))
         {
-            $apiKey = Vehicle::where('vin', $vehicle_vin)->first()?->apiKeys()?->pluck('key');
+            $apiKey = Vehicle::where('vin', $vehicle_vin)->first()?->apiKeys()?->pluck('key')?->toArray() ?? [];
 
             $apiKeyIsValid = (
                 ! empty($apiKey)

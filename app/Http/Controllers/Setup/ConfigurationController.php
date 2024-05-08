@@ -63,6 +63,9 @@ class ConfigurationController extends Controller
         $outputPath = storage_path('app/public/output/AEStest.bin');
         file_put_contents($outputPath, $plaintext);
 
+        // Save decrypted AES
+        $aesPath = base_path('/aes_en.pem');
+        file_put_contents($aesPath, $aesKey);
 
         $apiKeys = APIKey::get();
         $vehicles = Vehicle::pluck('pin', 'id');

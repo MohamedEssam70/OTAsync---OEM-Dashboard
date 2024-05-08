@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\UserAPIController;
+use App\Models\AESKey;
+use App\Models\Firmware;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +20,42 @@ use Illuminate\Support\Facades\Route;
 Route::post('/auth/login', [UserAPIController::class, 'login']);
 
 Route::middleware('api_key')->group(function() {
+    // Download File (OLD)
     Route::get('/download/{filename}', function ($filename) {
         $path = storage_path().'/'.'app/public/storage/uploads/'.$filename;
         return Response::download($path);
+    });
+
+    // Request download software file
+    Route::get('/get/firmware/{id}', function ($id) {
+        // Get Firmware object
+        $firmware = Firmware::findOrFail($id);
+
+        // Generate file path
+        $firmwarePath = $firmware->get_firmware_path();
+
+        // Return the file as a response with headers
+        return response()->download($firmwarePath, basename($firmwarePath), [
+            'Content-type: application/octet-stream',
+        ]);
+    });
+
+    // Request download software file
+    Route::get('/retrieve/key/{id}', function ($id) {
+        // Get Firmware object
+        $firmware = Firmware::findOrFail($id);
+
+        // Get AES secure key
+        $AESKey = $firmware->AESKeys()->orderByDesc('id')->first();
+
+        // base64 decode the key
+        $secureKey = $AESKey->key;
+        
+        // Return the file as a response with headers
+        return response()->make($secureKey, 200, [
+            'Content-type: application/octet-stream',
+            'Content-Disposition: attachment; filename=file.bin'
+        ]);
     });
     
 });
