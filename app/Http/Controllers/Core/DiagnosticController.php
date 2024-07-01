@@ -41,4 +41,9 @@ class DiagnosticController extends Controller
         DTCs::create($request->validate($rules));
         return redirect()->back();
     }
+
+    public function session_show()
+    {
+        return view("content.diagnostic.sessions.index");
+    }
 }

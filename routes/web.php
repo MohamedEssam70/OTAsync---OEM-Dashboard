@@ -71,6 +71,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/', [DiagnosticController::class, 'index'])->name('diagnostic');
         Route::get('/dtc', [DiagnosticController::class, 'dtc_index'])->name('dtc.index');
         Route::post('/dtc/add', [DiagnosticController::class, 'dtc_add'])->name('dtc.add');
+        Route::get('/sessions', [DiagnosticController::class, 'session_show'])->name('diag.session');
     });
 
     // Firmware
