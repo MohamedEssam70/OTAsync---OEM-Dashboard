@@ -76,8 +76,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/dtc/add', [DiagnosticController::class, 'dtc_add'])->name('dtc.add');
         Route::get('/session/{id}', [DiagnosticController::class, 'session_view'])->name('session.view');
         Route::get('/session/{id}/data-live', [LiveDataController::class, 'index'])->name('data.live');
-        // Route::get('/session/{id}/get-latest-frames', [LiveDataController::class, 'getLatestFrames'])->name('get.latest.frames');
-        // Route::get('/session/{id}/get-sensors-data', [LiveDataController::class, 'getSensorData'])->name('get.sensors.data');
     });
 
     // Firmware

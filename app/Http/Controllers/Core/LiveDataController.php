@@ -1,21 +1,32 @@
 <?php
 
 namespace App\Http\Controllers\Core;
+use App\Enums\SessionStatus;
 use App\Enums\TroubleTypes;
 use App\Http\Controllers\Controller;
 use App\Models\FreezeFrame;
 use App\Models\Monitor;
 use App\Models\Session;
+use App\Models\Trouble;
 use Yajra\DataTables\Facades\DataTables;
 
 class LiveDataController extends Controller
 {
     public function index($id){
         return[
+            "isActive" => $this->isActive($id),
             "frames" => $this->getLatestFrames($id),
             "sensors" => $this->getSensorData($id),
             "confirmed_count" => $this->countConfirmedDTC($id),
+            "confirmed" => $this->confirmedQuery($id),
+            "pending" => $this->pendingQuery($id),
+            "logs" => $this->logsQuery($id),
         ];
+    }
+
+    public function isActive($id)
+    {
+        return Session::find($id)->status == SessionStatus::Active;
     }
 
     public function getLatestFrames($id)
@@ -31,6 +42,33 @@ class LiveDataController extends Controller
     {
         return Session::find($id)->troubles->where('cleard', false)->where('type', TroubleTypes::Confirmed)->count();
     }
+
+    public function confirmedQuery($id)
+    {
+        return Trouble::where('session_id', $id)
+                ->where('cleard', false)
+                ->where('type', TroubleTypes::Confirmed)
+                ->with('dtcs')
+                ->get();
+    }
+
+    public function pendingQuery($id)
+    {
+        return Trouble::where('session_id', $id)
+                ->where('cleard', false)
+                ->where('type', TroubleTypes::Pending)
+                ->with('dtcs')
+                ->get();
+    }
+
+    public function logsQuery($id)
+    {
+        return Trouble::where('session_id', $id)
+                ->with('session')
+                ->with('dtcs')
+                ->get();
+    }
+    
     public function getSensorData($id)
     {
         $monitor = Session::find($id)->last_monitor()?->data;
