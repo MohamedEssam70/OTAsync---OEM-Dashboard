@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Core;
 use App\Http\Controllers\Controller;
 use App\Models\DTCs;
+use App\Models\Session;
 use Illuminate\Http\Request;
 
 
@@ -25,7 +26,7 @@ class DiagnosticController extends Controller
      */
     public function index()
     {
-        return view("content.diagnostic.diagnostic");
+        return view("content.diagnostic.sessions.index");
     }
 
     public function dtc_index()
@@ -42,8 +43,9 @@ class DiagnosticController extends Controller
         return redirect()->back();
     }
 
-    public function session_show()
+    public function session_view($id)
     {
-        return view("content.diagnostic.sessions.index");
+        $session = Session::find($id);
+        return view("content.diagnostic.sessions.view", compact('session'));
     }
 }

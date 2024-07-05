@@ -11,13 +11,15 @@ class Monitor extends Model
     protected $table = "monitors";
 
     protected $fillable = [
-        'pid',
-        'description',
-        'value',
-        'unit',
-        'min',
-        'max',
-        'samples'
+        'data'
+        // 'pid',
+        // 'description',
+        // 'value',
+        // 'unit',
+        // 'avg',
+        // 'min',
+        // 'max',
+        // 'samples'
     ];
 
     static $rules = [
@@ -28,6 +30,6 @@ class Monitor extends Model
      **/
     public function session()
     {
-        return $this->belongsTo(Session::class, 'session');
+        return $this->belongsTo(Session::class);
     }
 }

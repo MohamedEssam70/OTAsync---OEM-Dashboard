@@ -18,7 +18,8 @@
         "phpseclib/phpseclib": "^3.0",
         "rappasoft/laravel-livewire-tables": "*",
         "rawilk/laravel-settings": "^3.3",
-        "spatie/crypto": "^2.0"
+        "spatie/crypto": "^2.0",
+        "yajra/laravel-datatables-oracle": "^10.11"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

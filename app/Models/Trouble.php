@@ -3,8 +3,10 @@
 namespace App\Models;
 
 
+use App\Enums\TroubleTypes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Trouble extends Model
 {
@@ -12,10 +14,15 @@ class Trouble extends Model
 
     protected $fillable = [
         'dtc',
-        'type'
+        'type',
+        'cleard'
     ];
 
     static $rules = [
+    ];
+
+    protected $casts = [
+        'type' => TroubleTypes::class,
     ];
     
     /**
@@ -23,6 +30,14 @@ class Trouble extends Model
      **/
     public function session()
     {
-        return $this->belongsTo(Session::class, 'session');
+        return $this->belongsTo(Session::class);
+    }
+
+    /**
+     * @return BelongsTo
+     **/
+    public function dtcs()
+    {
+        return $this->belongsTo(DTCs::class, 'dtc');
     }
 }

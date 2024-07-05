@@ -1,0 +1,469 @@
+@php
+  
+@endphp
+
+@extends('layouts/contentNavbarLayout',['navbarBreadcrumb' => true, 'navbarBreadcrumbPrev' => 'Diagnostic Sessions', 'navbarBreadcrumbActive' => 'Session: #'.$session->id, 'breadcrumbLink'=> route("sessions")])
+@section('title', 'Diagnositic')
+
+@section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
+@endsection
+
+@section('page-style')
+@endsection
+
+@section('content')
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
+    <div class="d-flex flex-column justify-content-center">
+        <h5 class="mb-1 mt-3">
+            Session #{{$session->id}} 
+        </h5>
+        <p class="text-body text-uppercase">{{\Carbon\Carbon::parse($session->created_at)->toFormattedDateString()}}, {{\Carbon\Carbon::parse($session->created_at)->toTimeString()}} (GMT+2)</p>
+    </div>
+    <div class="d-flex align-content-center flex-wrap gap-2">
+        <button class="btn btn-label-danger delete-order"><i class='bx bx-no-signal'></i>&nbsp;Disconnect</button>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-12 col-lg-4">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h6 class="card-title m-0">Vehicle details</h6>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-start align-items-center mb-4">
+            <div class="avatar me-2">
+              <img src={{asset("assets/img/elements/awdi2.png")}} alt="Avatar" class="rounded-circle">
+            </div>
+            <div class="d-flex flex-column">
+              <span class="d-flex justify-content-between">
+                <h6 class="mb-0 me-2">4S3BMHB68B3286078</h6>
+                <small>(PIN: 2001)</small>
+              </span>
+              <small class="text-muted">MODEL: EVT77G-01</small></div>
+          </div>
+          @if($session->status  == \App\Enums\SessionStatus::Active)
+            <h6 class="mb-2">CONNECTION: <span class="ms-2 text-primary">STABLE</span></h6>
+            <h6 class="mb-2">INTERFACE: <span class="ms-2">Ethernet</span></h6>
+            <h6 class="mb-3">PROTOCOL: <span class="ms-2">DoIP</span></h6>
+          @elseif ($session->status  == \App\Enums\SessionStatus::Closed)
+            <h6 class="mb-2">CONNECTION: <span class="ms-2 text-muted">OFFLINE</span></h6></h6>
+            <h6 class="mb-2">INTERFACE: <span class="ms-2 text-danger">NA</span></h6>
+            <h6 class="mb-3">PROTOCOL: <span class="ms-2 text-danger">NA</span></h6>
+          @else
+          <h6 class="mb-2">CONNECTION: <span class="ms-2 text-danger">NA</span></h6></h6>
+          <h6 class="mb-2">INTERFACE: <span class="ms-2 text-danger">NA</span></h6>
+          <h6 class="mb-3">PROTOCOL: <span class="ms-2 text-danger">NA</span></h6>
+          @endif
+          
+          <h6 class="mb-2">Last Session: 
+              @if ($priorSession = $session->vehicle->priorSession($session->id))
+                  {{ \Carbon\Carbon::parse($priorSession)->toFormattedDateString() }}
+              @else
+                  No prior sessions
+              @endif
+          </h6>
+          <h6 class="mb-3">No. of Diagnostic Sessions: {{$session->vehicle->sessions->count()}}</h6>
+          <h6 class="mb-3">Firmware: AC7k-88071-AT</h6>
+          <hr class="mb-1">
+          <div class="row">
+            <div class="col">
+              <p class=" mb-0">Engine Codes:</p>
+            </div>
+            <div class="col-6">
+              <span class="text-muted">{{$session->troubles->count()}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="mb-0">Readiness Monitors:</p>
+            </div>
+            <div class="col-6">
+              <span class="text-muted"></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="mb-0">Freeze Frame:</p>
+            </div>
+            <div class="col-6">
+              <span class="text-muted">{{ $session->last_frame()?->count_frames() ?? '0' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="card mb-0">
+        <div class="card-header d-flex justify-content-between">
+          <h6 class="card-title m-0">Supportd sensors</h6>
+        </div>
+        <div class="card-body">
+          <p class="mb-0">Monitor status since DTCs cleared</p>
+          <p class="mb-0">Freeze frame trouble code</p>
+          <p class="mb-0">Engine coolant temperature</p>
+          <p class="mb-0">Vehicle collision avoidance sensor</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-8">
+      <div class="card mb-4 h-100">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h4 class="card-title m-0">Trouble Codes</h4>
+          <div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-label-primary p-2 py-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <span>
+                  <i class='bx bx-export small' ></i>
+                  <span class="small">Export</span>
+              </span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="javascript:void(0);"><i class='bx bxs-printer'></i>&nbsp;Print</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><i class="fa-solid fa-file-csv"></i>&nbsp;CSV</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><i class='bx bxs-file-pdf' ></i>&nbsp;PDF</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);"><i class='bx bx-copy' ></i>&nbsp;Copy</a></li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-dribbble btn-sm ms-2">
+              <span>
+                  <i class="bx bx-refresh me-0 me-sm-1"></i>
+                  <span class="">Refresh</span>
+              </span>
+            </button>
+            <button type="button" class="btn btn-success btn-sm ms-2">
+              <span>
+                <i class="fa-solid fa-check-double me-0 me-sm-1"></i>
+                <span class="">Clear All</span>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div class="card-body px-0">
+          <div class="nav-align-top h-100">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button type="button" class="nav-link shadow-none active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-confirmed" aria-controls="navs-top-confirmed" aria-selected="false" tabindex="-1" style="border-top-left-radius: 0;">Confirmed DTCs <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger ms-2" id="confirmed_counter"></span></button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-pending" aria-controls="navs-top-pending" aria-selected="false" tabindex="-1">Pending DTCs</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-logs" aria-controls="navs-top-logs" aria-selected="true">DTCs Logs</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-frame" aria-controls="navs-top-frame" aria-selected="true">Freeze Frame</button>
+              </li>
+            </ul>
+            <div class="tab-content px-0 pb-0 shadow-none h-100">
+              <div class="tab-pane fade active show" id="navs-top-confirmed" role="tabpanel">
+                <div class="">
+                  @livewire("confirmed-table", ["theme" => "bootstrap-5", "id" => $session->id])
+                </div>
+              </div>
+              <div class="tab-pane fade" id="navs-top-pending" role="tabpanel">
+                <div class="">
+                  @livewire("pending-table", ["theme" => "bootstrap-5", "id" => $session->id])
+                </div>
+              </div>
+              <div class="tab-pane fade" id="navs-top-logs" role="tabpanel">
+                <div class="">
+                  @livewire("logs-table", ["theme" => "bootstrap-5", "id" => $session->id])
+                </div>
+              </div>
+              <div class="tab-pane fade" id="navs-top-frame" role="tabpanel">
+                @include('content.diagnostic.sessions.frames_collapse')
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-lg-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="card-title m-0">Monitoring</h4>
+        <button type="button" class="btn btn-dribbble btn-sm ms-2">
+          <span>
+              <i class="bx bx-refresh me-0 me-sm-1"></i>
+              <span class="">Refresh</span>
+          </span>
+        </button>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive text-nowrap">
+          <table class="table table-hover px-5">
+            <thead>
+              <tr>
+                <th>Sensor</th>
+                <th>Value</th>
+                <th>Min</th>
+                <th>Avg</th>
+                <th>Max</th>
+              </tr>
+            </thead>
+            <tbody class="table-border-bottom-0" id="sensor_data_table">
+            </tbody>
+          </table>
+        </div>
+        <div class="p-5">
+          <canvas id="sensorChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+@endsection
+
+
+
+
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/chartjs/chart.js')}}"></script>
+@endsection
+
+@section('page-script')
+<script>
+  $(function () {
+      let frame_tabs = $('#frames_nav');
+      let frame_content = $('#frames_content');
+
+      let sensors_table = $('#sensor_data_table');
+
+      let confirmed_counter = $('#confirmed_counter');
+
+      let sensorChart;
+      let hiddenDatasets = new Set();
+  
+      function updateData_frames(frames)
+      {
+        // Store the currently active tab
+        let activeTabId = frame_tabs.find('.frames-nav.nav-link.active').attr('data-bs-target');
+
+        frame_tabs.empty();
+        frame_content.empty();
+
+        frames.forEach((frame, index) => {
+            let tabId = `#navs-pills-${index}`;
+            let isActive = (tabId === activeTabId) || (!activeTabId && index === 0);
+
+            frame_tabs.append(`<li class="nav-item" role="presentation">
+                <button type="button" class="frames-nav nav-link justify-content-center ${isActive ? 'active' : ''}" 
+                role="tab" data-bs-toggle="tab" data-bs-target="${tabId}" 
+                aria-controls="navs-pills-${index}" aria-selected="${isActive}">${frame.dtc}</button>
+                </li>`);
+            
+            let sensorContent = '';
+            frame.data.forEach(sensor => {
+                sensorContent += `
+                  <div class="row">
+                      <span class="">${(sensor.name)}</span>
+                      <div>
+                          <span class="text-warning w-auto">${(sensor.value)}</span>
+                      </div>
+                  </div>
+                  <hr class="mt-1">
+                `;
+            });
+
+            frame_content.append(`<div class="tab-pane fade ${isActive ? 'show active' : ''}" 
+            id="navs-pills-${index}" role="tabpanel">
+                <h5>Freeze Frame Sensor Snapshot</h5>
+                ${sensorContent}
+                </div>`);
+        });
+
+        if (!frame_tabs.find('.nav-link.active').length) {
+            frame_tabs.find('button:first').addClass('active');
+            frame_content.find('.tab-pane:first').addClass('show active');
+        }
+      }
+
+      function updateData_sensors(data)
+      {
+        let table_data = data.table
+        let graph_data = data.graph
+
+        // Table Data Handeler
+        sensors_table.empty();
+        let sensorRows = '';
+
+        table_data.forEach((sensor, index) => {
+          sensorRows +=
+          `
+            <tr>
+              <td>
+                <span class="me-1 text-primary">${sensor.pid}</span> ${sensor.description}
+              </td>
+              <td>
+                <span>${sensor.val}</span> ${sensor.unit}
+              </td>
+              <td>
+                <span>${sensor.min}</span> ${sensor.unit}
+              </td>
+              <td>
+                <span>${sensor.avg}</span> ${sensor.unit}
+              </td>
+              <td>
+                <span>${sensor.max}</span> ${sensor.unit}
+              </td>
+            </tr>
+          `
+        });
+        sensors_table.append(sensorRows);
+
+        // Graph Drawing Handler
+        const ctx = document.getElementById('sensorChart');
+        if (!ctx) {
+            console.error('Cannot find canvas element with id "sensorChart"');
+            return;
+        }
+
+        // Prepare datasets
+        const datasets = graph_data.map((sensor, index) => ({
+            label: sensor.name,
+            data: sensor.values,
+            borderColor: getColor(index),
+            backgroundColor: getColor(index, 0.2),
+            yAxisID: `y-axis-${index}`,
+            fill: false,
+            tension: 0.4,
+            hidden: hiddenDatasets.has(sensor.name)
+        }));
+
+        // Prepare scales
+        const scales = {};
+        graph_data.forEach((sensor, index) => {
+            scales[`y-axis-${index}`] = {
+                type: 'linear',
+                display: true,
+                position: index % 2 === 0 ? 'left' : 'right',
+                grid: {
+                    drawOnChartArea: false,
+                },
+                title: {
+                    display: true,
+                    text: sensor.name
+                }
+            };
+        });
+
+        const chartConfig = {
+            type: 'line',
+            data: {
+                labels: Array.from({length: graph_data[0].values.length}, (_, i) => i + 1),
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                stacked: false,
+                scales: scales,
+                animation: {
+                    duration: 0 // general animation time
+                },
+                hover: {
+                    animationDuration: 0 // duration of animations when hovering an item
+                },
+                responsiveAnimationDuration: 0 // animation duration after a resize
+            }
+        };
+
+        if (!sensorChart || typeof sensorChart.update !== 'function') {
+            if (sensorChart) {
+                sensorChart.destroy();
+            }
+            sensorChart = new Chart(ctx, chartConfig);
+
+            // Add event listener for legend item click
+            sensorChart.options.plugins.legend.onClick = (e, legendItem, legend) => {
+                const index = legendItem.datasetIndex;
+                const ci = legend.chart;
+                const meta = ci.getDatasetMeta(index);
+
+                meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
+
+                // Update hiddenDatasets Set
+                if (meta.hidden) {
+                    hiddenDatasets.add(ci.data.datasets[index].label);
+                } else {
+                    hiddenDatasets.delete(ci.data.datasets[index].label);
+                }
+
+                ci.update();
+            };
+
+        } else {
+            // Update existing chart
+            sensorChart.data.labels = chartConfig.data.labels;
+            sensorChart.options.scales = chartConfig.options.scales;
+
+            // Update datasets while preserving hidden state
+            sensorChart.data.datasets.forEach((dataset, i) => {
+                Object.assign(dataset, chartConfig.data.datasets[i]);
+                dataset.hidden = hiddenDatasets.has(dataset.label);
+            });
+
+            sensorChart.update();
+        }
+        
+      }
+
+      function updateData_DTCcount(data)
+      {
+        confirmed_counter.html(data)
+      }
+
+      function updateData(frames, sensors, confirmed_count)
+      {
+        updateData_frames(frames),
+        updateData_sensors(sensors),
+        updateData_DTCcount(confirmed_count)
+      }
+  
+      function keepAlive()
+      {  
+          $.ajax({
+            url: "{{ route('data.live', $session->id) }}",
+            method: 'GET',
+            success: function(data) {
+              updateData(data.frames, data.sensors, data.confirmed_count)
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching updates:", error);
+            }
+        });
+      }
+
+      // Initial update
+      keepAlive();
+      
+      // Update every 5 seconds
+      setInterval(keepAlive, 5000);
+  });
+
+  // Helper function to generate colors
+  function getColor(index, alpha = 1) {
+    const colors = [
+        `rgba(255, 99, 132, ${alpha})`,
+        `rgba(54, 162, 235, ${alpha})`,
+        `rgba(255, 206, 86, ${alpha})`,
+        `rgba(75, 192, 192, ${alpha})`,
+        `rgba(153, 102, 255, ${alpha})`,
+        `rgba(255, 159, 64, ${alpha})`
+    ];
+    return colors[index % colors.length];
+  }
+</script>
+
+@endsection

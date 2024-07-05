@@ -39,10 +39,10 @@
       "slug": "dtc.index"
     },
     {
-      "url": "diagnostic/sessions",
-      "name": "Session",
+      "url": "diagnostic",
+      "name": "Sessions",
       "icon": "menu-icon tf-icons bx bx-data",
-      "slug": "diag.session"
+      "slug": "sessions"
     },
     {
       "menuHeader": "Organization"

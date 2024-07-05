@@ -7,6 +7,7 @@ use App\Enums\DTCsTypes;
 use App\Enums\Manufactors;
 use App\Enums\SystemsTypes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DTCs extends Model
 {
@@ -34,4 +35,11 @@ class DTCs extends Model
         'description'=> 'nullable|string',
     ];
 
+    /**
+     * @return HasMany
+     **/
+    public function troubles()
+    {
+        return $this->hasMany(Trouble::class);
+    }
 }

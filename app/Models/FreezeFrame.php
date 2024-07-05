@@ -12,10 +12,8 @@ class FreezeFrame extends Model
     protected $table = "freeze_frames";
 
     protected $fillable = [
-        'pid',
-        'description',
-        'value',
-        'unit'
+        'session_id',
+        'data'
     ];
 
     static $rules = [
@@ -26,6 +24,11 @@ class FreezeFrame extends Model
      **/
     public function session()
     {
-        return $this->belongsTo(Session::class, 'session');
+        return $this->belongsTo(Session::class);
+    }
+
+    public function count_frames()
+    {
+        return count(json_decode($this->data));
     }
 }

@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Core\LiveDataController;
 use App\Http\Controllers\Core\ModelController;
+use App\Http\Controllers\Core\SensorController;
 use App\Http\Controllers\Core\VehicleController;
 use App\Http\Controllers\ModelsController;
+use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\UpdateController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,10 +71,13 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Diagnostic
     Route::prefix('diagnostic')->group(function() {
-        Route::get('/', [DiagnosticController::class, 'index'])->name('diagnostic');
+        Route::get('/', [DiagnosticController::class, 'index'])->name('sessions');
         Route::get('/dtc', [DiagnosticController::class, 'dtc_index'])->name('dtc.index');
         Route::post('/dtc/add', [DiagnosticController::class, 'dtc_add'])->name('dtc.add');
-        Route::get('/sessions', [DiagnosticController::class, 'session_show'])->name('diag.session');
+        Route::get('/session/{id}', [DiagnosticController::class, 'session_view'])->name('session.view');
+        Route::get('/session/{id}/data-live', [LiveDataController::class, 'index'])->name('data.live');
+        // Route::get('/session/{id}/get-latest-frames', [LiveDataController::class, 'getLatestFrames'])->name('get.latest.frames');
+        // Route::get('/session/{id}/get-sensors-data', [LiveDataController::class, 'getSensorData'])->name('get.sensors.data');
     });
 
     // Firmware

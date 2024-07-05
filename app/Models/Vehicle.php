@@ -57,4 +57,19 @@ class Vehicle extends Model
     {
         return $this->hasMany(APIKey::class);
     }
+
+    /**
+     * @return HasMany
+     **/
+    public function sessions()
+    {
+        return $this->hasMany(Session::class);
+    }
+
+    public function priorSession($session_id)
+    {
+        return $this->sessions()->where('id', '<', $session_id)->orderBy('id', 'desc')->first()?->created_at;
+        
+    }
+
 }

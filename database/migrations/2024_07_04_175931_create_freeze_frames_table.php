@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\Units;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('freeze_frames', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('trouble_id')->nullable();
-            $table->foreign('trouble_id')->references('id')->on('troubles')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('pid', 3)->unique();
-            $table->string('description', 64)->default('No available in trial');
-            $table->float('value');
-            $table->enum('unit', array_keys(Units::toArray()))->default(Units::Undefined);
+            $table->unsignedBigInteger('session_id')->nullable();
+            $table->foreign('session_id')->references('id')->on('sessions')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->json('data');
             $table->timestamps();
         });
     }
