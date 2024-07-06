@@ -32,4 +32,9 @@ class Monitor extends Model
     {
         return $this->belongsTo(Session::class);
     }
+
+    public function count_sensors()
+    {
+        return count(json_decode($this->data));
+    }
 }

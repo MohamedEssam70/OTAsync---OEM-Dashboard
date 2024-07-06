@@ -15,9 +15,9 @@ class LiveDataController extends Controller
     public function index($id){
         return[
             "isActive" => $this->isActive($id),
+            "counter" => $this->counter($id),
             "frames" => $this->getLatestFrames($id),
             "sensors" => $this->getSensorData($id),
-            "confirmed_count" => $this->countConfirmedDTC($id),
             "confirmed" => $this->confirmedQuery($id),
             "pending" => $this->pendingQuery($id),
             "logs" => $this->logsQuery($id),
@@ -27,6 +27,21 @@ class LiveDataController extends Controller
     public function isActive($id)
     {
         return Session::find($id)->status == SessionStatus::Active;
+    }
+
+    public function counter($id)
+    {
+        $session = Session::find($id);
+        $confirmed = $session->troubles->where('cleard', false)->where('type', TroubleTypes::Confirmed)->count();
+        $dtcs = $session->troubles->count();
+        $monitors = $session->last_monitor()?->count_sensors();
+        $frames = $session->last_frame()?->count_frames();
+        return[
+            'confirmed' => $confirmed,
+            'dtcs' => $dtcs,
+            'monitors' => $monitors,
+            'frames' => $frames,
+        ];
     }
 
     public function getLatestFrames($id)

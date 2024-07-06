@@ -58,7 +58,7 @@
                   <p class=" mb-0">Engine Codes:</p>
                 </div>
                 <div class="col-6">
-                  <span class="text-muted">{{$session->troubles->count()}}</span>
+                  <span class="text-muted" id="dtc_counter"></span>
                 </div>
               </div>
               <div class="row">
@@ -66,7 +66,7 @@
                   <p class="mb-0">Readiness Monitors:</p>
                 </div>
                 <div class="col-6">
-                  <span class="text-muted"></span>
+                  <span class="text-muted" id="monitors_counter"></span>
                 </div>
               </div>
               <div class="row">
@@ -74,7 +74,7 @@
                   <p class="mb-0">Freeze Frame:</p>
                 </div>
                 <div class="col-6">
-                  <span class="text-muted">{{ $session->last_frame()?->count_frames() ?? '0' }}</span>
+                  <span class="text-muted" id="frames_counter"></span>
                 </div>
               </div>
             </div>
