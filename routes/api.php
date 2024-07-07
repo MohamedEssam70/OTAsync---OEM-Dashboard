@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\SessionAPIController;
 use App\Http\Controllers\API\UserAPIController;
+use App\Http\Controllers\API\VehicleAPIController;
 use App\Models\AESKey;
 use App\Models\Firmware;
 use Illuminate\Http\Response;
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/auth/login', [UserAPIController::class, 'login']);
 
 Route::middleware('api_key')->group(function() {
+    Route::get('/keepalive', [VehicleAPIController::class, 'keepAlive']);
+
     // Download File (OLD)
     Route::get('/download/{filename}', function ($filename) {
         $path = storage_path().'/'.'app/public/storage/uploads/'.$filename;
