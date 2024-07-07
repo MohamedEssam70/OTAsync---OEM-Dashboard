@@ -408,37 +408,6 @@
             // Last Update
             $("#infoDate").text(model.find(':selected').data('last-update'));
         }
-        // let model = $("#pickerModel").val();
-        // let vehicle = $("#pickerVehicle").val();
-
-        // if(clickedIndex === 1 || clickedIndex === 0 || clickedIndex === null)  // No vehicle selected
-        // {
-        //     // Scope
-        //     $("#infoScope").text("Model");
-
-        //     // No. of Targets
-        //     $("#infoTargets").text("#");
-
-        //     // Currrent Firmware
-        //     $("#infoFirmware").text("xxxxxxxxx");
-
-        //     // Last Update
-        //     $("#infoDate").text("ssdf");
-        // }
-        // else
-        // {
-        //     // Scope
-        //     $("#infoScope").text("Vehicle");
-            
-        //     // No. of Targets
-        //     $("#infoTargets").text("1");
-            
-        //     // Currrent Firmware
-        //     $("#infoFirmware").text("DDDDDD");
-
-        //     // Last Update
-        //     $("#infoDate").text("dsgf");
-        // }
     });
 
     /*

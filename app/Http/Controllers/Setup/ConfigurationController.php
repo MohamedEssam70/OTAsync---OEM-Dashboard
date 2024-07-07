@@ -33,7 +33,7 @@ class ConfigurationController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function keys()
     {
         // Test Decription
 
@@ -69,12 +69,17 @@ class ConfigurationController extends Controller
 
         $apiKeys = APIKey::get();
         $vehicles = Vehicle::pluck('pin', 'id');
-        return view("content.setup.security", compact('apiKeys', 'vehicles'));
+        return view("content.security.api_keys", compact('apiKeys', 'vehicles'));
     }
 
     public function createKey(Request $request) {
         $validated = $request->validate(APIKey::$rules);
         APIKey::create($validated);
         return redirect()->back();
+    }
+
+    public function encryption()
+    {
+        return view("content.security.encryption");
     }
 }

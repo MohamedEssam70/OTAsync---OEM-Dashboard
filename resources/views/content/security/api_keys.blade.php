@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-@include('content.setup.tabs', ['activeTab' => 0])
+@include('content.security.tabs', ['activeTab' => 0])
 <div class="row">
   <div class="col-md-12">
     <div class="card mb-4">
@@ -28,7 +28,7 @@
       <div class="row">
         <div class="col-md-5 order-md-0 order-1">
           <div class="card-body">
-            <form id="create-api-key" action="{{ route('system.keys.create') }}" method="POST" class="fv-plugins-bootstrap5 fv-plugins-framework">
+            <form id="create-api-key" action="{{ route('security.keys.create') }}" method="POST" class="fv-plugins-bootstrap5 fv-plugins-framework">
               @csrf
               <div class="row fv-plugins-icon-container">
 
@@ -95,7 +95,7 @@
     <div class="card mb-4">
       <h5 class="card-header">API Key List &amp; Access</h5>
       <div class="card-body">
-        <p>An API key is a simple encrypted string that identifies an application without any principal. They are useful for accessing public data anonymously, and are used to associate API requests with your project for quota and billing.</p>
+        <p>An API key is a simple encrypted string that identifies an application without any principal. They are useful for make vehicles access data securely.</p>
         <div class="row">
           <div class="col-md-12">
             @foreach ($apiKeys as $apiKey)
@@ -104,11 +104,15 @@
                   <h4 class="mb-0 me-3">{!! $apiKey->name !!}</h4>
                   <span class="badge bg-label-primary">{!! __('all.' . $apiKey->type->value) !!}</span>
                 </div>
-                <div class="d-flex align-items-center mb-2">
+                <div class="d-flex align-items-center">
                   <span class="me-2"><span class="fw-medium">{!! $apiKey->key !!}</span></span>
-                  <span class="text-light cursor-pointer"><i class="bx bx-copy"></i></span>
+                  <span class="text-light cursor-pointer copy-icon" data-key="{!! $apiKey->key !!}"><i class="bx bx-copy"></i></span>
                 </div>
                 <span>Created on {!! \Carbon\Carbon::parse($apiKey->created_at)->format('d M Y, H:i') !!}</span>
+                <div class="row mt-2">
+                  <span>Vehicle PIN: {!! \App\Models\Vehicle::find($apiKey->vehicle_id)->pin !!}</span>
+                  <span>Vehicle VIN: {!! \App\Models\Vehicle::find($apiKey->vehicle_id)->vin !!}</span>
+                </div>
               </div>
             @endforeach
           </div>
@@ -126,5 +130,32 @@
 
 @section('page-script')
 <script>
+    toastr.options = {
+    positionClass: 'toast-bottom-right',
+    closeButton: true,
+    timeOut: 5000, // 5 seconds
+    progressBar: true,
+    preventDuplicates: true
+    };
+
+  document.addEventListener('DOMContentLoaded', function() {
+  const copyIcons = document.querySelectorAll('.copy-icon');
+  
+  copyIcons.forEach(icon => {
+    icon.addEventListener('click', function() {
+      const key = this.getAttribute('data-key');
+      navigator.clipboard.writeText(key).then(() => {
+        // Optional: provide visual feedback
+        toastr.success('Key copied to clipboard');
+        this.innerHTML = '<i class="bx bx-check"></i>';
+        setTimeout(() => {
+          this.innerHTML = '<i class="bx bx-copy"></i>';
+        }, 2000);
+      }, () => {
+        toastr.success('Failed to copy key');
+      });
+    });
+  });
+});
 </script>
 @endsection

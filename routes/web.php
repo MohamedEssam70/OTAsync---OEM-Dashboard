@@ -65,18 +65,16 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     // Settup
-    Route::get('/setup/security', [ConfigurationController::class, 'index'])->name('system.security');
-    Route::post('/setup/security/create-key', [ConfigurationController::class, 'createKey'])->name('system.keys.create');
-    Route::get('/setup/encryption', [ConfigurationController::class, 'encryption'])->name('system.encryption');
+    Route::get('/security', [ConfigurationController::class, 'keys'])->name('security.keys');
+    Route::post('/security/create-key', [ConfigurationController::class, 'createKey'])->name('security.keys.create');
+    Route::get('/security/encryption', [ConfigurationController::class, 'encryption'])->name('security.encryption');
 
     // Diagnostic
-    Route::prefix('diagnostic')->group(function() {
-        Route::get('/', [DiagnosticController::class, 'index'])->name('sessions');
-        Route::get('/dtc', [DiagnosticController::class, 'dtc_index'])->name('dtc.index');
-        Route::post('/dtc/add', [DiagnosticController::class, 'dtc_add'])->name('dtc.add');
-        Route::get('/session/{id}', [DiagnosticController::class, 'session_view'])->name('session.view');
-        Route::get('/session/{id}/data-live', [LiveDataController::class, 'index'])->name('data.live');
-    });
+    Route::get('diagnostic/dtc', [DiagnosticController::class, 'dtc_index'])->name('dtc.index');
+    Route::post('diagnostic/dtc/add', [DiagnosticController::class, 'dtc_add'])->name('dtc.add');
+    Route::get('/session', [DiagnosticController::class, 'index'])->name('sessions');
+    Route::get('/session/{id}', [DiagnosticController::class, 'session_view'])->name('session.view');
+    Route::get('/session/{id}/data-live', [LiveDataController::class, 'index'])->name('data.live');
 
     // Firmware
     Route::get('firmware', [OTAController::class, 'index'])->name('firmwares');
@@ -90,8 +88,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('model/add', [ModelController::class, 'add'])->name('model.add');
 
     // Vehicles
-    Route::get('vehicle/{id}', [VehicleController::class, 'index'])->name('vehicles');
-    Route::post('vehicle/{id}/add', [VehicleController::class, 'add'])->name('vehicle.add');
+    Route::get('model/vehicle/{id}', [VehicleController::class, 'index'])->name('vehicles');
+    Route::post('model/vehicle/{id}/add', [VehicleController::class, 'add'])->name('vehicle.add');
 
 
     // Team

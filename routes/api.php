@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\RSAencryptionAPIController;
 use App\Http\Controllers\API\SessionAPIController;
 use App\Http\Controllers\API\UserAPIController;
 use App\Http\Controllers\API\VehicleAPIController;
@@ -20,6 +21,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/auth/login', [UserAPIController::class, 'login']);
+
+Route::get('/get-key/{type}', [RSAencryptionAPIController::class, 'getKey']);
+Route::post('/authenticate', [RSAencryptionAPIController::class, 'authenticate']);
 
 Route::middleware('api_key')->group(function() {
     Route::get('/keepalive', [VehicleAPIController::class, 'keepAlive']);

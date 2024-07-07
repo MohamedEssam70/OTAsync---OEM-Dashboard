@@ -113,7 +113,7 @@ class FirmwaresTable extends DataTableComponent
                     '<div class="row align-items-center">
                         <div class="col-auto me-1">
                             <span class="text-truncate d-flex text-info lh-1">MODEL</span>
-                            <small class="text-muted">'.$row->VehicleModel->name.'</small>
+                            <small class="text-muted">'.$row->VehicleModel?->name.'</small>
                         </div>
                         <div class="col">
                             <span>Progress</span>
@@ -155,9 +155,13 @@ class FirmwaresTable extends DataTableComponent
     public function statisticsModel($id)
     {
         $vehicle_model = Firmware::findOrFail($id)->VehicleModel;
-        $target = $vehicle_model->vehicles->count();
-        $atchived = $vehicle_model->vehicles->where("firmware", $id)->count();
-        $progress = ($atchived/$target)*100;
+        $target = $atchived = $progress = 0;
+        if(!empty($vehicle_model))
+        {
+            $target = $vehicle_model->vehicles->count();
+            $atchived = $vehicle_model->vehicles->where("firmware", $id)->count();
+            $progress = ($atchived/$target)*100;
+        }
         return ["target" => $target, "atchived" => $atchived, "progress" => $progress];
     }
 }

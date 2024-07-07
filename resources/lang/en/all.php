@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'updates' => 'Download Updates'
+    'updates' => 'Default Vehicle Access'
 ];
