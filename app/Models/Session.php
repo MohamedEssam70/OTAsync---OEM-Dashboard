@@ -74,4 +74,5 @@ class Session extends Model
         // }
         return json_decode($this->last_frame()?->data);
     }
+
 }

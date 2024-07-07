@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\SessionAPIController;
 use App\Http\Controllers\API\UserAPIController;
 use App\Models\AESKey;
 use App\Models\Firmware;
@@ -59,3 +60,9 @@ Route::middleware('api_key')->group(function() {
     });
     
 });
+
+Route::post('/new-session', [SessionAPIController::class, 'newSession']);
+Route::post('/session/clear', [SessionAPIController::class, 'clearDTC']);
+Route::post('/session/refresh/dtcs', [SessionAPIController::class, 'refreshDTCs']);
+Route::post('/session/refresh/monitors', [SessionAPIController::class, 'refreshMonitors']);
+Route::post('/session/close', [SessionAPIController::class, 'closeSession']);

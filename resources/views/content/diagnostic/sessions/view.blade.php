@@ -28,8 +28,21 @@
 
 @section('page-script')
 <script>
+  /*************************
+   * VARIABLES
+   *************************/
+  // MQTT Topics
+  var base_topic = 'otasync/vehicle/'+@json($session->vehicle->pin);
+  var refresh_dtc_topic = `${base_topic}/get/dtcs`;
+  var refresh_monitor_topic = `${base_topic}/get/monitor`;
+  var close_session_topic = `${base_topic}/session/close`;
+  let clear_topic = function(target){return `${base_topic}/clear/${target}`;}
+  console.log(base_topic, refresh_dtc_topic, refresh_monitor_topic, close_session_topic, clear_topic(2), clear_topic(3));
 
+  // Session status
   var session_isActive = @json($session->status == \App\Enums\SessionStatus::Active);
+
+  // Live componants
   let frame_tabs = $('#frames_nav');
   let frame_content = $('#frames_content');
   let confirmed_table = $('#confirmed_data_table');
@@ -39,18 +52,20 @@
   let dtc_counter = $('#dtc_counter');
   let monitors_counter = $('#monitors_counter');
   let frames_counter = $('#frames_counter');
-
   let sensors_table = $('#sensor_data_table');
-
   let sensorChart;
+
+  // Helpers vars
   let hiddenDatasets = new Set();
   
+  /*************************
+   * MAIN
+   *************************/
   $(function () {
       // Init. in case session closed
       if(!session_isActive)
       {
         optionsDisable();
-        clearDisable();
         cip_offline();
       }
 
@@ -62,8 +77,42 @@
       {
         setInterval(keepAlive, 5000);
       }
+
+      // Actions listener
+      $(document).on('click', '.clear-btn', function() {
+        var target = $(this).attr('data-target');
+        message = new Paho.MQTT.Message("Clear DTC request");
+        message.qos = 1;
+        message.destinationName = clear_topic(target);
+        client.send(message);
+        console.log('MQTT clear DTC signal send');
+      });
+      $(document).on('click', '#dtc_refresh_btn', function() {
+        message = new Paho.MQTT.Message("Refresh DTC request");
+        message.qos = 1;
+        message.destinationName = refresh_dtc_topic;
+        client.send(message);
+        console.log('MQTT DTCs refresh signal send');
+      });
+      $(document).on('click', '#sensor_refresh_btn', function() {
+        message = new Paho.MQTT.Message("Refresh Monitors request");
+        message.qos = 1;
+        message.destinationName = refresh_monitor_topic;
+        client.send(message);
+        console.log('MQTT sensor refresh signal send');
+      });
+      $(document).on('click', '#session_close_btn', function() {
+        message = new Paho.MQTT.Message("Close session request");
+        message.qos = 1;
+        message.destinationName = close_session_topic;
+        client.send(message);
+        console.log('MQTT close session signal send');
+      });
   });
 
+  /*************************
+   * HELPER FUNCTIONS
+   *************************/
   // Handel frames table
   function updateData_frames(frames)
   {
@@ -110,7 +159,7 @@
   }
 
   // Handel troubles tables
-  function updateData_troubles(data, tableID)
+  function updateData_troubles(data, tableID, disableOptions = false)
   {
     tableID.empty();
     let confirmedRows = '';
@@ -134,7 +183,7 @@
           <td>
             <span>
               ${!item.cleard ? 
-                        '<button type="button" class="btn btn-success btn-sm ms-2 clear-btn" data-target="'+item.id+'"><span><span class="">Clear</span></span></button>' 
+                        '<button type="button" class="btn btn-success btn-sm ms-2 active-options clear-btn" data-target="'+item.id+'"><span><span class="">Clear</span></span></button>' 
                         : ''}
             </span> 
           </td>
@@ -143,9 +192,9 @@
     });
     tableID.append(confirmedRows);
 
-    if(!session_isActive)
+    if(!session_isActive || disableOptions)
     {
-      clearDisable();
+      optionsDisable();
     }
   }
 
@@ -157,9 +206,25 @@
 
     data.forEach((item, index) => {
       if (item.dtcs) {  // Ensure dtcs data is present
-        const createdAt = new Date(item.created_at);
-        const timeString = createdAt.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        const dateString = createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        var createdAt_timeString, createdAt_timeString, updatedAt_timeString, updatedAt_dateString;
+        if(item.created_at){
+          const createdAt = new Date(item.created_at);
+          createdAt_timeString = createdAt.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          createdAt_dateString = createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+        else{
+          createdAt_timeString = '--';
+          createdAt_dateString = '--';
+        }
+        if(item.updatedAt){
+          const updatedAt = new Date(item.updatedAt);
+          updatedAt_timeString = updatedAt.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          updatedAt_dateString = updatedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+        else{
+          updatedAt_timeString = '--';
+          updatedAt_dateString = '--';
+        }
         rows +=
         `
           <tr>
@@ -171,12 +236,12 @@
               <span>${item.type}</span> 
             </td>
             <td>
-              <span class="text-truncate d-flex lh-1">${dateString}</span>
-              <small class="text-muted">${dateString}</small> 
+              <span class="text-truncate d-flex lh-1">${createdAt_timeString}</span>
+              <small class="text-muted">${createdAt_dateString}</small> 
             </td>
             <td>
               ${item.cleard ? 
-                '<div class="align-items-center row"><div class="col-2"><i class="fa-solid fa-circle-check text-success" style="font-size: 25px;"></i></div><div class="col"><span class="text-truncate d-flex lh-1">'+dateString+'</span><small class="text-muted">'+dateString+'</small></div></div>'
+                '<div class="align-items-center row"><div class="col-2"><i class="fa-solid fa-circle-check text-success" style="font-size: 25px;"></i></div><div class="col"><span class="text-truncate d-flex lh-1">'+updatedAt_timeString+'</span><small class="text-muted">'+updatedAt_dateString+'</small></div></div>'
                 : 
                 '<i class="fa-solid fa-circle-xmark text-danger" style="font-size: 25px;"></i>'
               }
@@ -230,95 +295,103 @@
         return;
     }
 
-    // Prepare datasets
-    const datasets = graph_data.map((sensor, index) => ({
-        label: sensor.name,
-        data: sensor.values,
-        borderColor: getColor(index),
-        backgroundColor: getColor(index, 0.2),
-        yAxisID: `y-axis-${index}`,
-        fill: false,
-        tension: 0.4,
-        hidden: hiddenDatasets.has(sensor.name)
-    }));
+    if(graph_data.length)
+    {
+      $('#no-monitor').empty()
+      // Prepare datasets
+      const datasets = graph_data.map((sensor, index) => ({
+          label: sensor.name,
+          data: sensor.values,
+          borderColor: getColor(index),
+          backgroundColor: getColor(index, 0.2),
+          yAxisID: `y-axis-${index}`,
+          fill: false,
+          tension: 0.4,
+          hidden: hiddenDatasets.has(sensor.name)
+      }));
 
-    // Prepare scales
-    const scales = {};
-    graph_data.forEach((sensor, index) => {
-        scales[`y-axis-${index}`] = {
-            type: 'linear',
-            display: true,
-            position: index % 2 === 0 ? 'left' : 'right',
-            grid: {
-                drawOnChartArea: false,
-            },
-            title: {
-                display: true,
-                text: sensor.name
-            }
-        };
-    });
+      // Prepare scales
+      const scales = {};
+      graph_data.forEach((sensor, index) => {
+          scales[`y-axis-${index}`] = {
+              type: 'linear',
+              display: true,
+              position: index % 2 === 0 ? 'left' : 'right',
+              grid: {
+                  drawOnChartArea: false,
+              },
+              title: {
+                  display: true,
+                  text: sensor.name
+              }
+          };
+      });
 
-    const chartConfig = {
-        type: 'line',
-        data: {
-            labels: Array.from({length: graph_data[0].values.length}, (_, i) => i + 1),
-            datasets: datasets
-        },
-        options: {
-            responsive: true,
-            interaction: {
-                mode: 'index',
-                intersect: false,
-            },
-            stacked: false,
-            scales: scales,
-            animation: {
-                duration: 0 // general animation time
-            },
-            hover: {
-                animationDuration: 0 // duration of animations when hovering an item
-            },
-            responsiveAnimationDuration: 0 // animation duration after a resize
-        }
-    };
+      const chartConfig = {
+          type: 'line',
+          data: {
+              labels: Array.from({length: graph_data[0].values.length}, (_, i) => i + 1),
+              datasets: datasets
+          },
+          options: {
+              responsive: true,
+              interaction: {
+                  mode: 'index',
+                  intersect: false,
+              },
+              stacked: false,
+              scales: scales,
+              animation: {
+                  duration: 0 // general animation time
+              },
+              hover: {
+                  animationDuration: 0 // duration of animations when hovering an item
+              },
+              responsiveAnimationDuration: 0 // animation duration after a resize
+          }
+      };
 
-    if (!sensorChart || typeof sensorChart.update !== 'function') {
-        if (sensorChart) {
-            sensorChart.destroy();
-        }
-        sensorChart = new Chart(ctx, chartConfig);
+      if (!sensorChart || typeof sensorChart.update !== 'function') {
+          if (sensorChart) {
+              sensorChart.destroy();
+          }
+          sensorChart = new Chart(ctx, chartConfig);
 
-        // Add event listener for legend item click
-        sensorChart.options.plugins.legend.onClick = (e, legendItem, legend) => {
-            const index = legendItem.datasetIndex;
-            const ci = legend.chart;
-            const meta = ci.getDatasetMeta(index);
+          // Add event listener for legend item click
+          sensorChart.options.plugins.legend.onClick = (e, legendItem, legend) => {
+              const index = legendItem.datasetIndex;
+              const ci = legend.chart;
+              const meta = ci.getDatasetMeta(index);
 
-            meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
+              meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
 
-            // Update hiddenDatasets Set
-            if (meta.hidden) {
-                hiddenDatasets.add(ci.data.datasets[index].label);
-            } else {
-                hiddenDatasets.delete(ci.data.datasets[index].label);
-            }
+              // Update hiddenDatasets Set
+              if (meta.hidden) {
+                  hiddenDatasets.add(ci.data.datasets[index].label);
+              } else {
+                  hiddenDatasets.delete(ci.data.datasets[index].label);
+              }
 
-            ci.update();
-        };
+              ci.update();
+          };
 
-    } else {
-        // Update existing chart
-        sensorChart.data.labels = chartConfig.data.labels;
-        sensorChart.options.scales = chartConfig.options.scales;
+      } else {
+          // Update existing chart
+          sensorChart.data.labels = chartConfig.data.labels;
+          sensorChart.options.scales = chartConfig.options.scales;
 
-        // Update datasets while preserving hidden state
-        sensorChart.data.datasets.forEach((dataset, i) => {
-            Object.assign(dataset, chartConfig.data.datasets[i]);
-            dataset.hidden = hiddenDatasets.has(dataset.label);
-        });
+          // Update datasets while preserving hidden state
+          sensorChart.data.datasets.forEach((dataset, i) => {
+              Object.assign(dataset, chartConfig.data.datasets[i]);
+              dataset.hidden = hiddenDatasets.has(dataset.label);
+          });
 
-        sensorChart.update();
+          sensorChart.update();
+      }
+    }
+    else
+    {
+      $('#no-monitor').html('<span> No Data </span>')
     }
     
   }
@@ -337,8 +410,8 @@
   {
     session_isActive = isActive;
     updateData_frames(frames),
-    updateData_troubles(confirmed, confirmed_table),
-    updateData_troubles(pending, pending_table),
+    updateData_troubles(confirmed, confirmed_table, !isActive);
+    updateData_troubles(pending, pending_table, !isActive);
     updateData_logs(logs),
     updateData_sensors(sensors),
     updateData_counter(counter)
@@ -361,7 +434,6 @@
     if(!session_isActive)
     {
       optionsDisable();
-      clearDisable();
       cip_offline();
     }
   }

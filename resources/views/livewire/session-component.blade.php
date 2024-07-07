@@ -7,7 +7,7 @@
             <p class="text-body text-uppercase">{{\Carbon\Carbon::parse($session->created_at)->toFormattedDateString()}}, {{\Carbon\Carbon::parse($session->created_at)->toTimeString()}} (GMT+2)</p>
         </div>
         <div class="d-flex align-content-center flex-wrap gap-2">
-            <button class="btn btn-label-danger delete-order active-options" id="close_btn"><i class='bx bx-no-signal'></i>&nbsp;Disconnect</button>
+            <button class="btn btn-label-danger delete-order active-options" id="session_close_btn"><i class='bx bx-no-signal'></i>&nbsp;Disconnect</button>
         </div>
     </div>
     <div class="row mb-3">
@@ -118,7 +118,7 @@
                       <span class="">Refresh</span>
                   </span>
                 </button>
-                <button type="button" class="btn btn-success btn-sm ms-2 active-options" data-target="all" id="clear_all_btn">
+                <button type="button" class="btn btn-success btn-sm ms-2 active-options clear-btn" data-target="0" id="clear_all_btn">
                   <span>
                     <i class="fa-solid fa-check-double me-0 me-sm-1"></i>
                     <span class="">Clear All</span>
@@ -242,6 +242,14 @@
             </div>
             <div class="p-5">
               <canvas id="sensorChart"></canvas>
+            </div>
+            <div id="no-monitor" style="
+                  position: absolute;
+                  top: 50%;
+                  transform: translateX(-50%);
+                  left: 47%;
+              " class="h4 text-light">
+              <span></span>
             </div>
           </div>
         </div>
