@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
 <!-- Vendors CSS -->
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
 <!-- Vendor Styles -->
 @yield('vendor-style')

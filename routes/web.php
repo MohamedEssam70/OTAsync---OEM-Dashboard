@@ -21,8 +21,8 @@ use App\Http\Controllers\Setup\ConfigurationController;
 
 use App\Http\Controllers\Core\DiagnosticController;
 
-use App\Http\Controllers\FOTA\FirmwareController;
-use App\Http\Controllers\FOTA\OTAVersionsController;
+use App\Http\Controllers\Core\OTAController;
+use App\Http\Controllers\Core\FirmwaresController;
 
 
 use App\Http\Controllers\Org\TeamMembersController;
@@ -79,11 +79,11 @@ Route::group(['middleware' => 'auth'], function(){
     });
 
     // Firmware
-    Route::get('firmware', [FirmwareController::class, 'index'])->name('firmwares');
-    Route::get('firmware/add', [FirmwareController::class, 'add_view'])->name('firmware.add.view');
-    Route::get('firmware/selectpicker/model/{id?}', [FirmwareController::class, 'model_selector'])->name('firmware.model.selector');
-    Route::post('firmware/store', [FirmwareController::class, 'store'])->name('firmware.store');
-    Route::post('firmware/submit', [FirmwareController::class, 'add'])->name('firmware.submit');
+    Route::get('firmware', [OTAController::class, 'index'])->name('firmwares');
+    Route::get('firmware/add', [OTAController::class, 'add_view'])->name('firmware.add.view');
+    Route::get('firmware/selectpicker/model/{id?}', [OTAController::class, 'model_selector'])->name('firmware.model.selector');
+    Route::post('firmware/store', [OTAController::class, 'store'])->name('firmware.store');
+    Route::post('firmware/submit', [OTAController::class, 'add'])->name('firmware.submit');
 
     // Vehicles Model
     Route::get('model', [ModelController::class, 'index'])->name('models');

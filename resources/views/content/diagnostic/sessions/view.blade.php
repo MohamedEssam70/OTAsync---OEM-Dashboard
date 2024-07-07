@@ -32,10 +32,10 @@
    * VARIABLES
    *************************/
   // MQTT Topics
-  var base_topic = 'otasync/vehicle/'+@json($session->vehicle->pin);
+  var base_topic = 'otasync/diagnostic/session/'+@json($session->vehicle->pin);
   var refresh_dtc_topic = `${base_topic}/get/dtcs`;
   var refresh_monitor_topic = `${base_topic}/get/monitor`;
-  var close_session_topic = `${base_topic}/session/close`;
+  var close_session_topic = `${base_topic}/close-session`;
   let clear_topic = function(target){return `${base_topic}/clear/${target}`;}
   console.log(base_topic, refresh_dtc_topic, refresh_monitor_topic, close_session_topic, clear_topic(2), clear_topic(3));
 
@@ -108,6 +108,9 @@
         client.send(message);
         console.log('MQTT close session signal send');
       });
+
+    // Make DTCs and Frames card scrollable
+    
   });
 
   /*************************
@@ -480,6 +483,39 @@
       <h6 class="mb-3">PROTOCOL: <span class="ms-2 text-danger">NA</span></h6>
     `)
   }
+
+  /*************************
+   * Cusomize Scrollbar
+   *************************/
+  document.addEventListener('DOMContentLoaded', function() {
+      function adjustRightColumnHeight() {
+          var leftColumn = document.getElementById('general_details_Sec');
+          var rightColumn = document.getElementById('DTCs_details_Sec');
+          var leftColumnHeight = leftColumn.offsetHeight;
+          
+          rightColumn.style.maxHeight = leftColumnHeight + 'px';
+          var tabContent = document.querySelector('.scrollable-tab-content');
+          tabContent.style.maxHeight = (leftColumnHeight - rightColumn.querySelector('.card-header').offsetHeight - rightColumn.querySelector('.nav-tabs').offsetHeight) + 'px';
+      }
+
+      adjustRightColumnHeight();
+      window.addEventListener('resize', adjustRightColumnHeight);
+
+      var ps = new PerfectScrollbar('.scrollable-tab-content');
+
+      // Add event listener to all tab buttons
+      var tabButtons = document.querySelectorAll('#DTC_navs button');
+      tabButtons.forEach(function(button) {
+          button.addEventListener('click', function() {
+              var tabContent = document.querySelector('.scrollable-tab-content');
+              tabContent.scrollTop = 0; // Reset scroll position to top
+              ps.update(); // Update Perfect Scrollbar
+          });
+      });
+  });
+
+
+
 
 </script>
 

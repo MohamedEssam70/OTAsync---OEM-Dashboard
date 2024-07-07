@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\FOTA;
+namespace App\Http\Controllers\Core;
 use App\Http\Controllers\Controller;
 
 
-class OTAVersionsController extends Controller
+class FirmwaresController extends Controller
 {
     /**
      * Create a new controller instance.

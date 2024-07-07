@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-4" id="general_details_Sec">
           <div class="card mb-4">
             <div class="card-header">
               <h6 class="card-title m-0">Vehicle details</h6>
@@ -93,8 +93,8 @@
           </div>
         </div>
     
-        <div class="col-12 col-lg-8">
-          <div class="card mb-4 h-100">
+        <div class="col-12 col-lg-8" id="DTCs_details_Sec">
+          <div class="card h-100">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h4 class="card-title m-0">Trouble Codes</h4>
               <div>
@@ -127,8 +127,8 @@
               </div>
             </div>
             <div class="card-body px-0">
-              <div class="nav-align-top h-100">
-                <ul class="nav nav-tabs" role="tablist">
+              <div class="nav-align-top">
+                <ul class="nav nav-tabs" role="tablist" id="DTC_navs">
                   <li class="nav-item" role="presentation">
                     <button type="button" class="nav-link shadow-none active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-confirmed" aria-controls="navs-top-confirmed" aria-selected="false" tabindex="-1" style="border-top-left-radius: 0;">Confirmed DTCs <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger ms-2" id="confirmed_counter"></span></button>
                   </li>
@@ -142,7 +142,7 @@
                     <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-frame" aria-controls="navs-top-frame" aria-selected="true">Freeze Frame</button>
                   </li>
                 </ul>
-                <div class="tab-content px-0 pb-0 shadow-none h-100">
+                <div class="tab-content px-0 pb-0 shadow-none h-100 scrollable-tab-content" id="DTCs_content">
                   <div class="tab-pane fade active show" id="navs-top-confirmed" role="tabpanel">
                     <div class="">
                       {{-- @livewire("confirmed-table", ["theme" => "bootstrap-5", "id" => $session->id]) --}}

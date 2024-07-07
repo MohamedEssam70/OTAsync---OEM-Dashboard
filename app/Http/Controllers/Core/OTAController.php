@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\FOTA;
+namespace App\Http\Controllers\Core;
 use App\Http\Controllers\Controller;
 use App\Models\AESKey;
 use App\Models\Firmware;
@@ -17,7 +17,7 @@ use phpseclib3\Math\BigInteger;
 
 
 
-class FirmwareController extends Controller
+class OTAController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -39,11 +39,6 @@ class FirmwareController extends Controller
         return view("content.firmware.index");
     }
     
-    public function firmware_upload_index()
-    {
-        return view("content.firmware.manage");
-    }
-
     public function store(Request $request)
     {
         try {
@@ -120,13 +115,11 @@ class FirmwareController extends Controller
 
     public function model_selector($id = null)
     {
-        $vehicles = Vehicle::query();
-        if(!empty($id))
-        {
-            $vehicles = $vehicles->where('model', $id);
-        }
+        $vehicles = Vehicle::query()->where('model', $id)
+            ->with('currentFirmware')
+            ->get();
         
-        return response()->json($vehicles->pluck('vin', 'id'));
+        return response()->json($vehicles);
     }
 
     public function add(Request $request)
@@ -159,7 +152,15 @@ class FirmwareController extends Controller
 
             // Storage::delete($AES_key_path);
 
-            return response()->json($firmware->toArray());
+
+            $return = $firmware;
+            $return->vehicle_model = VehicleModel::find($firmware->vehicle_model_id)->name;
+            if($firmware->vehicle_id)
+            {
+                $return->vehicle = Vehicle::find($firmware->vehicle_id)->vin;
+            }
+
+            return response()->json($return->toArray());
         } catch (ValidationException $e) {
             return response()->json([
                 'success' => false,

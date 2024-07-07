@@ -300,3 +300,7 @@
     opacity: 0;
   }
 }
+
+.scrollable-tab-content {
+  overflow-y: auto;
+}

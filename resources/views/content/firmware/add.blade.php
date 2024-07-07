@@ -79,7 +79,11 @@
                                 <dd class="col-sm-6 d-flex justify-content-md-start mb-0">
                                     <select id="pickerModel" class="selectpicker w-100" data-style="btn-select" tabindex="null" title="Vehicle Model Name" data-live-search="true" name="vehicle_model_id">
                                         @foreach ($models as $model)
-                                            <option value="{{$model->id}}">{{$model->name}}</option>
+                                            @php
+                                            $currentFirmware = null;
+                                            $currentFirmware = $model->firmwares()->orderByDesc('id')->first()
+                                            @endphp
+                                            <option value="{{$model->id}}" data-firmware="{{ $currentFirmware?->name }}" data-last-update="{{ isset($currentFirmware) ? \Carbon\Carbon::parse($currentFirmware?->created_at)->format('d M Y') : '' }}">{{$model->name}}</option>
                                         @endforeach
                                     </select>
                                 </dd>
@@ -325,12 +329,12 @@
     * Data table depend on selected options
     */
     $('#pickerModel').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-        $model = $("#pickerModel").val();
-        $vehicle = $("#pickerVehicle").val();
+        let model = $("#pickerModel").val();
+        let vehicle = $("#pickerVehicle").val();
 
         // Update vehicle list
         $.ajax({
-            url: "/firmware/selectpicker/model/"+$model,
+            url: "/firmware/selectpicker/model/"+model,
             type: 'get',
             data: {},
             success: function(response){
@@ -342,66 +346,42 @@
 
                 $("#pickerVehicle").append('<option value="" selected> All Vehicles </option>');
                 $.each(response, function(key, value) {
-                    $("#pickerVehicle").append('<option value="'+key+'">'+value+'</option>');
+                    let currentFirmware = value.current_firmware;
+                    let optionAppend = '<option value="'+value.id+'">'+value.pin+'</option>';
+                    if(currentFirmware && Object.keys(currentFirmware).length > 0) {
+                        let last_update = new Date(currentFirmware.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                        optionAppend = '<option value="'+value.id+'" data-firmware="'+currentFirmware.name+'" data-last-update="'+last_update+'">'+value.pin+'</option>';
+                    }
+                    else
+                    {
+                        optionAppend = '<option value="'+value.id+'" data-firmware="" data-last-update="">'+value.pin+'</option>';
+                    }
+                    $("#pickerVehicle").append(optionAppend);
                 });
                 
                 $("#pickerVehicle").selectpicker();
+
+                let targetSize = Object.keys(response).length;
+                
+                $("#pickerModel").find(':selected').attr('data-size', targetSize);
+
+                // No. of Targets
+                $("#infoTargets").text(targetSize);
             }
         });
 
+        // Scope
+        $("#infoScope").html("Model");
 
-        // Model selected, Vehicle not selected
-        if($vehicle == "")
-        {
-            // Scope
-            $("#infoScope").text("Model");
+        // Currrent Firmware
+        $("#infoFirmware").text($(this).find(':selected').data('firmware'));
 
-            // No. of Targets
-            $("#infoTargets").text("#");
-
-            // Currrent Firmware
-            $("#infoFirmware").text("xxxxxxxxx");
-
-            // Last Update
-            $("#infoDate").text("ssdf");
-        }
-        // Model selected, Vehicle selected
-        else
-        {
-            // Scope
-            $("#infoScope").text("Vehicle");
-            
-            // No. of Targets
-            $("#infoTargets").text("1");
-            
-            // Currrent Firmware
-            $("#infoFirmware").text("DDDDDD");
-
-            // Last Update
-            $("#infoDate").text("dsgf");
-        }
+        // Last Update
+        $("#infoDate").text($(this).find(':selected').data('last-update'));
     });
 
-    $('#pickerVehicle').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-        $model = $("#pickerModel").val();
-        $vehicle = $("#pickerVehicle").val();
-
-        if(clickedIndex === 1 || clickedIndex === 0 || clickedIndex === null)  // No vehicle selected
-        {
-            // Scope
-            $("#infoScope").text("Model");
-
-            // No. of Targets
-            $("#infoTargets").text("#");
-
-            // Currrent Firmware
-            $("#infoFirmware").text("xxxxxxxxx");
-
-            // Last Update
-            $("#infoDate").text("ssdf");
-        }
-        else
-        {
+    $('#pickerVehicle').on('change', function (e, clickedIndex, isSelected, previousValue) {
+        if($(this).val()) {
             // Scope
             $("#infoScope").text("Vehicle");
             
@@ -409,11 +389,56 @@
             $("#infoTargets").text("1");
             
             // Currrent Firmware
-            $("#infoFirmware").text("DDDDDD");
-
+            $("#infoFirmware").text($(this).find(':selected').data('firmware'));
+    
             // Last Update
-            $("#infoDate").text("dsgf");
+            $("#infoDate").text($(this).find(':selected').data('last-update'));
+        } else {
+            let model = $("#pickerModel");
+
+            // Scope
+            $("#infoScope").text("Model");
+
+            // No. of Targets
+            $("#infoTargets").text(model.find(':selected').data('size'));
+
+            // Currrent Firmware
+            $("#infoFirmware").text(model.find(':selected').data('firmware'));
+    
+            // Last Update
+            $("#infoDate").text(model.find(':selected').data('last-update'));
         }
+        // let model = $("#pickerModel").val();
+        // let vehicle = $("#pickerVehicle").val();
+
+        // if(clickedIndex === 1 || clickedIndex === 0 || clickedIndex === null)  // No vehicle selected
+        // {
+        //     // Scope
+        //     $("#infoScope").text("Model");
+
+        //     // No. of Targets
+        //     $("#infoTargets").text("#");
+
+        //     // Currrent Firmware
+        //     $("#infoFirmware").text("xxxxxxxxx");
+
+        //     // Last Update
+        //     $("#infoDate").text("ssdf");
+        // }
+        // else
+        // {
+        //     // Scope
+        //     $("#infoScope").text("Vehicle");
+            
+        //     // No. of Targets
+        //     $("#infoTargets").text("1");
+            
+        //     // Currrent Firmware
+        //     $("#infoFirmware").text("DDDDDD");
+
+        //     // Last Update
+        //     $("#infoDate").text("dsgf");
+        // }
     });
 
     /*
@@ -425,37 +450,55 @@
 </script>
 
 <script>
-    /*
-     * Post 
-     *
-    */
-    $('#addFirmware').submit(function(e) {
-        e.preventDefault();
-        // Serialize the form data
-        let formData = $( this ).serialize();
-        // Send an AJAX request
-        $.ajax({
-            type: 'POST',
-            url: '{{ route('firmware.submit') }}',
-            data: formData,
-            dataType: 'json',
-            Accept: 'application/json',
-            success: function(response) {
-                console.log(response);
+    toastr.options = {
+    positionClass: 'toast-top-left',
+    closeButton: true,
+    timeOut: 5000, // 5 seconds
+    progressBar: true,
+    preventDuplicates: true
+    };
+function sendMQTTMessage(response) {
+    // Ensure client is initialized and connected
+    if (client.isConnected()){
+        let message = new Paho.MQTT.Message(JSON.stringify(response));
+        message.qos = 1;
+        if (response.vehicle_id) {
+            message.destinationName = base_topic + response.vehicle_model + '/' + response.vehicle;
+        } else {
+            message.destinationName = base_topic + response.vehicle_model;
+        }
+        client.send(message);
+    } else {
+        console.error('MQTT client is not connected.');
+    }
+}
+let base_topic = 'otasync/ota/broadcast/';
+$('#addFirmware').submit(function(e) {
+    e.preventDefault();
+    // Serialize the form data
+    let formData = $( this ).serialize();
+    // Send an AJAX request
+    $.ajax({
+        type: 'POST',
+        url: '{{ route('firmware.submit') }}',
+        data: formData,
+        dataType: 'json',
+        Accept: 'application/json',
+        success: function(response) {
+            sendMQTTMessage(response);
+            toastr.success('Firmware added successfully!');
+            console.log(response);
+            // location.href = "{{ route('firmwares') }}"
+        },
+        error: function(xhr, status, error) {
+            // Handle the error response
+            let errorMessage = 'An error occurred while adding firmware.';
 
-                // Handle the response message
-                message = new Paho.MQTT.Message(JSON.stringify(response));
-                message.qos = 1;
-                message.destinationName = "test";
-                client.send(message);
-                location.href = "{{ route('firmwares') }}"
-            },
-            error: function(xhr, status, error) {
-                // Handle errors if needed
-                console.error(xhr.responseText);
-            }
-        });
-    });
+            // Show error message using Toastr
+            toastr.error(errorMessage);
+                        console.error(xhr.responseText);
+                    }
+                }); 
+});
 </script>
 @endsection
-    
