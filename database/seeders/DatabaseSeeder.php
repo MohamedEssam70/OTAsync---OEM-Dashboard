@@ -20,9 +20,6 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             RoleSeeder::class,
             JoinRequestsSeeder::class,
-            MacTypesSeeder::class,
-            MacModelsSeeder::class,
-            EcusSeeder::class,
         ]);
         
     }

@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout',['navbarBreadcrumb' => true, 'navbarBreadcrumbPrev' => 'Vehcile Models', 'navbarBreadcrumbActive' => 'ECG66F-02', 'breadcrumbLink'=> route("models")])
+@extends('layouts/contentNavbarLayout',['navbarBreadcrumb' => true, 'navbarBreadcrumbPrev' => 'Vehcile Models', 'navbarBreadcrumbActive' => $model_name, 'breadcrumbLink'=> route("models")])
 @section('title', 'Vehicles')
 
 @section('vendor-style')

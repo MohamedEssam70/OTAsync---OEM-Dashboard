@@ -23,7 +23,7 @@ class ActivityLogController extends Controller
      */
     public function index()
     {
-        return view("content.dashboard.account.activity");
+        return view("content.account.activity");
     }
 
 }

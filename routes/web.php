@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\Core\LiveDataController;
 use App\Http\Controllers\Core\ModelController;
+use App\Http\Controllers\Core\SensorController;
 use App\Http\Controllers\Core\VehicleController;
 use App\Http\Controllers\ModelsController;
+use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\UpdateController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\RequestAccountController;
+use App\Http\Controllers\Auth\RegisterController;
 
 use App\Http\Controllers\HomeController;
 
@@ -16,10 +19,10 @@ use App\Http\Controllers\Account\SettingController;
 
 use App\Http\Controllers\Setup\ConfigurationController;
 
-use App\Http\Controllers\Diagnostic\DiagnosticController;
+use App\Http\Controllers\Core\DiagnosticController;
 
-use App\Http\Controllers\FOTA\FirmwareController;
-use App\Http\Controllers\FOTA\OTAVersionsController;
+use App\Http\Controllers\Core\OTAController;
+use App\Http\Controllers\Core\FirmwaresController;
 
 
 use App\Http\Controllers\Org\TeamMembersController;
@@ -49,8 +52,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'auth'], function() {
-    Route::get('request', [RequestAccountController::class, 'index'])->name('register-show');
-    Route::post('request/store', [RequestAccountController::class, 'store'])->name('request-acc');
+    Route::get('request', [RegisterController::class, 'index'])->name('register-show');
+    Route::post('request/store', [RegisterController::class, 'store'])->name('request-acc');
 });
 
 Route::group(['middleware' => 'auth'], function(){
@@ -62,37 +65,31 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     // Settup
-    Route::get('/setup/security', [ConfigurationController::class, 'index'])->name('system.security');
-    Route::post('/setup/security/create-key', [ConfigurationController::class, 'createKey'])->name('system.keys.create');
-    Route::get('/setup/encryption', [ConfigurationController::class, 'encryption'])->name('system.encryption');
+    Route::get('/security', [ConfigurationController::class, 'keys'])->name('security.keys');
+    Route::post('/security/create-key', [ConfigurationController::class, 'createKey'])->name('security.keys.create');
+    Route::get('/security/encryption', [ConfigurationController::class, 'encryption'])->name('security.encryption');
 
     // Diagnostic
-    Route::get('/diagnostic', [DiagnosticController::class, 'index'])->name('diagnostic');
+    Route::get('diagnostic/dtc', [DiagnosticController::class, 'dtc_index'])->name('dtc.index');
+    Route::post('diagnostic/dtc/add', [DiagnosticController::class, 'dtc_add'])->name('dtc.add');
+    Route::get('/session', [DiagnosticController::class, 'index'])->name('sessions');
+    Route::get('/session/{id}', [DiagnosticController::class, 'session_view'])->name('session.view');
+    Route::get('/session/{id}/data-live', [LiveDataController::class, 'index'])->name('data.live');
 
     // Firmware
-    Route::get('firmware', [FirmwareController::class, 'index'])->name('firmwares');
-    Route::get('firmware/add', [FirmwareController::class, 'add_view'])->name('firmware.add.view');
-    Route::get('firmware/selectpicker/model/{id?}', [FirmwareController::class, 'model_selector'])->name('firmware.model.selector');
-    Route::post('firmware/store', [FirmwareController::class, 'store'])->name('firmware.store');
-    Route::post('firmware/submit', [FirmwareController::class, 'add'])->name('firmware.submit');
+    Route::get('firmware', [OTAController::class, 'index'])->name('firmwares');
+    Route::get('firmware/add', [OTAController::class, 'add_view'])->name('firmware.add.view');
+    Route::get('firmware/selectpicker/model/{id?}', [OTAController::class, 'model_selector'])->name('firmware.model.selector');
+    Route::post('firmware/store', [OTAController::class, 'store'])->name('firmware.store');
+    Route::post('firmware/submit', [OTAController::class, 'add'])->name('firmware.submit');
 
     // Vehicles Model
     Route::get('model', [ModelController::class, 'index'])->name('models');
     Route::post('model/add', [ModelController::class, 'add'])->name('model.add');
 
     // Vehicles
-    Route::get('vehicle/{id}', [VehicleController::class, 'index'])->name('vehicles');
-    Route::post('vehicle/{id}/add', [VehicleController::class, 'add'])->name('vehicle.add');
-
-
-
-    Route::get('models', [ModelsController::class, 'index'])->name('models.manage');
-    Route::get('models/show/{id}', [ModelsController::class, 'show'])->name('models.show');
-    Route::get('firmware/update', [UpdateController::class, 'update'])->name('firmware.update');
-    // Route::get('/download/{filename}', function ($filename) {
-    //     $path = storage_path().'\\'.'app\\public\\storage\\uploads\\'.$filename;
-    //     return Response::download($path);
-    // });
+    Route::get('model/vehicle/{id}', [VehicleController::class, 'index'])->name('vehicles');
+    Route::post('model/vehicle/{id}/add', [VehicleController::class, 'add'])->name('vehicle.add');
 
 
     // Team

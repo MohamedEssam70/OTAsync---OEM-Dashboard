@@ -58,4 +58,14 @@ class Firmware extends Model
     {
         return $this->belongsTo(Vehicle::class, 'vehicle');
     }
+
+    public function AESKeys()
+    {
+        return $this->hasMany(AESKey::class);
+    }
+
+    public function get_firmware_path()
+    {
+        return storage_path('app/public/firmwares/'.$this->firmwareFile);
+    }
 }

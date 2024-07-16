@@ -33,19 +33,25 @@
       "menuHeader": "Diagnostic"
     },
     {
-      "url": "/diagnostic",
-      "name": "Diagnostic",
-      "icon": "menu-icon tf-icons bx bx-wrench",
-      "slug": "diagnostic"
+      "url": "diagnostic/dtc",
+      "name": "DTCs Database",
+      "icon": "menu-icon tf-icons bx bx-data",
+      "slug": "dtc.index"
+    },
+    {
+      "url": "session",
+      "name": "Sessions",
+      "icon": "menu-icon tf-icons fa-solid fa-clipboard-question",
+      "slug": "sessions"
     },
     {
       "menuHeader": "Organization"
     },
     {
-      "url": "/setup/security",
+      "url": "security",
       "name": "Security",
-      "icon": "menu-icon tf-icons bx bx-slider",
-      "slug": "/setup/security"
+      "icon": "menu-icon tf-icons fa-solid fa-shield-halved",
+      "slug": "security.keys"
     },
     {
       "url": "team",

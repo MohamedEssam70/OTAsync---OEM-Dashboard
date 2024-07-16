@@ -17,12 +17,11 @@ class JoinRequestController extends Controller
     }
 
     /**
-     * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        return view("content.dashboard.organization.join-request");
+        return view("content.organization.join-request");
     }
 }

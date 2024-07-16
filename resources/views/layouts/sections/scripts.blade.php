@@ -5,7 +5,8 @@
 <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
 <script src="{{asset("assets/vendor/libs/mqtt/mqttws31.js")}}" type="text/javascript"></script>
 <script src="{{ asset('assets/js/mqtt.js') }}"></script>
-<link rel="stylesheet" href="{{ asset('assets/vendor/libs/fontawesome/all.min.js') }}" />
+<script src="{{ asset('assets/vendor/libs/fontawesome/all.min.js') }}" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @yield('vendor-script')
 <!-- END: Page Vendor JS-->
 <!-- BEGIN: Theme JS-->

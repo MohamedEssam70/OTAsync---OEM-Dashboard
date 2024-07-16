@@ -18,7 +18,6 @@ class TeamMembersController extends Controller
     }
 
     /**
-     * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -26,6 +25,6 @@ class TeamMembersController extends Controller
     {
         $users = User::all();
         // dd($users);
-        return view("content.dashboard.organization.team-members", compact('users'));
+        return view("content.organization.team-members", compact('users'));
     }
 }
