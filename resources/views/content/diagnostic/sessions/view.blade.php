@@ -32,7 +32,7 @@
    * VARIABLES
    *************************/
   // MQTT Topics
-  var base_topic = 'otasync/diagnostic/session/'+@json($session->vehicle->pin);
+  var base_topic = 'otasync/diagnostic/session/'+@json($session->vehicle->vin);
   var refresh_dtc_topic = `${base_topic}/get/dtcs`;
   var refresh_monitor_topic = `${base_topic}/get/monitor`;
   var close_session_topic = `${base_topic}/close-session`;

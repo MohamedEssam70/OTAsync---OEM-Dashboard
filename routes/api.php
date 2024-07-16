@@ -22,17 +22,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/auth/login', [UserAPIController::class, 'login']);
 
+// Download File (OLD)
+Route::get('/download/{filename}', function ($filename) {
+    $path = storage_path().'/'.'app/public/files/firmware'.$filename;
+    return Response::download($path);
+});
+
 Route::get('/get-key/{type}', [RSAencryptionAPIController::class, 'getKey']);
 Route::post('/authenticate', [RSAencryptionAPIController::class, 'authenticate']);
 
 Route::middleware('api_key')->group(function() {
     Route::get('/keepalive', [VehicleAPIController::class, 'keepAlive']);
 
-    // Download File (OLD)
-    Route::get('/download/{filename}', function ($filename) {
-        $path = storage_path().'/'.'app/public/storage/uploads/'.$filename;
-        return Response::download($path);
-    });
+    
 
     // Request download software file
     Route::get('/get/firmware/{id}', function ($id) {

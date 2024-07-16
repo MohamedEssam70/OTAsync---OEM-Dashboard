@@ -420,12 +420,15 @@
 
 <script>
     toastr.options = {
-    positionClass: 'toast-top-left',
-    closeButton: true,
-    timeOut: 5000, // 5 seconds
-    progressBar: true,
-    preventDuplicates: true
+        positionClass: 'toast-top-left',
+        closeButton: true,
+        timeOut: 5000, // 5 seconds
+        progressBar: true,
+        preventDuplicates: true
     };
+
+    let base_topic = 'otasync/ota/broadcast/';
+    
 function sendMQTTMessage(response) {
     // Ensure client is initialized and connected
     if (client.isConnected()){
@@ -439,9 +442,9 @@ function sendMQTTMessage(response) {
         client.send(message);
     } else {
         console.error('MQTT client is not connected.');
+        toastr.error('MQTT client is not connected');
     }
 }
-let base_topic = 'otasync/ota/broadcast/';
 $('#addFirmware').submit(function(e) {
     e.preventDefault();
     // Serialize the form data
