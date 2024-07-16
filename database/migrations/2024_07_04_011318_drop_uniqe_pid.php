@@ -11,9 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('freeze_frames', function (Blueprint $table) {
-            $table->dropUnique('freeze_frames_pid_unique');
-        });
         Schema::table('monitors', function (Blueprint $table) {
             $table->dropUnique('monitors_pid_unique');
         });
@@ -24,9 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('freeze_frames', function (Blueprint $table) {
-            $table->unique('pid');
-        });
         Schema::table('monitors', function (Blueprint $table) {
             $table->unique('pid');
         });
