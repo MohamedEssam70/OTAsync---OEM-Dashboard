@@ -37,35 +37,35 @@ class ConfigurationController extends Controller
     {
         // Test Decription
 
-        // Path to the public key file
-        $privateKeyPath = base_path('/private_key.ppk');
-        // Load the public key
-        $privateKey = RSA::loadPrivateKey(file_get_contents($privateKeyPath));
+        // // Path to the public key file
+        // $privateKeyPath = base_path('/private_key.ppk');
+        // // Load the public key
+        // $privateKey = RSA::loadPrivateKey(file_get_contents($privateKeyPath));
         
 
-        // Initialize AES object with CBC mode and IV
-        $encryptedAesKey = AESKey::first()->key;
-        $aesKey = $privateKey->decrypt($encryptedAesKey);
+        // // Initialize AES object with CBC mode and IV
+        // $encryptedAesKey = AESKey::first()->key;
+        // $aesKey = $privateKey->decrypt($encryptedAesKey);
 
-        $ivPath = base_path('/IV.pem');
-        $iv = file_get_contents($ivPath);
+        // $ivPath = base_path('/IV.pem');
+        // $iv = file_get_contents($ivPath);
 
-        $aes = new AES('cbc');
-        $aes->setKey($aesKey);
-        $aes->setIV($iv);
+        // $aes = new AES('cbc');
+        // $aes->setKey($aesKey);
+        // $aes->setIV($iv);
 
-        // Load the encrypted plaintext
-        $encryptedFilePath = storage_path('app/public/firmwares/66397e6247fed.bin');
-        $encryptedPlaintext = file_get_contents($encryptedFilePath);
-        // Decrypt the plaintext with AES
-        $plaintext = $aes->decrypt($encryptedPlaintext);
-        // Save the decrypted plaintext
-        $outputPath = storage_path('app/public/output/AEStest.bin');
-        file_put_contents($outputPath, $plaintext);
+        // // Load the encrypted plaintext
+        // $encryptedFilePath = storage_path('app/public/firmwares/66397e6247fed.bin');
+        // $encryptedPlaintext = file_get_contents($encryptedFilePath);
+        // // Decrypt the plaintext with AES
+        // $plaintext = $aes->decrypt($encryptedPlaintext);
+        // // Save the decrypted plaintext
+        // $outputPath = storage_path('app/public/output/AEStest.bin');
+        // file_put_contents($outputPath, $plaintext);
 
-        // Save decrypted AES
-        $aesPath = base_path('/aes_en.pem');
-        file_put_contents($aesPath, $aesKey);
+        // // Save decrypted AES
+        // $aesPath = base_path('/aes_en.pem');
+        // file_put_contents($aesPath, $aesKey);
 
         $apiKeys = APIKey::get();
         $vehicles = Vehicle::pluck('pin', 'id');
