@@ -6,6 +6,7 @@ use App\Http\Controllers\API\UserAPIController;
 use App\Http\Controllers\API\VehicleAPIController;
 use App\Models\AESKey;
 use App\Models\Firmware;
+use App\Models\Vehicle;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
@@ -66,6 +67,15 @@ Route::middleware('api_key')->group(function() {
             'Content-type: application/octet-stream',
             'Content-Disposition: attachment; filename=file.bin'
         ]);
+    });
+
+    Route::post('/update/vehicle/info', function(Request $request){
+        $vehicle = Vehicle::where('vin', $request->get('vin'));
+        if (!$vehicle) {
+            return response()->json(['error' => 'vehicle not found'], 404);
+        }
+        $vehicle->currentFirmware() = Firmware::find($request->get('firmware_id'));
+        return response()->json(['message' => 'Vehicle firmware updated successfully'], 200);
     });
 
     // Session APIs
