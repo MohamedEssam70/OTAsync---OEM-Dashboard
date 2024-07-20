@@ -160,6 +160,8 @@ class OTAController extends Controller
                 $return->vehicle = Vehicle::find($firmware->vehicle_id)->vin;
             }
 
+            $return->firmware_id = $firmware->id;
+
             return response()->json($return->toArray());
         } catch (ValidationException $e) {
             return response()->json([
