@@ -74,7 +74,7 @@ Route::middleware('api_key')->group(function() {
         if (!$vehicle) {
             return response()->json(['error' => 'vehicle not found'], 404);
         }
-        $vehicle->currentFirmware() = Firmware::find($request->get('firmware_id'));
+        $vehicle->currentFirmware = Firmware::find($request->get('firmware_id'));
         return response()->json(['message' => 'Vehicle firmware updated successfully'], 200);
     });
 
