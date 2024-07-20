@@ -24,7 +24,7 @@
                             <span class="app-brand-logo demo me-2">
                                 <img src="{{asset("assets/img/elements/upload_card.png")}}" style="width: 100px; height: auto;">
                             </span>
-                            <span class="app-brand-text demo text-body fw-bold" style="text-transform:none">Fiemware Upload</span>
+                            <span class="app-brand-text demo text-body fw-bold" style="text-transform:none">Firmware Upload</span>
                         </div>
                         <p class="mb-1">Please note that uploading firmware via this tool is intended for</p>
                         <p class="mb-1">Arm Cortex-M3 MCU, STM32F103C8T6.</p>
